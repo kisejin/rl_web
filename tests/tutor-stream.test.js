@@ -90,6 +90,7 @@ test("provider text is yielded before completion and credentials split across de
   const stream = await openTutorStream(question, {
     apiKey: key,
     fetchImpl: async (url, options) => {
+      assert.equal(options.headers["Accept-Encoding"], "identity");
       sent = JSON.parse(options.body);
       return streaming(source.body);
     },
@@ -219,6 +220,7 @@ test(
     const response = await fixture.request();
     assert.match(response.headers.get("content-type"), /text\/event-stream/);
     assert.equal(response.headers.get("x-accel-buffering"), "no");
+    assert.equal(response.headers.get("content-encoding"), "identity");
     const iterator = readSSE(response.body)[Symbol.asyncIterator]();
     assert.equal((await iterator.next()).value.event, "meta");
     assert.equal(

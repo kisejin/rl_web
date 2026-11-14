@@ -85,6 +85,7 @@ async function requestTutor(
           Authorization: "Bearer " + apiKey,
           "Content-Type": "application/json",
           Accept: stream ? "text/event-stream" : "application/json",
+          ...(stream ? { "Accept-Encoding": "identity" } : {}),
         },
         body: JSON.stringify({
           model: selectedModel,
