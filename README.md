@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 49 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 49 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 50 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 49 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -148,4 +148,4 @@ Streaming checks cover fragmented UTF-8/CRLF/multiline events, incremental provi
 
 ### Optional DeepSeek Harness backend
 
-A Docker runtime using the official DeepSeek Harness agent core, plus an optional server-to-server Vercel connection, is prepared in [deployments/deepseek-harness](deployments/deepseek-harness/README.md). It uses the existing Qwencoder base URL and API key on the runtime server and a separate bridge token on Vercel. It preserves the current chat UI and streaming protocol. This backend remains inactive until an external HTTPS runtime and its two Vercel environment variables are configured; the current direct backend continues working in the meantime.
+The official DeepSeek Harness agent core can run directly in this project’s Vercel Functions on Node 24, with HTTPS supplied by Vercel. See the [Vercel setup guide](deployments/deepseek-harness/VERCEL.md) for the protected runtime endpoint, activation and rollback. The existing Qwencoder API key stays in the same project. A separate bridge token protects server-to-server calls. The current chat UI and streaming protocol are preserved. [Docker deployment](deployments/deepseek-harness/README.md) remains available as an alternative.

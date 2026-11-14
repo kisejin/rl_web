@@ -45,7 +45,7 @@ export function validateCompletion(body) {
     max_tokens: body.max_tokens ?? 1800,
   };
 }
-export function createHarnessServer({
+export function createHarnessHandler({
   token = process.env.HARNESS_BRIDGE_TOKEN,
   apiKey = process.env.QWENCODER_API_KEY,
   baseUrl = process.env.QWENCODER_BASE_URL ||
@@ -68,7 +68,7 @@ export function createHarnessServer({
     throw new Error("Use an HTTPS model gateway.");
   const expected = digest("Bearer " + token);
   let active = 0;
-  return createServer(async (req, res) => {
+  return async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Content-Type-Options", "nosniff");
     const json = (status, body) => {
@@ -122,11 +122,21 @@ export function createHarnessServer({
     try {
       let size = 0;
       const chunks = [];
-      for await (const chunk of req) {
-        size += chunk.length;
+      // Vercel parses JSON before calling a function; Docker receives a stream.
+      if (req.body !== undefined) {
+        const value =
+          typeof req.body === "string" ? req.body : JSON.stringify(req.body);
+        size = Buffer.byteLength(value);
         if (size > 64000)
           return json(413, { error: { message: "Request is too large." } });
-        chunks.push(chunk);
+        chunks.push(Buffer.from(value));
+      } else {
+        for await (const chunk of req) {
+          size += chunk.length;
+          if (size > 64000)
+            return json(413, { error: { message: "Request is too large." } });
+          chunks.push(chunk);
+        }
       }
       let body;
       try {
@@ -196,7 +206,10 @@ export function createHarnessServer({
       req.removeListener("aborted", disconnect);
       active--;
     }
-  });
+  };
+}
+export function createHarnessServer(options) {
+  return createServer(createHarnessHandler(options));
 }
 if (
   process.argv[1] &&

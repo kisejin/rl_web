@@ -26,10 +26,22 @@
     "katex": "^0.16.22",
     "lucide": "^0.468.0",
     "marked": "^18.2.0",
-    "pyodide": "^314.0.8"
+    "pyodide": "^314.0.8",
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-agent": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-agent-loop": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-session": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-session-projection": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-system-prompt": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-tool-executor-native": "0.2.2-rc.3",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "vite": "^6.4.1"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

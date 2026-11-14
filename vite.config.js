@@ -1,20 +1,27 @@
 import tutorHandler from "./api/tutor.js";
+import harnessHandler from "./api/harness.js";
 import { defineConfig, loadEnv } from "vite";
 export default defineConfig({
   plugins: [
     {
       name: "local-study-tutor",
       configureServer(server) {
-        const settings = loadEnv(
-          server.config.mode,
-          server.config.envDir,
+        const settings = loadEnv(server.config.mode, server.config.envDir, [
           "QWENCODER_",
-        );
+          "HARNESS_",
+          "DEEPSEEK_HARNESS_",
+        ]);
         for (const [name, value] of Object.entries(settings))
           if (!process.env[name]) process.env[name] = value;
         server.middlewares.use((req, res, next) => {
-          if (req.url?.split("?")[0] !== "/api/tutor") return next();
-          tutorHandler(req, res);
+          const path = req.url?.split("?")[0];
+          if (path === "/api/tutor") return tutorHandler(req, res);
+          if (
+            path === "/api/harness" ||
+            path === "/harness/v1/chat/completions"
+          )
+            return harnessHandler(req, res);
+          next();
         });
       },
     },

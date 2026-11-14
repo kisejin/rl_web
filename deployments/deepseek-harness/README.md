@@ -1,6 +1,6 @@
 # DeepSeek Harness runtime for RL Atlas
 
-Status: Docker runtime and Vercel connection are prepared. **Not activated on the public website:** no external runtime server has been provisioned. Until `DEEPSEEK_HARNESS_URL` is configured on Vercel, the existing direct tutor backend remains active.
+This guide covers the Docker deployment option. The same stateless agent core also runs directly in the existing Vercel project; see [Vercel setup](VERCEL.md). A VPS is needed only for the Docker option, not for the Vercel Function.
 
 This container embeds the official DeepSeek Harness **agent core**, pinned to `0.2.2-rc.3`, behind a narrow OpenAI-compatible API. It does not run or iframe the full Harness administrative Web UI. The existing RL Atlas chat UI, 13-model picker, lesson context, word reveal, Stop button, Markdown and LaTeX remain the user interface.
 

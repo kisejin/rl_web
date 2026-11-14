@@ -7,6 +7,15 @@
   "functions": {
     "api/tutor.js": {
       "maxDuration": 60
+    },
+    "api/harness.js": {
+      "maxDuration": 60
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/harness/v1/chat/completions",
+      "destination": "/api/harness"
+    }
+  ]
 }
