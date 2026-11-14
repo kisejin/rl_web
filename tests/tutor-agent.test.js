@@ -115,6 +115,17 @@ test("MCP exposes real tools/resources, reads trusted skills and attachments, an
       arguments: { query: "Bellman contraction" },
     });
     assert.match(search.content[0].text, /bellman/);
+    const lab = await a.client.callTool({
+      name: "read_lesson",
+      arguments: { lessonId: "atlas-ppo", section: "lab", labId: "atlas-ppo" },
+    });
+    assert.match(lab.content[0].text, /PPO Clipped/);
+    assert.match(lab.content[0].text, /lab.html#atlas-ppo/);
+    const mismatch = await a.client.callTool({
+      name: "read_lesson",
+      arguments: { lessonId: "atlas-ppo", section: "lab", labId: "atlas-gae" },
+    });
+    assert.match(mismatch.content[0].text, /Unknown lesson/);
     const skill = await a.client.callTool({
       name: "load_skill",
       arguments: { id: "python" },

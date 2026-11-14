@@ -53,13 +53,21 @@ test("lab filter and search combine", async ({ page }) => {
   await page.goto("/#labs");
   await expect(page.locator(".lab-row")).toHaveCount(labs.length);
   await page.getByRole("button", { name: "Math + Code", exact: true }).click();
-  await expect(page.locator(".lab-row")).toHaveCount(6);
+  await expect(page.locator(".lab-row")).toHaveCount(
+    labs.filter((l) => l.hybrid).length,
+  );
   await page.locator("#lab-search").fill("rubric");
-  await expect(page.locator(".lab-row")).toHaveCount(2);
+  await expect(page.locator(".lab-row")).toHaveCount(
+    labs.filter(
+      (l) =>
+        l.hybrid && `${l.title} ${l.topic}`.toLowerCase().includes("rubric"),
+    ).length,
+  );
   await page.locator("#lab-search").fill("no match");
   await expect(page.locator(".empty-state")).toBeVisible();
 });
 test("all solutions execute in real workers", async ({ page }) => {
+  test.setTimeout(360000);
   for (const lab of labs) {
     await page.goto("/lab.html#" + lab.id);
     await page.locator("#code-editor").fill(lab.solution);
@@ -377,12 +385,14 @@ test("Manim player speed, seeking, transcript, keyboard tabs and lifecycle work"
   await expect(page.locator('[data-visual="mdp"] video')).toBeVisible();
 });
 
-test("all nine labs render LaTeX in definitions, prose, hints and proofs without changing executable code", async ({
+test("all labs render LaTeX in definitions, prose, hints and proofs without changing executable code", async ({
   page,
 }) => {
   for (const lab of labs) {
     await page.goto("/lab.html#" + lab.id);
-    await expect(page.locator(".lab-equation .katex-display")).toHaveCount(1);
+    await expect(
+      page.locator("#lc-description .lab-equation .katex-display"),
+    ).toHaveCount(1);
     await expect(page.locator(".problem-body .katex-error")).toHaveCount(0);
     await expect(page.locator(".problem-body")).not.toContainText("\\(");
     await expect(page.locator(".problem-body")).not.toContainText("\\[");
@@ -418,7 +428,7 @@ test("lab LaTeX remains readable with contained scrolling on small screens", asy
       ).toBeTruthy();
       expect(
         await page
-          .locator(".lab-equation .katex")
+          .locator("#lc-description .lab-equation .katex")
           .evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
       ).toBeGreaterThanOrEqual(18);
     }
@@ -613,7 +623,10 @@ test("workspace layout, editor controls and problem picker work", async ({
   await page
     .getByRole("searchbox", { name: "Find a challenge" })
     .fill("rubric");
-  await expect(page.locator(".lc-problem-links a:visible")).toHaveCount(2);
+  await expect(page.locator(".lc-problem-links a:visible")).toHaveCount(
+    labs.filter((l) => `${l.title} ${l.topic}`.toLowerCase().includes("rubric"))
+      .length,
+  );
   await page.locator(".lc-problem-links a:visible").first().click();
   await expect(page).toHaveURL(/lab\.html#rubric/);
   await expect(page.locator(".lab-page-title h1")).toContainText("Rubric");
@@ -688,7 +701,9 @@ for (const width of [1440, 390]) {
     expect(
       (await page.locator(".lc-left-pane").boundingBox()).width,
     ).toBeGreaterThan(width - 20);
-    await expect(page.locator(".lab-equation .katex-display")).toBeVisible();
+    await expect(
+      page.locator("#lc-description .lab-equation .katex-display"),
+    ).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(
       page.getByRole("button", { name: "Maximize description", exact: true }),

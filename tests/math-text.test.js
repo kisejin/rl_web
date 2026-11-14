@@ -7,7 +7,11 @@ import { labs } from "../src/content.js";
 test("every lab equation and authored math fragment is valid LaTeX", () => {
   for (const lab of labs) {
     assert.ok(lab.equation, lab.id);
-    for (const formula of [lab.equation, lab.exampleMath].filter(Boolean))
+    for (const formula of [
+      lab.equation,
+      lab.exampleMath,
+      ...(lab.proofSteps || []).map((step) => step.tex),
+    ].filter(Boolean))
       assert.doesNotThrow(
         () =>
           katex.renderToString(formula, {

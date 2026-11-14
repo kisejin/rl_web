@@ -1,3 +1,4 @@
+import { atlasLabs, enrichCoreLabs } from "./atlas-labs.js";
 // Course text and explicit LaTeX markup. Code and test data stay literal.
 export const lessons = [
   {
@@ -1043,5 +1044,7 @@ export const labs = [
       "\\begin{aligned}J(z)&=\\sum_i\\pi_iR_i-\\beta\\sum_i\\pi_i\\log\\frac{\\pi_i}{q_i},\\\\\\pi_i&=\\frac{e^{z_i}}{\\sum_j e^{z_j}}.\\end{aligned}",
   },
 ];
+enrichCoreLabs(labs, lessons);
+labs.push(...atlasLabs);
 export const starter = (lab) =>
   `def ${lab.fn}(${lab.args}):\n    """${lab.title}. Implement from scratch; no RL libraries."""\n    # Write your solution here\n    pass\n`;

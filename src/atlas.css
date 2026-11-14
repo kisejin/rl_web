@@ -560,3 +560,23 @@
   display: inline-block;
   text-align: initial;
 }
+
+.atlas-related-labs {
+  margin: 24px 0;
+}
+.atlas-related-labs a {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 18px;
+  border: 1px solid var(--doc-border, #dce3ea);
+  border-radius: 10px;
+  text-decoration: none;
+}
+.atlas-related-labs a span {
+  font-size: 0.875rem;
+  color: var(--doc-muted, #657082);
+}
+.atlas-related-labs a:hover {
+  border-color: #347bf4;
+}

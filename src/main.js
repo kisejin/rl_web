@@ -270,7 +270,7 @@ function labsView() {
         l.level === filter) &&
       `${l.title} ${l.topic}`.toLowerCase().includes(search.toLowerCase()),
   );
-  return `<div class="page-heading"><div class="eyebrow">THE IMPLEMENTATION LAB</div><h1>It is time to <span class="serif-em">build it yourself.</span></h1><p>No RL libraries. Every algorithm is yours to write, understand, and test.</p></div><div class="lab-info">${icon("terminal")}<p><b>Run Python right in your browser.</b> Start with an empty function and check it with tests. Math + Code challenges also include a self-reviewed proof.</p><span>${progress.solved.length}/${labs.length} solved</span></div><div class="lab-toolbar"><div class="filter-tabs" role="group" aria-label="Filter challenges">${[
+  return `<div class="page-heading"><div class="eyebrow">THE IMPLEMENTATION LAB</div><h1>It is time to <span class="serif-em">build it yourself.</span></h1><p>From the 35-topic atlas to Python: implement numerical algorithms, derive their equations, and check the edge cases.</p></div><div class="lab-info">${icon("terminal")}<p><b>Run Python right in your browser.</b> Start with an empty function and check it with tests. Each topic has a matching lab and each Editorial includes a mathematical derivation. Math + Code challenges require both code tests and a self-reviewed proof.</p><span>${progress.solved.length}/${labs.length} solved</span></div><div class="lab-toolbar"><div class="filter-tabs" role="group" aria-label="Filter challenges">${[
     ["all", "All"],
     ["Easy", "Easy"],
     ["Medium", "Medium"],

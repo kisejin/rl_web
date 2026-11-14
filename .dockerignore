@@ -25,3 +25,6 @@
 
 !src/atlas-content.js
 !src/atlas-sources.js
+
+!src/atlas-labs.js
+!src/atlas-lab-data.js

@@ -13,6 +13,21 @@ function atlasFor(id) {
     ? atlasTopics.find((t) => t.id === id.slice(6))
     : null;
 }
+function labMaterial(lab) {
+  return {
+    description: lab.desc,
+    input: lab.input,
+    output: lab.output,
+    equation: lab.equation,
+    signature: `def ${lab.fn}(${lab.args}):`,
+    example: lab.example,
+    hint: lab.hint,
+    proof: lab.proof,
+    checks: lab.checks,
+    complexity: lab.complexity,
+    assumptions: lab.assumptions,
+  };
+}
 export function tutorTopics(lessonId, labId) {
   const advanced = atlasFor(lessonId);
   if (advanced)
@@ -60,6 +75,16 @@ export function tutorTopics(lessonId, labId) {
           assumptions: advanced.assumptions,
         },
       },
+      ...(labId &&
+      labs.some((l) => l.id === labId && labLessonId(l) === lessonId)
+        ? [
+            {
+              key: "lab",
+              title: "Python lab: " + labs.find((l) => l.id === labId).title,
+              content: labMaterial(labs.find((l) => l.id === labId)),
+            },
+          ]
+        : []),
     ];
   const lesson = lessons.find((item) => item.id === lessonId);
   if (!lesson) return [];
@@ -132,15 +157,22 @@ export function labLessonId(lab) {
 export function tutorContext({ lessonId, sectionKey = "overview", labId }) {
   const advanced = atlasFor(lessonId);
   if (advanced) {
-    if (labId) return null;
-    const topic = tutorTopics(lessonId).find((t) => t.key === sectionKey);
+    const lab = labId ? labs.find((item) => item.id === labId) : null;
+    if (labId && (!lab || labLessonId(lab) !== lessonId)) return null;
+    const topic = tutorTopics(lessonId, labId).find(
+      (t) => t.key === sectionKey,
+    );
     if (!topic) return null;
     return {
       lessonId,
+      ...(lab ? { labId: lab.id } : {}),
       sectionKey,
       title: advanced.title,
       sectionTitle: topic.title,
-      link: "/#atlas/" + advanced.id,
+      link:
+        lab && sectionKey === "lab"
+          ? "/lab.html#" + lab.id
+          : "/#atlas/" + advanced.id,
       material: {
         lessonTitle: advanced.title,
         selectedSection: topic.title,

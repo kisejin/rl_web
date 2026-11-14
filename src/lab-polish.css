@@ -196,3 +196,35 @@
     justify-content: center;
   }
 }
+
+.lc-theory-bridge {
+  margin: 24px 0;
+  padding: 16px;
+  border: 1px solid var(--lc-border, #343434);
+  border-radius: 10px;
+  background: var(--lc-bg-soft, rgba(100, 160, 220, 0.06));
+}
+.lc-theory-bridge h3 {
+  margin-top: 0;
+}
+.lc-theory-bridge a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.lc-proof-editorial {
+  margin-top: 28px;
+}
+.lc-proof-editorial ol {
+  padding-left: 24px;
+}
+.lc-proof-editorial li {
+  padding-left: 4px;
+  margin-bottom: 24px;
+  min-width: 0;
+}
+.lc-proof-editorial .lab-equation {
+  overflow-x: auto;
+  max-width: 100%;
+}

@@ -6,19 +6,39 @@ import {
   tutorTopics,
   tutorContext,
   tutorLessonCatalog,
+  labLessonId,
 } from "../src/tutor-context.js";
 import { normalizeAgentState } from "../src/tutor-agent.js";
 import { readTutorSkill } from "./tutor-skills.js";
 
-const records = tutorLessonCatalog.flatMap((lesson) =>
-  tutorTopics(lesson.id).map((topic) => ({
-    lessonId: lesson.id,
-    title: lesson.title + " · " + topic.title,
-    section: topic.key,
-    url: tutorContext({ lessonId: lesson.id, sectionKey: topic.key }).link,
-    text: JSON.stringify(topic.content),
-  })),
-);
+import { labs } from "../src/content.js";
+const records = [
+  ...tutorLessonCatalog.flatMap((lesson) =>
+    tutorTopics(lesson.id).map((topic) => ({
+      lessonId: lesson.id,
+      title: lesson.title + " · " + topic.title,
+      section: topic.key,
+      url: tutorContext({ lessonId: lesson.id, sectionKey: topic.key }).link,
+      text: JSON.stringify(topic.content),
+    })),
+  ),
+  ...labs.map((lab) => {
+    const lessonId = labLessonId(lab);
+    const context = tutorContext({
+      lessonId,
+      labId: lab.id,
+      sectionKey: "lab",
+    });
+    return {
+      lessonId,
+      labId: lab.id,
+      title: "Python + proof · " + lab.title,
+      section: "lab",
+      url: context.link,
+      text: JSON.stringify(context.material.selectedContent),
+    };
+  }),
+];
 export function searchCourse(query) {
   const words =
     query
@@ -123,11 +143,18 @@ export async function createTutorMCP({
   );
   tool(
     "read_lesson",
-    "Read an authored lesson section. section defaults to overview; use proof for the mathematical proof.",
-    { lessonId: z.string().max(60), section: z.string().max(60).optional() },
-    ({ lessonId, section = "overview" }) => {
+    "Read an authored lesson section. section defaults to overview; use proof for the mathematical proof. For a Python lab, use section lab and its labId from course_search.",
+    {
+      lessonId: z.string().max(60),
+      section: z.string().max(60).optional(),
+      labId: z.string().max(60).optional(),
+    },
+    ({ lessonId, section = "overview", labId }) => {
       const match = records.find(
-        (r) => r.lessonId === lessonId && r.section === section,
+        (r) =>
+          r.lessonId === lessonId &&
+          r.section === section &&
+          (labId ? r.labId === labId : !r.labId),
       );
       if (!match)
         return { error: "Unknown lesson/section. Use course_search." };

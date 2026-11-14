@@ -34,8 +34,8 @@ See [the animation sources and rendering guide](animations/README.md) for the li
 
 - 9 chapters: foundations, probability, MDPs, Bellman equations, dynamic programming, Monte Carlo/TD and Q-learning, policy gradients and an introduction to PPO, reward shaping, rubric rewards, and KL regularization.
 - Each chapter requires a correct quiz answer, a written proof, and confirmation that the proof has been checked against the solution before completion.
-- 9 Python challenges from Easy to Hard, starting with an empty function and using no RL libraries. There are 45 public test cases.
-- 6 combined Math + Code challenges. Completion requires passing code tests, writing a proof, and confirming every self-review rubric item. **Mathematical proofs are self-reviewed, not automatically verified.**
+- 36 Python challenges from Easy to Hard, starting with an empty function and using no RL libraries. All 35 atlas topics have matching implementation practice; there are 150 public test cases.
+- 33 combined Math + Code challenges. Completion requires passing code tests, writing a proof, and confirming every self-review rubric item. **Mathematical proofs are self-reviewed, not automatically verified.**
 - A capstone implements a categorical policy update using rubric rewards and a KL penalty, with an exact expected gradient. It is a finite-action contextual bandit, not real LLM training.
 - A 5×5 Gridworld with a policy computed by value iteration: adjust the discount, inspect state values, and run, pause, or reset the agent.
 - A rubric sandbox with fixed weights and a hard gate.
@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 61 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 60 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 92 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 63 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 

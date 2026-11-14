@@ -128,10 +128,10 @@ test("all course text is English and translations retain course structure", () =
   inspect(lessons, "lessons");
   inspect(labs, "labs");
   assert.equal(lessons.length, 9);
-  assert.equal(labs.length, 9);
+  assert.equal(labs.length, 36);
   assert.equal(
     labs.reduce((sum, lab) => sum + lab.tests.length, 0),
-    45,
+    150,
   );
   for (const lesson of lessons) {
     assert.equal(lesson.answers.length, 3);
