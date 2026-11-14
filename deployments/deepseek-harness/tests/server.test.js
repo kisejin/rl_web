@@ -174,3 +174,71 @@ test("provider diagnostics are sanitized through the runtime and Vercel layers",
     false,
   );
 });
+
+test("agent tool progress and plan updates survive both HTTP relay layers before the final answer", async (t) => {
+  let requests = 0;
+  const runtime = await fixture(t, async (_url, options) => {
+    const payload = JSON.parse(options.body);
+    requests++;
+    if (requests === 1)
+      return new Response(
+        JSON.stringify({
+          choices: [
+            {
+              message: {
+                role: "assistant",
+                content: "",
+                tool_calls: [
+                  {
+                    id: "update-plan-test",
+                    type: "function",
+                    function: {
+                      name: "update_plan",
+                      arguments: JSON.stringify({
+                        steps: [{ title: "Derive Bellman", status: "pending" }],
+                      }),
+                    },
+                  },
+                ],
+              },
+              finish_reason: "tool_calls",
+            },
+          ],
+        }),
+        { headers: { "Content-Type": "application/json" } },
+      );
+    assert.ok(
+      payload.messages.some(
+        (m) => m.role === "tool" && m.content.includes("Derive Bellman"),
+      ),
+    );
+    return providerJSON("Your learning plan is saved.");
+  });
+  const events = [];
+  const stream = await openTutorStream(
+    {
+      ...question,
+      agent: {
+        mode: "plan",
+        skill: "proof",
+        webSearch: false,
+        state: { goal: "Learn Bellman", steps: [] },
+      },
+    },
+    {
+      apiKey: "unused",
+      harnessUrl: "https://harness.test/v1",
+      harnessToken: token,
+      fetchImpl: runtime.fetchImpl,
+    },
+  );
+  for await (const event of stream) events.push(event);
+  assert.equal(requests, 2);
+  const plan = events.findIndex(
+    (e) => e.event === "agent" && e.data.type === "plan",
+  );
+  const answer = events.findIndex((e) => e.event === "delta");
+  assert.ok(plan > 0 && answer > plan);
+  assert.equal(events[plan].data.state.steps[0].title, "Derive Bellman");
+  assert.equal(events.at(-1).event, "done");
+});

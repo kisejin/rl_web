@@ -12,6 +12,9 @@ const gateway = createServer(async (req, res) => {
   let body = "";
   for await (const chunk of req) body += chunk;
   providerMessages = JSON.parse(body).messages;
+  assert.ok(
+    JSON.parse(body).tools.some((t) => t.function.name === "course_search"),
+  );
   res.setHeader("Content-Type", "text/event-stream");
   res.write(
     'data: {"choices":[{"delta":{"content":"Container streaming works."}}]}\n\n',
@@ -53,11 +56,26 @@ try {
       messages,
       max_tokens: 1800,
       stream: true,
+      rl_atlas: {
+        enabled: true,
+        mode: "ask",
+        skill: "proof",
+        webSearch: false,
+        state: { steps: [] },
+        attachments: [],
+      },
     }),
   });
   assert.equal(response.status, 200);
   const reader = response.body.getReader();
-  const first = new TextDecoder().decode((await reader.read()).value);
+  let first = "";
+  while (!first.includes("Container streaming works.")) {
+    const next = await reader.read();
+    assert.equal(next.done, false);
+    first += new TextDecoder().decode(next.value);
+  }
+  assert.match(first, /Built-in MCP connected/);
+  assert.match(first, /Loaded skill/);
   assert.match(first, /Container streaming works/);
   assert.equal(first.includes("[DONE]"), false);
   assert.deepEqual(providerMessages, messages);

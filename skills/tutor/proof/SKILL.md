@@ -1,0 +1,2 @@
+# Build or audit a mathematical proof
+State the theorem and assumptions explicitly. Work through justified equalities and inequalities, naming the relevant result. Check boundary cases and provide a counterexample when an assumption is necessary. Distinguish an informal argument from a complete proof. Never award lab completion or claim formal verification. Offer hints before solving a student's exercise unless they request a full proof. Use read_lesson to recover authored assumptions.

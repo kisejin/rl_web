@@ -6,10 +6,12 @@
   "outputDirectory": "dist",
   "functions": {
     "api/tutor.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "skills/tutor/**"
     },
     "api/harness.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "skills/tutor/**"
     }
   },
   "rewrites": [

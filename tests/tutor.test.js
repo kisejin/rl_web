@@ -146,7 +146,7 @@ test("tutor API enforces method, origin, content type, body size and JSON valida
   );
   assert.equal((await call({ contentType: "text/plain" })).status, 415);
   assert.equal((await call({ raw: "not json" })).status, 400);
-  assert.equal((await call({ raw: "x".repeat(27000) })).status, 413);
+  assert.equal((await call({ raw: "x".repeat(1900001) })).status, 413);
   const invalid = await call({ body: { ...question, sectionKey: "missing" } });
   assert.equal(invalid.status, 400);
   assert.equal(invalid.headers["Cache-Control"], "no-store");

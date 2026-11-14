@@ -32,7 +32,7 @@ Changing Vercel environment variables affects the next deployment. Production se
 
 ## Runtime limits and rollback
 
-Each request gets a fresh in-memory Harness context. The existing browser history is imported into that request; there is no shared cross-user session, persistent disk or background agent job. The runtime registers no shell, filesystem, browser, MCP or plugin-management tools. Python lab execution stays in browser workers.
+Each request gets a fresh in-memory Harness context. The existing browser history is imported into that request; there is no shared cross-user session, persistent disk or background agent job. The runtime registers the built-in learning MCP tools described in [AGENT.md](AGENT.md), with optional publication search. It registers no shell, filesystem, browser automation or plugin-management tools. Python lab execution stays in browser workers.
 
 Both functions have a 60-second Vercel duration limit. The tutor and runtime keep their 45-second request deadlines and bounded messages/output. The runtime's two-request cap is per warm function instance; Vercel can run multiple instances. Platform usage and plan limits apply normally.
 

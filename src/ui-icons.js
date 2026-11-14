@@ -1,5 +1,8 @@
 // Consistent control icons, independent of the operating system's symbol font.
 const paths = {
+  paperclip:
+    "m8 12 6-6a3 3 0 0 1 4 4l-8 8a5 5 0 0 1-7-7l9-9m4 6-8 8a1 1 0 0 1-2-2l7-7",
+  expand: "M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5",
   chat: "M21 11.5a8.4 8.4 0 0 1-9 8.5 10 10 0 0 1-4-.8L3 21l1.8-5A9 9 0 1 1 21 11.5Z",
   close: "m6 6 12 12M6 18 18 6",
   send: "m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13",

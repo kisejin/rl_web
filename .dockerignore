@@ -11,3 +11,14 @@
 !src/tutor-models.js
 !server/
 !server/secret-filter.js
+
+!src/tutor-agent.js
+!src/tutor-attachments.js
+!src/content.js
+!src/tutor-context.js
+!server/harness-gateway.js
+!server/tutor-mcp.js
+!server/tutor-skills.js
+!skills/
+!skills/tutor/
+!skills/tutor/**

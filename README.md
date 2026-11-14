@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 50 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 49 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 55 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 53 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -128,7 +128,7 @@ The frontend calls only the same-origin `POST /api/tutor`. The Vercel Node funct
 
 For local development, copy `.env.example` to `.env.local`, supply your own credential, and run `npm run dev`. The development middleware reads only server-side QWENCODER settings; `.env` files are ignored by Git and excluded from Vercel uploads. `vite preview` serves the static build only; use `npm run dev` or a Vercel deployment to test the tutor API.
 
-The endpoint validates context IDs and roles against authored course content, bounds message/body sizes and response length, rejects cross-site browser requests, has a 45-second upstream deadline and uses no-store responses. It has a best-effort per-IP limit of 12 requests per minute per serverless instance; this is not a distributed account quota. Provider failures are sanitized, and credentials are never included in the model prompt or returned to the browser. Model Markdown is sanitized with DOMPurify before KaTeX rendering; links use noopener/noreferrer. API tests cover credential isolation, invalid contexts/system-role injection, error masking, origin/body checks and request limits. Browser tests use mocked answers and do not spend provider credits.
+The endpoint validates context IDs and roles against authored course content, bounds message/body sizes and response length, rejects cross-site browser requests, supports bounded attachments and has a 45-second upstream deadline and uses no-store responses. It has a best-effort per-IP limit of 12 requests per minute per serverless instance; this is not a distributed account quota. Provider failures are sanitized, and credentials are never included in the model prompt or returned to the browser. Model Markdown is sanitized with DOMPurify before KaTeX rendering; links use noopener/noreferrer. API tests cover credential isolation, invalid contexts/system-role injection, error masking, origin/body checks and request limits. Browser tests use mocked answers and do not spend provider credits.
 
 ### Choosing a tutor model
 
@@ -149,3 +149,5 @@ Streaming checks cover fragmented UTF-8/CRLF/multiline events, incremental provi
 ### Optional DeepSeek Harness backend
 
 The official DeepSeek Harness agent core can run directly in this project’s Vercel Functions on Node 24, with HTTPS supplied by Vercel. See the [Vercel setup guide](deployments/deepseek-harness/VERCEL.md) for the protected runtime endpoint, activation and rollback. The existing Qwencoder API key stays in the same project. A separate bridge token protects server-to-server calls. The current chat UI and streaming protocol are preserved. [Docker deployment](deployments/deepseek-harness/README.md) remains available as an alternative.
+
+The [agent workspace guide](deployments/deepseek-harness/AGENT.md) documents built-in MCP tools, Markdown skills, Plan/Goal, opt-in paper search, slash commands and file attachments. These capabilities keep the existing model picker and streaming UI. Native image support depends on the selected model; PDF input currently extracts selectable text in the browser.

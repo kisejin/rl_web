@@ -10,7 +10,7 @@ Browser → Vercel /api/tutor → HTTPS Harness runtime → Qwencoder /chat/comp
           (server only)       (server only)
 ```
 
-The Harness agent loop owns prompt assembly, a private in-memory session, streamed attempts and cancellation. A custom OpenAI-compatible adapter uses the existing Qwencoder endpoint and model IDs. Each request imports the supplied text conversation into a fresh session; the browser retains its current section-scoped history. No cross-user server sessions or persistent volumes are used. No shell, filesystem, browser, plugin-management, MCP or code-execution tools are registered. Python labs continue to execute through their existing browser workers.
+The Harness agent loop owns prompt assembly, a private in-memory session, streamed attempts and cancellation. A custom OpenAI-compatible adapter uses the existing Qwencoder endpoint and model IDs. Each request imports the supplied text conversation into a fresh session; the browser retains its current section-scoped history. No cross-user server sessions or persistent volumes are used. The built-in learning MCP tools are available when the request enables agent mode; see [AGENT.md](AGENT.md). No shell, filesystem, browser automation, plugin-management or code-execution tools are registered. Python labs continue to execute through their existing browser workers.
 
 ## Prepare a Docker server
 

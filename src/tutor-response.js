@@ -2,7 +2,7 @@ import { readSSE } from "./sse.js";
 // Read real network deltas. JSON remains supported for older server deployments.
 export async function readTutorResponse(
   response,
-  { onDelta, onMeta, signal } = {},
+  { onDelta, onMeta, onAgent, signal } = {},
 ) {
   if (
     !response.ok ||
@@ -39,6 +39,8 @@ export async function readTutorResponse(
     if (frame.event === "meta") {
       model = data.model;
       onMeta?.(data);
+    } else if (frame.event === "agent") {
+      onAgent?.(data);
     } else if (frame.event === "delta") {
       if (typeof data.text !== "string")
         throw new Error(

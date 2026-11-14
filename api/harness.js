@@ -2,7 +2,7 @@ import { createHarnessHandler } from "../deployments/deepseek-harness/server.js"
 export const config = { maxDuration: 60 };
 
 // One private handler per warm function instance. It owns no listener, child
-// process, filesystem session or model tools. Vercel owns HTTP and HTTPS.
+// process or filesystem session. Built-in MCP tools run per request; Vercel owns HTTP and HTTPS.
 let runtime;
 export default async function handler(req, res) {
   try {

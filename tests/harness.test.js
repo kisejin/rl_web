@@ -77,7 +77,7 @@ test("Vercel Harness handler accepts parsed bodies, protects its endpoint and ru
       await fetch(url, {
         method: "POST",
         headers,
-        body: JSON.stringify({ payload: "x".repeat(64000) }),
+        body: JSON.stringify({ payload: "x".repeat(1950000) }),
       })
     ).status,
     413,

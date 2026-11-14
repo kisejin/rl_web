@@ -24,6 +24,8 @@ test("section tutor sends only lesson context and renders safe Markdown, code an
   expect(request.lessonId).toBe("bellman");
   expect(request.sectionKey).toBe("proof");
   expect(Object.keys(request).sort()).toEqual([
+    "agent",
+    "attachments",
     "lessonId",
     "messages",
     "model",

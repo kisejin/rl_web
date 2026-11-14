@@ -1,3 +1,4 @@
+import { mountTutorWorkspace } from "./tutor-workspace.js";
 import { createTextReveal } from "./text-reveal.js";
 import { readTutorResponse } from "./tutor-response.js";
 import {
@@ -107,22 +108,39 @@ export function mountTutor({
     draftView = null,
     reveal = null,
     networkFinished = false,
-    answerSaved = false;
+    answerSaved = false,
+    requestFileNames = [],
+    localError = false;
   let context =
     tutorContext({ lessonId, labId, sectionKey }) ||
     tutorContext({ lessonId: "foundations" });
   const host = document.createElement("div");
   host.className = "tutor-root";
-  host.innerHTML = `<button class="tutor-launch" aria-label="Open AI study tutor" aria-expanded="false" aria-controls="study-tutor">${uiIcon("chat")}<span>Ask AI</span></button><section id="study-tutor" class="tutor-panel" role="dialog" aria-labelledby="tutor-title" aria-modal="false" hidden><header class="tutor-header"><span class="tutor-avatar">${uiIcon("chat")}</span><div><h2 id="tutor-title">RL Atlas Tutor</h2><p>Your lesson companion</p></div><button class="tutor-icon-btn" data-tutor-clear aria-label="Clear this conversation" title="Clear conversation">${uiIcon("reset")}</button><button class="tutor-icon-btn" data-tutor-close aria-label="Close AI tutor">${uiIcon("close")}</button></header><div class="tutor-context"><label>Model<select id="tutor-model" aria-label="Tutor model">${tutorModels.map((model) => `<option value="${model.id}">${escapeHTML(model.name)}</option>`).join("")}</select></label><label>Lesson<select id="tutor-lesson" aria-label="Tutor lesson">${lessons.map((l) => `<option value="${l.id}">${escapeHTML(l.title)}</option>`).join("")}</select></label><label>Discussing<select id="tutor-section" aria-label="Tutor section"></select></label><a class="tutor-source" href="#" data-tutor-source>${uiIcon("book")}<span></span>${uiIcon("arrow-up-right")}</a></div><div class="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" aria-relevant="additions"></div><div class="tutor-error" role="alert" hidden><p></p><button data-tutor-retry>Try again</button></div><form class="tutor-form"><label class="tutor-sr-only" for="tutor-question">Your question about this lesson</label><textarea id="tutor-question" rows="2" maxlength="2000" placeholder="Ask about an idea, equation, or proof…" required></textarea><div class="tutor-compose-actions"><span data-tutor-count>0 / 2000</span><span class="tutor-key-hint">Enter to send · Shift+Enter for a new line</span><button class="tutor-send" type="submit" aria-label="Send question">${uiIcon("send")}<span>Send</span></button><button class="tutor-stop" type="button" data-tutor-stop hidden>${uiIcon("stop")} Stop</button></div><p class="tutor-disclaimer">AI can make mistakes. Check the lesson and every proof step. Your question and this lesson’s context are sent to the AI provider.</p></form></section>`;
+  host.innerHTML = `<button class="tutor-launch" aria-label="Open AI study tutor" aria-expanded="false" aria-controls="study-tutor">${uiIcon("chat")}<span>Ask AI</span></button><section id="study-tutor" class="tutor-panel" role="dialog" aria-labelledby="tutor-title" aria-modal="false" hidden><header class="tutor-header"><span class="tutor-avatar">${uiIcon("chat")}</span><div><h2 id="tutor-title">RL Atlas Tutor</h2><p>Your lesson companion</p></div><button class="tutor-icon-btn" data-tutor-clear aria-label="Clear this conversation" title="Clear conversation">${uiIcon("reset")}</button><button class="tutor-icon-btn" data-tutor-close aria-label="Close AI tutor">${uiIcon("close")}</button></header><div class="tutor-context"><label>Model<select id="tutor-model" aria-label="Tutor model">${tutorModels.map((model) => `<option value="${model.id}">${escapeHTML(model.name)}</option>`).join("")}</select></label><label>Lesson<select id="tutor-lesson" aria-label="Tutor lesson">${lessons.map((l) => `<option value="${l.id}">${escapeHTML(l.title)}</option>`).join("")}</select></label><label>Discussing<select id="tutor-section" aria-label="Tutor section"></select></label><a class="tutor-source" href="#" data-tutor-source>${uiIcon("book")}<span></span>${uiIcon("arrow-up-right")}</a></div><div class="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" aria-relevant="additions"></div><div class="tutor-error" role="alert" hidden><p></p><button data-tutor-retry>Try again</button></div><form class="tutor-form"><label class="tutor-sr-only" for="tutor-question">Your question about this lesson</label><textarea id="tutor-question" rows="2" maxlength="2000" placeholder="Ask about an idea, equation, or proof…" required></textarea><div class="tutor-compose-actions"><span data-tutor-count>0 / 2000</span><span class="tutor-key-hint">Enter to send · Shift+Enter for a new line</span><button class="tutor-send" type="submit" aria-label="Send question">${uiIcon("send")}<span>Send</span></button><button class="tutor-stop" type="button" data-tutor-stop hidden>${uiIcon("stop")} Stop</button></div><p class="tutor-disclaimer">AI can make mistakes. Check the lesson and every proof step. Your question, attached files and lesson context are shared with the model. Search papers sends queries to Crossref when enabled.</p></form></section>`;
   document.body.append(host);
   const $ = (selector) => host.querySelector(selector),
     panel = $(".tutor-panel"),
     input = $("#tutor-question"),
     log = $(".tutor-messages");
+  const workspace = mountTutorWorkspace(host, {
+    signal,
+    isBusy: () => busy,
+    onError: (message) => {
+      error = message;
+      localError = true;
+      controls();
+    },
+    onInput: (question) => {
+      input.value = question;
+      count();
+      input.focus();
+    },
+  });
   $("#tutor-model").value = selectedModel;
   const threadKey = () =>
     `rl-atlas-tutor:${context.lessonId}:${context.labId || ""}:${context.sectionKey}`;
   function load() {
+    workspace.load(threadKey());
     reveal?.cancel();
     reveal = null;
     streamedText = "";
@@ -142,6 +160,14 @@ export function mountTutor({
           .map((m) => ({
             role: m.role,
             content: m.content.slice(0, 14000),
+            ...(Array.isArray(m.files)
+              ? {
+                  files: m.files
+                    .filter((f) => typeof f === "string")
+                    .slice(0, 3)
+                    .map((f) => f.slice(0, 100)),
+                }
+              : {}),
             ...(m.incomplete === true ? { incomplete: true } : {}),
             ...(m.role === "assistant" && findTutorModel(m.model)
               ? { model: m.model }
@@ -157,6 +183,7 @@ export function mountTutor({
     } catch {}
   }
   function controls() {
+    workspace.freeze(busy);
     $(".tutor-send").hidden = busy;
     $(".tutor-stop").hidden = !busy;
     $("#tutor-model").disabled = busy;
@@ -166,6 +193,7 @@ export function mountTutor({
     $("[data-tutor-clear]").disabled = busy;
     $(".tutor-error").hidden = !error;
     $(".tutor-error p").textContent = error;
+    $("[data-tutor-retry]").hidden = localError;
   }
   function appendMessage(message, { streaming = false } = {}) {
     const bubble = document.createElement("article");
@@ -200,6 +228,12 @@ export function mountTutor({
       renderTutorAnswer(content, message.content);
     else content.textContent = message.content;
     bubble.append(content);
+    if (message.role === "user" && message.files?.length) {
+      const names = document.createElement("div");
+      names.className = "tutor-message-files";
+      names.textContent = "Attached: " + message.files.join(", ");
+      bubble.append(names);
+    }
     if (message.role === "assistant" && !streaming) {
       const copy = document.createElement("button");
       copy.className = "tutor-copy";
@@ -228,7 +262,11 @@ export function mountTutor({
   function commitAnswer(incomplete = false) {
     if (answerSaved || !streamedText.trim()) return;
     messages.push(
-      { role: "user", content: lastQuestion },
+      {
+        role: "user",
+        content: lastQuestion,
+        ...(requestFileNames.length ? { files: requestFileNames } : {}),
+      },
       {
         role: "assistant",
         content: streamedText,
@@ -296,7 +334,11 @@ export function mountTutor({
     }
     for (const message of messages) appendMessage(message);
     if (busy) {
-      appendMessage({ role: "user", content: lastQuestion });
+      appendMessage({
+        role: "user",
+        content: lastQuestion,
+        files: requestFileNames,
+      });
       if (streamedText)
         draftView = appendMessage(
           {
@@ -357,7 +399,13 @@ export function mountTutor({
     else $(".tutor-launch").focus({ preventScroll: true });
   }
   async function submit(question = input.value.trim()) {
-    if (busy || !question.trim() || question.length > 2000) return;
+    if (busy) return;
+    question = workspace.question(question);
+    if (!question || question.length > 2000) return;
+    const requestAttachments = workspace.attachments;
+    requestFileNames = requestAttachments.map((file) => file.name);
+    const agent = workspace.agent;
+    workspace.begin();
     const requestModel = selectedModel;
     streamedText = "";
     networkFinished = false;
@@ -367,6 +415,7 @@ export function mountTutor({
     lastQuestion = question.trim();
     busy = true;
     error = "";
+    localError = false;
     input.value = "";
     count();
     draw();
@@ -379,7 +428,11 @@ export function mountTutor({
     const timeout = setTimeout(() => request?.abort("timeout"), 55000);
     let history = [
       ...messages.slice(-10),
-      { role: "user", content: lastQuestion },
+      {
+        role: "user",
+        content: lastQuestion,
+        ...(requestFileNames.length ? { files: requestFileNames } : {}),
+      },
     ];
     while (
       history.length > 1 &&
@@ -402,6 +455,8 @@ export function mountTutor({
           sectionKey: context.sectionKey,
           ...(context.labId ? { labId: context.labId } : {}),
           messages: history,
+          agent,
+          attachments: requestAttachments,
         }),
         signal: request.signal,
       });
@@ -411,6 +466,7 @@ export function mountTutor({
           if (findTutorModel(meta.model)) streamModel = meta.model;
         },
         onDelta: (text) => reveal.push(text),
+        onAgent: (event) => workspace.record(event),
       });
       networkFinished = true;
       if (draftView)
@@ -580,6 +636,7 @@ export function mountTutor({
   return () => {
     if (busy) commitAnswer(true);
     closed = true;
+    workspace.dispose();
     reveal?.cancel();
     request?.abort();
     events.abort();

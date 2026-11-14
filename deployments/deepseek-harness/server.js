@@ -1,3 +1,8 @@
+import { validateAttachments } from "../../src/tutor-attachments.js";
+import {
+  validateAgentOptions,
+  normalizeAgentEvent,
+} from "../../src/tutor-agent.js";
 import { createServer } from "node:http";
 import { createHash, timingSafeEqual, randomUUID } from "node:crypto";
 import { pathToFileURL } from "node:url";
@@ -43,6 +48,14 @@ export function validateCompletion(body) {
     stream: body.stream,
     messages,
     max_tokens: body.max_tokens ?? 1800,
+    ...(body.rl_atlas
+      ? {
+          rl_atlas: {
+            ...validateAgentOptions(body.rl_atlas),
+            attachments: validateAttachments(body.rl_atlas.attachments),
+          },
+        }
+      : {}),
   };
 }
 export function createHarnessHandler({
@@ -81,6 +94,15 @@ export function createHarnessHandler({
         status: "ready",
         runtime: "deepseek-harness",
         version: "0.2.2-rc.3",
+        capabilities: [
+          "mcp",
+          "skills",
+          "course_search",
+          "paper_search",
+          "plans",
+          "goals",
+          "attachments",
+        ],
       });
     if (req.url !== "/v1/chat/completions")
       return json(404, { error: { message: "Not found." } });
@@ -127,13 +149,13 @@ export function createHarnessHandler({
         const value =
           typeof req.body === "string" ? req.body : JSON.stringify(req.body);
         size = Buffer.byteLength(value);
-        if (size > 64000)
+        if (size > 1950000)
           return json(413, { error: { message: "Request is too large." } });
         chunks.push(Buffer.from(value));
       } else {
         for await (const chunk of req) {
           size += chunk.length;
-          if (size > 64000)
+          if (size > 1950000)
             return json(413, { error: { message: "Request is too large." } });
           chunks.push(chunk);
         }
@@ -171,6 +193,17 @@ export function createHarnessHandler({
         onText: (text) => {
           if (streaming) event(delta(text));
         },
+        onAgent: (raw) => {
+          const data = normalizeAgentEvent(raw);
+          if (data && streaming && !controller.signal.aborted && !res.destroyed)
+            res.write(
+              "event: rl-agent\ndata: " +
+                JSON.stringify(data)
+                  .replaceAll(apiKey, "[redacted]")
+                  .replaceAll(token, "[redacted]") +
+                "\n\n",
+            );
+        },
       });
       const finish = result.truncated ? "length" : "stop";
       if (streaming) {
@@ -182,6 +215,7 @@ export function createHarnessHandler({
           id,
           object: "chat.completion",
           model: body.model,
+          ...(result.agentState ? { agentState: result.agentState } : {}),
           choices: [
             {
               index: 0,
