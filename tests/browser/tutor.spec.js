@@ -8,6 +8,7 @@ test("section tutor sends only lesson context and renders safe Markdown, code an
   await page.route("**/api/tutor", async (route) => {
     request = route.request().postDataJSON();
     expect(route.request().headers().authorization).toBeUndefined();
+    expect(route.request().headers().accept).toBe("text/event-stream");
     await route.fulfill({ json: { reply: answer, model: "test-model" } });
   });
   await page.goto("/#lesson/bellman");

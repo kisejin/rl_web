@@ -385,7 +385,10 @@ export function mountTutor({
     try {
       const response = await fetch("/api/tutor", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "text/event-stream",
+        },
         credentials: "same-origin",
         body: JSON.stringify({
           model: requestModel,
