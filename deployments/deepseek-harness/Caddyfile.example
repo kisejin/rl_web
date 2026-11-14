@@ -1,0 +1,6 @@
+# Replace with the runtime's domain; point its DNS to your Docker server.
+harness.example.com {
+    reverse_proxy 127.0.0.1:3080 {
+        flush_interval -1
+    }
+}

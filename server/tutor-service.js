@@ -1,3 +1,4 @@
+import { secretFilter } from "./secret-filter.js";
 import { readSSE } from "../src/sse.js";
 import { DEFAULT_TUTOR_MODEL, findTutorModel } from "../src/tutor-models.js";
 import { tutorContext } from "../src/tutor-context.js";
@@ -55,6 +56,8 @@ async function requestTutor(
     fetchImpl = fetch,
     signal,
     stream = false,
+    harnessUrl = process.env.DEEPSEEK_HARNESS_URL,
+    harnessToken = process.env.DEEPSEEK_HARNESS_TOKEN,
   } = {},
 ) {
   const {
@@ -68,6 +71,28 @@ async function requestTutor(
       503,
       "The default tutor model is unavailable. Choose a supported model.",
     );
+  if (harnessUrl) {
+    try {
+      const url = new URL(harnessUrl);
+      if (
+        url.protocol !== "https:" ||
+        url.username ||
+        url.password ||
+        url.search ||
+        url.hash
+      )
+        throw new Error("Invalid runtime URL");
+      if (!harnessToken || harnessToken.length < 32)
+        throw new Error("Missing runtime credential");
+      baseUrl = harnessUrl.replace(/\/$/, "");
+      apiKey = harnessToken;
+    } catch {
+      throw new TutorError(
+        503,
+        "The Harness runtime is not configured correctly. Please try again later.",
+      );
+    }
+  }
   if (!apiKey)
     throw new TutorError(
       503,
@@ -172,32 +197,6 @@ async function jsonReply({ response, context, model, apiKey, signal }) {
 }
 export async function getTutorReply(body, options) {
   return jsonReply(await requestTutor(body, { ...options, stream: false }));
-}
-// Keep only a suffix that could be the beginning of a credential. This avoids
-// leaking a key split across provider deltas without buffering ordinary tokens.
-function secretFilter(secret) {
-  let pending = "";
-  return {
-    push(text) {
-      pending += text;
-      let output = "",
-        index;
-      while ((index = pending.indexOf(secret)) >= 0) {
-        output += pending.slice(0, index) + "[redacted]";
-        pending = pending.slice(index + secret.length);
-      }
-      let suffix = Math.min(secret.length - 1, pending.length);
-      while (suffix && !secret.startsWith(pending.slice(-suffix))) suffix--;
-      output += suffix ? pending.slice(0, -suffix) : pending;
-      pending = suffix ? pending.slice(-suffix) : "";
-      return output;
-    },
-    finish() {
-      const text = pending;
-      pending = "";
-      return text;
-    },
-  };
 }
 export async function openTutorStream(body, options) {
   const upstream = await requestTutor(body, { ...options, stream: true });

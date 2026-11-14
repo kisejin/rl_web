@@ -247,3 +247,48 @@ test("legacy requests retain the configured default and unsupported defaults fai
     (error) => error.status === 503,
   );
 });
+
+test("configured Harness routing uses a separate server credential and validates runtime configuration", async () => {
+  const harnessToken = "test-runtime-token-" + "x".repeat(32);
+  let outbound;
+  await getTutorReply(question, {
+    apiKey: key,
+    harnessUrl: "https://harness.example/v1/",
+    harnessToken,
+    fetchImpl: async (url, options) => {
+      outbound = { url, ...options };
+      return {
+        ok: true,
+        json: async () => ({
+          choices: [
+            {
+              message: { content: "A runtime answer." },
+              finish_reason: "stop",
+            },
+          ],
+        }),
+      };
+    },
+  });
+  assert.equal(outbound.url, "https://harness.example/v1/chat/completions");
+  assert.equal(outbound.headers.Authorization, "Bearer " + harnessToken);
+  assert.equal(outbound.body.includes(key), false);
+  assert.equal(outbound.body.includes(harnessToken), false);
+  for (const options of [
+    { harnessUrl: "http://harness.example/v1", harnessToken },
+    { harnessUrl: "https://user:password@harness.example/v1", harnessToken },
+    { harnessUrl: "https://harness.example/v1?token=secret", harnessToken },
+    { harnessUrl: "https://harness.example/v1", harnessToken: "" },
+  ]) {
+    await assert.rejects(
+      getTutorReply(question, {
+        apiKey: key,
+        ...options,
+        fetchImpl: () => {
+          throw new Error("Must not contact an invalid runtime");
+        },
+      }),
+      (e) => e.status === 503,
+    );
+  }
+});

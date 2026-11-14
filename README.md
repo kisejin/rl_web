@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 48 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 49 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 49 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 49 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -145,3 +145,7 @@ The response protocol is `meta` (selected model/context), `delta` (answer text),
 Stop aborts the browser request and the server cancels its upstream request when the client disconnects. Already visible text is retained in the section history with a Partial answer label if stopped, interrupted or timed out; it is never silently presented as a completed answer. The 45-second upstream and 55-second browser deadlines still apply. Older callers without `stream: true` continue receiving JSON, and JSON provider responses use the same word reveal once their text is available.
 
 Streaming checks cover fragmented UTF-8/CRLF/multiline events, incremental provider and actual HTTP delivery before completion, split-credential redaction, hidden reasoning fields, disconnect cancellation, output limits, safe Markdown/LaTeX while streaming, partial-answer recovery, and legacy JSON behavior. These checks use controlled streams and do not spend provider credits.
+
+### Optional DeepSeek Harness backend
+
+A Docker runtime using the official DeepSeek Harness agent core, plus an optional server-to-server Vercel connection, is prepared in [deployments/deepseek-harness](deployments/deepseek-harness/README.md). It uses the existing Qwencoder base URL and API key on the runtime server and a separate bridge token on Vercel. It preserves the current chat UI and streaming protocol. This backend remains inactive until an external HTTPS runtime and its two Vercel environment variables are configured; the current direct backend continues working in the meantime.

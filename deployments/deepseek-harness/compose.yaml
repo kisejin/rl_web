@@ -1,0 +1,29 @@
+services:
+  harness:
+    build:
+      context: ../..
+      dockerfile: deployments/deepseek-harness/Dockerfile
+    image: rl-atlas-harness:0.2.2-rc.3
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3080:3080"
+    environment:
+      QWENCODER_BASE_URL: ${QWENCODER_BASE_URL:-https://api.qwencoder.cloud/api/v1}
+      QWENCODER_API_KEY: ${QWENCODER_API_KEY:?Set QWENCODER_API_KEY in your private .env}
+      HARNESS_BRIDGE_TOKEN: ${HARNESS_BRIDGE_TOKEN:?Set a random HARNESS_BRIDGE_TOKEN in your private .env}
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"

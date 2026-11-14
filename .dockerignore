@@ -1,0 +1,13 @@
+**
+!deployments/
+!deployments/deepseek-harness/
+!deployments/deepseek-harness/Dockerfile
+!deployments/deepseek-harness/package.json
+!deployments/deepseek-harness/package-lock.json
+!deployments/deepseek-harness/engine.js
+!deployments/deepseek-harness/server.js
+!src/
+!src/sse.js
+!src/tutor-models.js
+!server/
+!server/secret-filter.js
