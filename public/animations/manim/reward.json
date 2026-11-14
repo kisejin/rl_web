@@ -1,0 +1,28 @@
+{
+  "id": "reward",
+  "title": "A sum that cancels itself",
+  "duration": 21.458,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Potential shaping adds F = gamma times next potential minus current potential."
+    },
+    {
+      "time": 3.958,
+      "text": "Expand the discounted shaping rewards over three transitions. Keep the terminal boundary term."
+    },
+    {
+      "time": 7.958,
+      "text": "The middle potential terms appear once positively and once negatively. They cancel pair by pair."
+    },
+    {
+      "time": 11.958,
+      "text": "For this finite episode, terminal potential is zero. Only minus the starting potential remains."
+    },
+    {
+      "time": 15.958,
+      "text": "For a fixed starting state, every policy has the same shift. Policy ordering is preserved under these assumptions."
+    }
+  ]
+}

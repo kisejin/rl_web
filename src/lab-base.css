@@ -1,0 +1,371 @@
+/* Standalone lab foundation: no documentation or course layout is imported. */
+:root {
+  color-scheme: dark;
+  --doc-math: #b7d8f5;
+}
+:root[data-doc-theme="light"] {
+  color-scheme: light;
+  --doc-math: #244b6e;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--lc-blue);
+  outline-offset: 2px;
+}
+button svg {
+  flex-shrink: 0;
+}
+svg {
+  width: 16px;
+  height: 16px;
+}
+h1,
+h2,
+h3,
+p,
+pre {
+  margin-top: 0;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+pre,
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+pre {
+  white-space: pre;
+  overflow: auto;
+}
+textarea {
+  resize: vertical;
+  background: var(--lc-field);
+  color: var(--lc-text);
+  border: 1px solid var(--lc-border);
+  border-radius: 5px;
+  padding: 12px;
+}
+[hidden] {
+  display: none !important;
+}
+.badge {
+  display: inline-flex;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+}
+.badge.easy {
+  color: #36bc80;
+  background: #1b3c2c;
+}
+.badge.medium {
+  color: #d3a538;
+  background: #3a3220;
+}
+.badge.hard {
+  color: #ef7777;
+  background: #3c2424;
+}
+.badge.hybrid {
+  color: #68b5ff;
+  background: #20334c;
+}
+:root[data-doc-theme="light"] .badge.easy {
+  background: #eef9f2;
+  color: #18894d;
+}
+:root[data-doc-theme="light"] .badge.medium {
+  background: #fff8e5;
+  color: #ab7b00;
+}
+:root[data-doc-theme="light"] .badge.hard {
+  background: #fff0f0;
+  color: #bb4141;
+}
+:root[data-doc-theme="light"] .badge.hybrid {
+  background: #edf5ff;
+  color: #276aba;
+}
+summary {
+  cursor: pointer;
+}
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 60;
+  padding: 10px 18px;
+  border: 1px solid;
+  border-radius: 8px;
+  color: #fff;
+  max-width: min(90vw, 600px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+#doc-search-dialog {
+  background: var(--lc-panel);
+  color: var(--lc-text);
+  border: 1px solid var(--lc-border);
+  border-radius: 12px;
+  width: min(600px, calc(100vw - 32px));
+  max-height: 80dvh;
+  padding: 20px;
+}
+#doc-search-dialog::backdrop {
+  background: #0009;
+}
+.doc-search-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.doc-search-top h2 {
+  font-size: 20px;
+  margin: 0;
+}
+.doc-search-input {
+  display: block;
+  margin-block: 18px;
+}
+.doc-search-input input {
+  width: 100%;
+  background: var(--lc-field);
+  color: var(--lc-text);
+  border: 1px solid var(--lc-border);
+  border-radius: 6px;
+  padding: 10px;
+}
+.doc-search-results {
+  max-height: 50vh;
+  overflow: auto;
+}
+.doc-search-results a {
+  display: block;
+  padding: 12px;
+  border-bottom: 1px solid var(--lc-border);
+}
+.doc-search-results a:hover {
+  background: var(--lc-selected);
+}
+.doc-search-results small {
+  display: block;
+  color: var(--lc-muted);
+}
+/* Mathematics and proof forms belong to the lab itself. */
+.lab-equation,
+.lab-example-math,
+.lab-math-block {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+.lab-equation .katex-display,
+.lab-example-math .katex-display,
+.lab-math-block .katex-display {
+  overflow: visible;
+  margin: 0.6em 0;
+  text-align: left;
+}
+.lab-equation .katex-display > .katex,
+.lab-example-math .katex-display > .katex,
+.lab-math-block .katex-display > .katex {
+  text-align: left;
+}
+.lab-math-inline {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  overflow-x: auto;
+  color: var(--doc-math);
+  white-space: nowrap;
+}
+.lab-math-inline .katex {
+  font-size: 1.08em;
+}
+.lab-math-block {
+  display: block;
+  margin: 18px 0;
+  padding: 12px;
+  border-left: 3px solid var(--lc-blue);
+  background: var(--lc-field);
+  color: var(--doc-math);
+  border-radius: 0 5px 5px 0;
+}
+.problem-body {
+  overflow-wrap: break-word;
+}
+.problem-body .katex {
+  overflow-wrap: normal;
+}
+.problem-body .inline-code {
+  font-size: 0.88em;
+  background: var(--lc-field);
+  border: 1px solid var(--lc-border);
+  border-radius: 4px;
+  padding: 2px 5px;
+  overflow-wrap: anywhere;
+}
+.hint {
+  border-block: 1px solid var(--lc-border);
+  padding: 14px 0;
+  margin-top: 25px;
+}
+.hint summary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.hint p {
+  margin: 14px 0 4px;
+}
+.hybrid-proof {
+  padding-top: 25px;
+  min-width: 0;
+}
+.hybrid-proof > p {
+  margin: 14px 0 22px;
+}
+.hybrid-proof > label {
+  display: block;
+  margin-bottom: 9px;
+}
+.hybrid-proof > textarea {
+  width: 100%;
+  line-height: 1.9;
+}
+.hybrid-proof > small {
+  display: block;
+  line-height: 1.9;
+  margin-top: 18px;
+}
+.box-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.proof-rubric {
+  margin-top: 15px;
+}
+.proof-rubric summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.proof-rubric a {
+  display: block;
+  margin-block: 12px;
+  text-decoration: underline;
+}
+.proof-rubric label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.9;
+  margin-top: 12px;
+  cursor: pointer;
+}
+.proof-rubric label > span {
+  min-width: 0;
+  flex: 1;
+}
+.proof-rubric input {
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.proof-rubric .lab-math-inline {
+  white-space: normal;
+}
+.proof-rubric .lab-math-inline .katex {
+  white-space: nowrap;
+}
+.test-case summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+.test-case summary > span {
+  margin-left: auto;
+}
+.test-case summary::-webkit-details-marker {
+  display: none;
+}
+.test-case:not([open]) summary > svg:last-child {
+  transform: rotate(-90deg);
+}
+.proof-reminder {
+  padding: 14px;
+  background: var(--lc-field);
+  border: 1px solid var(--lc-border);
+  border-radius: 6px;
+  line-height: 1.8;
+  margin-block: 14px;
+}
+.proof-reminder button {
+  color: var(--lc-blue);
+}
+.lc-stdout {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid var(--lc-border);
+  border-radius: 6px;
+}
+.lc-stdout pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  padding-top: 10px;
+}

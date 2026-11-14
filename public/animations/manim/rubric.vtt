@@ -1,0 +1,22 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+A rubric separates correctness, reasoning, and clarity. Here the scores are 0.9, 0.5, and 0.8.
+
+2
+00:00:03.958 --> 00:00:07.917
+Apply weights 0.5, 0.3, and 0.2. Nonnegative weights sum to one.
+
+3
+00:00:07.917 --> 00:00:11.958
+The weighted score is 0.76. A passing hard gate retains this score.
+
+4
+00:00:11.958 --> 00:00:15.958
+A failed essential criterion sets the hard gate to zero and the final reward to zero.
+
+5
+00:00:15.958 --> 00:00:19.958
+Bounded scores and normalized weights do not guarantee a trustworthy judge or eliminate reward hacking.
+

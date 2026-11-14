@@ -1,0 +1,28 @@
+{
+  "id": "rubric",
+  "title": "Make every part of reward visible",
+  "duration": 19.958,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "A rubric separates correctness, reasoning, and clarity. Here the scores are 0.9, 0.5, and 0.8."
+    },
+    {
+      "time": 3.958,
+      "text": "Apply weights 0.5, 0.3, and 0.2. Nonnegative weights sum to one."
+    },
+    {
+      "time": 7.917,
+      "text": "The weighted score is 0.76. A passing hard gate retains this score."
+    },
+    {
+      "time": 11.958,
+      "text": "A failed essential criterion sets the hard gate to zero and the final reward to zero."
+    },
+    {
+      "time": 15.958,
+      "text": "Bounded scores and normalized weights do not guarantee a trustworthy judge or eliminate reward hacking."
+    }
+  ]
+}

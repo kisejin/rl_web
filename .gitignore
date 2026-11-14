@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.playwright/
+test-results/
+
+.vercel/
+.vercel
+__pycache__/
+animations/media/
+.venv-render/
+public/python-runtime/
+
+.env*
+!.env.example

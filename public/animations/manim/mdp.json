@@ -1,0 +1,24 @@
+{
+  "id": "mdp",
+  "title": "One action. Two possible futures.",
+  "duration": 16.458,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Fix one action in the current state. The transition model branches into two outcomes."
+    },
+    {
+      "time": 4.0,
+      "text": "Branch A has probability 0.7 and reward +10. Branch B has probability 0.3 and reward -5."
+    },
+    {
+      "time": 8.417,
+      "text": "An expectation includes both futures, not only the most likely one."
+    },
+    {
+      "time": 12.458,
+      "text": "The transition probabilities sum to one. A Markov state contains the information needed to predict the next step."
+    }
+  ]
+}

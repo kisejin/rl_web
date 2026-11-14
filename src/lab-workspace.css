@@ -1,0 +1,1647 @@
+body[data-docs-page="lab"] {
+  --lc-bg: #f0f0f0;
+  --lc-panel: #fff;
+  --lc-header: #fafafa;
+  --lc-field: #f5f5f5;
+  --lc-text: #262626;
+  --lc-muted: #808080;
+  --lc-border: #e5e5e5;
+  --lc-blue: #007aff;
+  --lc-green: #2c9f59;
+  --lc-selected: #eaf3ff;
+  --lc-line-active: #f8faff;
+  --lc-selection: #cde4ff;
+  --lc-syntax-keyword: #9450a4;
+  --lc-syntax-string: #2c8646;
+  --lc-syntax-number: #b16d0d;
+  --lc-syntax-function: #3162a0;
+  --doc-bg: var(--lc-panel);
+  --doc-text: var(--lc-text);
+  --doc-muted: var(--lc-muted);
+  --doc-line: var(--lc-border);
+  --doc-code: var(--lc-field);
+  --doc-code-text: var(--lc-text);
+  --doc-link: var(--lc-blue);
+  background: var(--lc-bg);
+  color: var(--lc-text);
+  overflow: hidden;
+}
+:root[data-doc-theme="dark"] body[data-docs-page="lab"] {
+  --lc-bg: #080808;
+  --lc-panel: #1b1b19;
+  --lc-header: #262625;
+  --lc-field: #272726;
+  --lc-text: #eff1f6;
+  --lc-muted: #a0a0a0;
+  --lc-border: #343432;
+  --lc-blue: #5bafff;
+  --lc-green: #48c77a;
+  --lc-selected: #243b50;
+  --lc-line-active: #2b2f35;
+  --lc-selection: #354f6b;
+  --lc-syntax-keyword: #c792ea;
+  --lc-syntax-string: #98c379;
+  --lc-syntax-number: #e5b47d;
+  --lc-syntax-function: #82aaff;
+}
+body[data-docs-page="lab"] .sidebar,
+body[data-docs-page="lab"] .topbar,
+body[data-docs-page="lab"] .top-tabs,
+body[data-docs-page="lab"] .doc-toc,
+body[data-docs-page="lab"] footer {
+  display: none !important;
+}
+body[data-docs-page="lab"] .main-shell {
+  margin-left: 0 !important;
+}
+body[data-docs-page="lab"] .page-wrap {
+  padding: 0;
+  max-width: none;
+  margin: 0;
+}
+body[data-docs-page="lab"] .docs-layout {
+  display: block;
+  padding: 0;
+  max-width: none;
+}
+body[data-docs-page="lab"] #main-content {
+  width: 100%;
+  max-width: none;
+}
+body[data-docs-page="lab"] #toast {
+  left: 50%;
+  font-size: 14px;
+  bottom: 20px;
+  background: #2b5039;
+  border-color: #3c8254;
+}
+.lc-page {
+  height: 100dvh;
+  min-width: 0;
+  background: var(--lc-bg);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--lc-text);
+}
+.lc-navbar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 15px;
+  border-bottom: 1px solid var(--lc-border);
+  background: var(--lc-panel);
+  position: relative;
+}
+.lc-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--lc-text);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.lc-logo > span {
+  color: #e99a16;
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: -1.5px;
+}
+.lc-logo > b {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.5px;
+}
+.lc-nav-divider {
+  height: 24px;
+  width: 1px;
+  background: var(--lc-border);
+}
+.lc-problem-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 8px 3px;
+  color: var(--lc-text);
+}
+.lc-problem-list svg {
+  width: 17px;
+  height: 17px;
+}
+.lc-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--lc-muted);
+  font-size: 12px;
+}
+.lc-nav-arrows > a,
+.lc-nav-arrows > span[aria-disabled] {
+  display: grid;
+  place-items: center;
+  height: 29px;
+  width: 25px;
+  border-radius: 5px;
+  font-size: 24px;
+  color: var(--lc-text);
+}
+.lc-nav-arrows > a:hover {
+  background: var(--lc-field);
+}
+.lc-nav-arrows > span[aria-disabled] {
+  opacity: 0.3;
+}
+.lc-run-actions {
+  display: flex;
+  gap: 6px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+}
+.lc-run-actions button {
+  height: 35px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.lc-run-actions button svg {
+  width: 15px;
+  height: 15px;
+}
+.lc-run-actions #run-code {
+  color: var(--lc-text);
+  background: var(--lc-field);
+  min-width: 79px;
+}
+.lc-run-actions #submit-code {
+  color: #fff;
+  background: #2c9f59;
+  min-width: 97px;
+}
+.lc-run-actions #run-code:hover {
+  filter: brightness(0.96);
+}
+.lc-run-actions #submit-code:hover {
+  background: #25874c;
+}
+.lc-run-actions button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.lc-utilities {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lc-course-link {
+  font-size: 13px;
+  color: var(--lc-muted);
+}
+.lc-course-link:hover {
+  color: var(--lc-blue);
+}
+.lc-profile {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: var(--lc-field);
+  border: 1px solid var(--lc-border);
+  font-size: 9px;
+  border-radius: 50%;
+  color: var(--lc-muted);
+}
+.lc-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  color: var(--lc-muted);
+  font-size: 19px;
+  padding: 4px;
+}
+.lc-icon-button:hover {
+  background: var(--lc-field);
+  color: var(--lc-text);
+}
+.lc-icon-button svg {
+  width: 15px;
+  height: 15px;
+}
+.lc-utilities .doc-theme-button {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 2px;
+  color: var(--lc-muted);
+}
+.lc-utilities .doc-theme-word {
+  display: none;
+}
+.lc-utilities .doc-theme-button > span:first-child {
+  font-size: 23px;
+}
+.lc-mobile-tabs {
+  display: none;
+}
+body[data-docs-page="lab"] .lc-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, var(--lc-problem-width, 36%)) 8px minmax(
+      0,
+      1fr
+    );
+  grid-template-rows: minmax(0, 1fr);
+  height: calc(100dvh - 56px);
+  padding: 6px;
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+body[data-docs-page="lab"] .problem-panel,
+body[data-docs-page="lab"] .editor-panel {
+  border: 1px solid var(--lc-border);
+  border-radius: 8px;
+  background: var(--lc-panel);
+  min-width: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+.lc-left-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  grid-column: 1;
+}
+.lc-panel-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--lc-header);
+  border-bottom: 1px solid var(--lc-border);
+  min-height: 43px;
+  flex-shrink: 0;
+  padding: 0 10px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.lc-panel-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 43px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: var(--lc-muted);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+.lc-panel-tabs button svg {
+  width: 14px;
+  height: 14px;
+}
+.lc-panel-tabs button[aria-selected="true"] {
+  color: var(--lc-text);
+  font-weight: 500;
+  border-bottom-color: var(--lc-blue);
+}
+.lc-panel-tabs button[data-lc-left="description"] svg {
+  color: var(--lc-blue);
+}
+.lc-panel-tabs button[data-lc-left="editorial"] svg {
+  color: #dba846;
+}
+.lc-panel-tabs button[data-lc-left="submissions"] svg {
+  color: var(--lc-muted);
+}
+.lc-panel-tabs button > span {
+  font-size: 10px;
+  background: var(--lc-field);
+  padding: 0 4px;
+  border-radius: 4px;
+  color: var(--lc-muted);
+}
+.lc-description[hidden],
+.lc-editorial[hidden],
+.lc-submissions[hidden],
+.lc-testcases[hidden],
+.lc-page .test-results[hidden] {
+  display: none !important;
+}
+body[data-docs-page="lab"] .problem-body {
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  min-height: 0;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--lc-border) transparent;
+}
+body[data-docs-page="lab"] .lab-page-title {
+  display: block;
+  margin: 0 0 22px;
+  padding: 0;
+}
+body[data-docs-page="lab"] .lab-page-title .lc-title-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 9px;
+}
+body[data-docs-page="lab"] .lab-page-title h1 {
+  font-size: 25px;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  margin: 0;
+  color: var(--lc-text);
+}
+.lc-title-line > span {
+  font-size: 25px;
+  font-weight: 650;
+  letter-spacing: -0.5px;
+  color: var(--lc-text);
+}
+body[data-docs-page="lab"] .lab-page-title > div.lc-problem-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 15px 0 0;
+}
+.lc-topic-pill {
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: var(--lc-field);
+  color: var(--lc-muted);
+}
+body[data-docs-page="lab"] .badge {
+  font-size: 12px;
+  border-radius: 10px;
+  padding: 3px 9px;
+}
+body[data-docs-page="lab"] .badge.easy {
+  background: #2cbb5d12;
+  color: #2c9f59;
+}
+body[data-docs-page="lab"] .badge.medium {
+  background: #ffb80014;
+  color: #b08717;
+}
+body[data-docs-page="lab"] .badge.hard {
+  background: #ff375f12;
+  color: #e85568;
+}
+body[data-docs-page="lab"] .badge.hybrid {
+  background: var(--lc-selected);
+  color: var(--lc-blue);
+  font-size: 11px;
+}
+.lc-page .lab-solved {
+  font-size: 11px;
+  margin-left: auto;
+  max-width: 190px;
+  color: var(--lc-green);
+  line-height: 1.7;
+}
+body[data-docs-page="lab"] .problem-description,
+body[data-docs-page="lab"] .problem-body > p:not(.problem-description) {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--lc-text);
+  margin-bottom: 18px;
+}
+body[data-docs-page="lab"] .problem-body h3 {
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--lc-text);
+  margin: 24px 0 12px;
+  letter-spacing: 0;
+}
+body[data-docs-page="lab"] .lab-equation,
+body[data-docs-page="lab"] .lab-example-math {
+  background: var(--lc-field);
+  border-color: var(--lc-border);
+  border-radius: 6px;
+  padding: 14px;
+  color: var(--doc-math);
+  margin: 18px 0 24px;
+}
+body[data-docs-page="lab"] .lab-equation .katex-display {
+  font-size: 1.04em;
+}
+.lc-page .example-code {
+  background: var(--lc-field);
+  border: 0;
+  border-left: 2px solid var(--lc-border);
+  border-radius: 0;
+  color: var(--lc-text);
+  font-size: 13px;
+  line-height: 1.9;
+  padding: 14px 16px;
+}
+.lc-page .hint {
+  border-color: var(--lc-border);
+}
+.lc-page .hint summary {
+  font-size: 14px;
+  color: var(--lc-muted);
+}
+.lc-page .hint p,
+.lc-page .hybrid-proof > p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--lc-text);
+}
+.lc-page .box-label {
+  color: var(--lc-blue);
+  font-size: 11px;
+}
+.lc-page .proof-rubric p,
+.lc-page .proof-rubric label {
+  font-size: 14px;
+  color: var(--lc-text);
+}
+.lc-page .proof-rubric summary,
+.lc-page .proof-rubric a {
+  color: var(--lc-blue);
+}
+.lc-page .hybrid-proof > textarea {
+  border-color: var(--lc-border);
+  background: var(--lc-field);
+  color: var(--lc-text);
+  font-size: 16px;
+  min-height: 165px;
+}
+.lc-page .hybrid-proof > small {
+  font-size: 12px;
+  color: var(--lc-muted);
+}
+.lc-description-footer {
+  margin: 28px 0 5px;
+  border-top: 1px solid var(--lc-border);
+  padding-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--lc-muted);
+}
+.lc-description-footer > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.lc-description-footer svg {
+  width: 13px;
+  height: 13px;
+}
+.lc-description-footer > a {
+  margin-left: auto;
+  color: var(--lc-blue);
+}
+.lc-editorial,
+.lc-submissions {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 25px;
+  scrollbar-width: thin;
+}
+.lc-eyebrow {
+  font-size: 10px;
+  color: var(--lc-muted);
+  letter-spacing: 1px;
+}
+.lc-editorial-heading h2,
+.lc-submissions-heading h2 {
+  font-size: 24px;
+  color: var(--lc-text);
+  margin: 12px 0 16px;
+}
+.lc-editorial-heading p,
+.lc-submissions-heading p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--lc-muted);
+}
+.lc-editorial-hint {
+  font-size: 16px;
+  color: var(--lc-text);
+  line-height: 1.9;
+  margin: 20px 0;
+}
+.lc-editorial-code {
+  background: var(--lc-field);
+  padding: 18px;
+  border-radius: 6px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow: auto;
+  color: var(--lc-text);
+  white-space: pre;
+}
+.lc-guide-link {
+  font-size: 14px;
+  color: var(--lc-blue);
+  display: inline-block;
+  margin-top: 20px;
+}
+body[data-docs-page="lab"] .lc-right-pane {
+  display: grid;
+  grid-column: 3;
+  grid-template-rows: minmax(180px, var(--lc-code-height, 60%)) 8px minmax(
+      140px,
+      1fr
+    );
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: hidden;
+  container-type: inline-size;
+}
+.lc-code-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--lc-border);
+  border-radius: 8px;
+  background: var(--lc-panel);
+}
+.lc-code-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 39px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--lc-border);
+  background: var(--lc-header);
+  font-size: 13px;
+}
+.lc-code-heading > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 500;
+}
+.lc-code-heading svg {
+  width: 15px;
+  height: 15px;
+  color: var(--lc-green);
+}
+.lc-save-state {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--lc-muted);
+}
+.lc-save-state i {
+  height: 5px;
+  width: 5px;
+  background: var(--lc-green);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.lc-save-state.saved i {
+  opacity: 1;
+}
+.lc-code-heading .lc-icon-button {
+  margin-left: 0;
+  min-width: 22px;
+  height: 25px;
+}
+.lc-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 39px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--lc-border);
+  flex-shrink: 0;
+}
+.lc-language {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--lc-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lc-language > span {
+  color: var(--lc-muted);
+  font-size: 10px;
+}
+.lc-font-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.lc-font-controls button {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 27px;
+  padding: 3px;
+  color: var(--lc-muted);
+  border-radius: 4px;
+  font-size: 14px;
+}
+.lc-font-controls button:hover {
+  background: var(--lc-field);
+  color: var(--lc-text);
+}
+.lc-font-controls svg {
+  width: 13px;
+  height: 13px;
+}
+body[data-docs-page="lab"] .code-area {
+  display: block;
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  background: var(--lc-panel);
+  width: 100%;
+  overflow: hidden;
+  font-size: var(--lc-editor-font);
+}
+.lc-page .cm-editor {
+  height: 100%;
+  color: var(--lc-text);
+  background: var(--lc-panel);
+}
+.lc-page .cm-editor.cm-focused {
+  outline: none;
+}
+.lc-page .cm-scroller {
+  overflow: auto;
+}
+.lc-page .cm-content {
+  min-height: 100%;
+  caret-color: var(--lc-text);
+}
+.lc-page .cm-gutterElement {
+  padding-right: 6px;
+  font-size: 12px;
+}
+.lc-page .cm-tooltip {
+  background: var(--lc-panel);
+  border-color: var(--lc-border);
+  color: var(--lc-text);
+}
+.lc-page .cm-panels {
+  background: var(--lc-header);
+  color: var(--lc-text);
+  border-color: var(--lc-border);
+}
+.lc-page .cm-search input {
+  background: var(--lc-field);
+  color: var(--lc-text);
+  border-color: var(--lc-border);
+}
+.lc-editor-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+  min-height: 26px;
+  padding: 4px 12px;
+  color: var(--lc-muted);
+  border-top: 1px solid var(--lc-border);
+  font-size: 10px;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+.lc-splitter {
+  touch-action: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+.lc-splitter-x {
+  grid-column: 2;
+  cursor: col-resize;
+}
+.lc-splitter-y {
+  cursor: row-resize;
+}
+.lc-splitter > span {
+  display: block;
+  background: var(--lc-muted);
+  opacity: 0.22;
+  border-radius: 3px;
+  transition: opacity 0.15s;
+}
+.lc-splitter-x > span {
+  width: 2px;
+  height: 32px;
+}
+.lc-splitter-y > span {
+  height: 2px;
+  width: 32px;
+}
+.lc-splitter:hover > span,
+.lc-splitter:focus-visible > span,
+.lc-resizing .lc-splitter > span {
+  background: var(--lc-blue);
+  opacity: 0.75;
+}
+.lc-splitter:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--lc-blue);
+}
+.lc-resizing {
+  user-select: none;
+  cursor: col-resize;
+}
+.lc-page .test-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--lc-border);
+  border-radius: 8px;
+  background: var(--lc-panel);
+}
+.lc-console-tabs {
+  min-height: 40px;
+  overflow: visible;
+}
+.lc-console-tabs button {
+  min-height: 40px;
+  padding-inline: 11px;
+}
+.lc-console-tabs svg {
+  color: var(--lc-green);
+}
+.lc-test-count {
+  font-size: 10px;
+  color: var(--lc-muted);
+  margin-left: auto;
+  padding-right: 5px;
+  white-space: nowrap;
+}
+.lc-testcases {
+  overflow: auto;
+  padding: 16px;
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+}
+.lc-case-tabs {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 17px;
+}
+.lc-case-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--lc-muted);
+  font-size: 12px;
+  padding: 7px 11px;
+  background: transparent;
+  border-radius: 6px;
+}
+.lc-case-tabs button.active {
+  color: var(--lc-text);
+  font-weight: 500;
+  background: var(--lc-field);
+}
+.lc-case-tabs button i {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--lc-green);
+}
+.lc-case-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.lc-case-fields label {
+  font-size: 12px;
+  color: var(--lc-text);
+  font-weight: 500;
+  min-width: 0;
+}
+.lc-case-fields label > span {
+  font-weight: 400;
+  color: var(--lc-muted);
+  font-size: 10px;
+  margin-left: 8px;
+}
+.lc-case-fields textarea {
+  display: block;
+  width: 100%;
+  resize: vertical;
+  min-height: 90px;
+  height: 95px;
+  background: var(--lc-field);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  margin-top: 8px;
+  padding: 12px;
+  font:
+    13px/1.6 "SFMono-Regular",
+    Consolas,
+    monospace;
+  color: var(--lc-text);
+}
+.lc-case-fields textarea:focus {
+  outline: 1px solid var(--lc-blue);
+}
+.lc-case-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+.lc-case-footer > span {
+  color: var(--lc-muted);
+  font-size: 10px;
+  line-height: 1.7;
+  max-width: 370px;
+}
+.lc-case-footer button {
+  background: var(--lc-field);
+  border: 1px solid var(--lc-border);
+  color: var(--lc-text);
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  min-height: 32px;
+}
+.lc-page .test-results {
+  overflow: auto;
+  max-height: none;
+  min-height: 0;
+  flex: 1;
+  padding: 18px;
+  scrollbar-width: thin;
+}
+.lc-page .test-empty {
+  min-height: 150px;
+  font-size: 14px;
+  color: var(--lc-muted);
+}
+.lc-page .test-empty small {
+  font-size: 11px;
+}
+.lc-page .test-summary {
+  padding: 0;
+  margin: 0 0 11px;
+  background: transparent;
+  border-radius: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 22px;
+  color: var(--lc-green);
+}
+.lc-page .test-summary.failed {
+  color: #ef5b5b;
+}
+.lc-page .test-summary strong {
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 500;
+}
+.lc-page .test-summary > span {
+  font-size: 12px;
+  color: var(--lc-muted);
+  width: auto;
+  margin: 0;
+}
+.lc-result-meta {
+  display: flex;
+  gap: 18px;
+  color: var(--lc-muted);
+  font-size: 10px;
+  margin-bottom: 14px;
+}
+.lc-page .test-case {
+  border: 0;
+  border-top: 1px solid var(--lc-border);
+  padding-block: 1px;
+}
+.lc-page .test-case summary {
+  color: var(--lc-text);
+  font-size: 12px;
+  padding: 10px 0;
+}
+.lc-page .test-case summary > span {
+  font-size: 11px;
+}
+.lc-page .test-case.pass summary > svg:first-child {
+  color: var(--lc-green);
+}
+.lc-page .test-case.fail summary > svg:first-child {
+  color: #ef5b5b;
+}
+.lc-page .test-case > div {
+  padding: 8px 0 12px;
+  font-size: 12px;
+  color: var(--lc-text);
+}
+.lc-page .test-case label {
+  font-size: 11px;
+  color: var(--lc-muted);
+  display: block;
+  margin: 8px 0;
+}
+.lc-page .test-case pre {
+  font:
+    12px/1.7 "SFMono-Regular",
+    Consolas,
+    monospace;
+  background: var(--lc-field);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 0 0 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.lc-page .test-case .lc-output-pass {
+  color: var(--lc-green);
+}
+.lc-page .test-case .lc-output-fail {
+  color: #ef5b5b;
+}
+.lc-page .test-error {
+  padding: 0;
+  color: #ef5b5b;
+}
+.lc-page .test-error > strong {
+  font-size: 22px;
+  font-weight: 500;
+}
+.lc-page .test-error pre {
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 12px;
+  background: #ef5b5b10;
+  border-radius: 5px;
+  color: #c64b4b;
+}
+.lc-page .proof-reminder {
+  font-size: 13px;
+  background: var(--lc-field);
+  color: var(--lc-muted);
+  padding: 12px;
+  line-height: 1.8;
+  border-radius: 5px;
+}
+.lc-page .proof-reminder button {
+  color: var(--lc-blue);
+  font-size: 13px;
+  display: block;
+  padding: 5px 0;
+  margin-top: 5px;
+}
+.lc-custom-outcome {
+  background: var(--lc-field);
+  border-radius: 6px;
+  padding: 13px;
+  margin-top: 14px;
+  font-size: 12px;
+}
+.lc-custom-outcome > strong {
+  color: var(--lc-green);
+}
+.lc-custom-outcome.failed > strong,
+.lc-custom-error {
+  color: #ef5b5b;
+}
+.lc-custom-outcome p {
+  margin: 8px 0;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.lc-custom-outcome code {
+  font-family: monospace;
+}
+.lc-custom-outcome small {
+  color: var(--lc-muted);
+  font-size: 10px;
+}
+.lc-custom-error {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.lc-submission {
+  border-bottom: 1px solid var(--lc-border);
+}
+.lc-submission summary {
+  display: grid;
+  grid-template-columns: 1fr 80px auto;
+  gap: 12px;
+  align-items: center;
+  list-style: none;
+  cursor: pointer;
+  padding: 16px 0;
+  font-size: 12px;
+}
+.lc-submission summary > time {
+  font-size: 10px;
+  color: var(--lc-muted);
+}
+.lc-verdict {
+  font-size: 14px;
+  font-weight: 500;
+}
+.lc-verdict.accepted {
+  color: var(--lc-green);
+}
+.lc-verdict.rejected {
+  color: #ef7c5b;
+}
+.lc-submission summary > span:nth-child(2) {
+  color: var(--lc-muted);
+  font-size: 11px;
+}
+.lc-submission > div > p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--lc-muted);
+}
+.lc-submission pre {
+  font:
+    12px/1.8 "SFMono-Regular",
+    Consolas,
+    monospace;
+  background: var(--lc-field);
+  border-radius: 6px;
+  padding: 14px;
+  overflow: auto;
+  color: var(--lc-text);
+}
+.lc-submission > div > button {
+  font-size: 12px;
+  color: var(--lc-blue);
+  border: 1px solid var(--lc-border);
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+}
+.lc-no-submissions {
+  padding: 65px 15px;
+  text-align: center;
+  color: var(--lc-muted);
+}
+.lc-no-submissions > span {
+  font-size: 40px;
+  font-weight: 300;
+}
+.lc-no-submissions h3 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 20px 0 12px;
+  color: var(--lc-text);
+}
+.lc-no-submissions p {
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 330px;
+  margin: auto;
+}
+#lc-problem-dialog {
+  position: fixed;
+  top: 65px;
+  left: 12px;
+  right: auto;
+  margin: 0;
+  width: min(470px, calc(100vw - 24px));
+  max-height: calc(100dvh - 90px);
+  padding: 0;
+  background: var(--lc-panel);
+  border: 1px solid var(--lc-border);
+  border-radius: 9px;
+  box-shadow: 0 15px 70px #0003;
+  color: var(--lc-text);
+}
+#lc-problem-dialog::backdrop {
+  background: #0004;
+  backdrop-filter: blur(1px);
+}
+.lc-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--lc-border);
+}
+.lc-list-heading h2 {
+  font-size: 20px;
+  color: var(--lc-text);
+  margin: 0;
+}
+.lc-list-heading button {
+  color: var(--lc-muted);
+  font-size: 25px;
+  line-height: 1;
+  padding: 0 3px;
+}
+#lc-list-search {
+  width: calc(100% - 40px);
+  background: var(--lc-field);
+  border: 1px solid var(--lc-border);
+  border-radius: 6px;
+  color: var(--lc-text);
+  padding: 11px;
+  margin: 16px 20px;
+  font-size: 14px;
+}
+.lc-problem-links {
+  max-height: 52vh;
+  overflow: auto;
+  padding: 0 8px;
+}
+.lc-problem-links a {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 58px 12px;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 12px;
+  color: var(--lc-text);
+  border-radius: 5px;
+  font-size: 12px;
+}
+.lc-problem-links a[hidden] {
+  display: none;
+}
+.lc-problem-links a:hover,
+.lc-problem-links a.active {
+  background: var(--lc-field);
+}
+.lc-problem-links strong {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+.lc-problem-links .badge {
+  justify-self: start;
+}
+.lc-list-solved {
+  color: var(--lc-green);
+}
+.lc-list-all {
+  display: block;
+  padding: 18px 20px;
+  border-top: 1px solid var(--lc-border);
+  font-size: 13px;
+  color: var(--lc-blue);
+}
+@container (max-width:450px) {
+  .lc-case-fields {
+    grid-template-columns: 1fr;
+  }
+  .lc-editor-status > span:last-child {
+    display: none;
+  }
+  .lc-save-state {
+    display: none;
+  }
+  .lc-code-heading .lc-icon-button {
+    margin-left: auto;
+  }
+  .lc-case-footer {
+    flex-wrap: wrap;
+  }
+  .lc-test-count {
+    display: none;
+  }
+}
+@media (max-width: 1100px) {
+  .lc-nav-arrows > span:not([aria-disabled]) {
+    display: none;
+  }
+  .lc-course-link {
+    display: none;
+  }
+  .lc-navbar {
+    gap: 12px;
+    padding-inline: 13px;
+  }
+  .lc-utilities {
+    gap: 8px;
+  }
+}
+@media (max-width: 760px) {
+  body[data-docs-page="lab"] {
+    overflow: auto;
+  }
+  .lc-navbar {
+    height: 52px;
+    gap: 9px;
+    padding: 0 12px;
+  }
+  .lc-logo b {
+    display: none;
+  }
+  .lc-logo > span {
+    font-size: 21px;
+  }
+  .lc-nav-divider {
+    display: none;
+  }
+  .lc-problem-list {
+    font-size: 12px;
+    gap: 5px;
+  }
+  .lc-problem-list svg {
+    width: 15px;
+    height: 15px;
+  }
+  .lc-nav-arrows {
+    display: none;
+  }
+  .lc-run-actions {
+    position: static;
+    transform: none;
+    margin-left: auto;
+    gap: 5px;
+  }
+  .lc-run-actions button {
+    padding: 0 10px;
+    font-size: 12px;
+    height: 33px;
+    gap: 5px;
+  }
+  .lc-run-actions #run-code {
+    min-width: 60px;
+  }
+  .lc-run-actions #submit-code {
+    min-width: 75px;
+  }
+  .lc-run-actions button svg {
+    width: 12px;
+    height: 12px;
+  }
+  .lc-utilities {
+    margin-left: 0;
+    gap: 3px;
+  }
+  .lc-profile,
+  .lc-utilities > [data-lc-fullscreen] {
+    display: none;
+  }
+  .lc-mobile-tabs {
+    display: flex;
+    height: 43px;
+    gap: 0;
+    background: var(--lc-panel);
+    border-bottom: 1px solid var(--lc-border);
+    padding-inline: 8px;
+  }
+  .lc-mobile-tabs button {
+    flex: 1;
+    font-size: 13px;
+    color: var(--lc-muted);
+    border-bottom: 2px solid transparent;
+  }
+  .lc-mobile-tabs button[aria-selected="true"] {
+    color: var(--lc-blue);
+    border-color: var(--lc-blue);
+    font-weight: 500;
+  }
+  body[data-docs-page="lab"] .lc-workspace {
+    display: block;
+    height: calc(100dvh - 95px);
+    padding: 6px;
+  }
+  .lc-left-pane {
+    height: 100%;
+  }
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="description"]
+    .lc-right-pane {
+    display: none;
+  }
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="code"]
+    .lc-left-pane,
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="tests"]
+    .lc-left-pane {
+    display: none;
+  }
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="code"]
+    .lc-right-pane,
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="tests"]
+    .lc-right-pane {
+    display: flex;
+    height: 100%;
+  }
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="code"]
+    .test-panel {
+    display: none;
+  }
+  body[data-docs-page="lab"]
+    .lc-workspace[data-mobile-panel="tests"]
+    .lc-code-pane {
+    display: none;
+  }
+  .lc-page .lc-splitter {
+    display: none;
+  }
+  .lc-code-pane,
+  .lc-page .test-panel {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+  }
+  .lc-panel-tabs {
+    padding-inline: 4px;
+  }
+  .lc-panel-tabs button {
+    font-size: 12px;
+    padding-inline: 10px;
+    gap: 5px;
+  }
+  .lc-panel-tabs button > span {
+    font-size: 9px;
+  }
+  body[data-docs-page="lab"] .problem-body {
+    padding: 21px 18px;
+  }
+  body[data-docs-page="lab"] .lab-page-title h1,
+  .lc-title-line > span {
+    font-size: 24px;
+  }
+  body[data-docs-page="lab"] .problem-description,
+  body[data-docs-page="lab"] .problem-body > p:not(.problem-description) {
+    font-size: 17px;
+    line-height: 1.9;
+  }
+  .lc-topic-pill {
+    font-size: 10px;
+  }
+  .lc-page .lab-solved {
+    max-width: none;
+    margin-left: 0;
+    font-size: 11px;
+  }
+  .lc-page .hint p,
+  .lc-page .hybrid-proof > p {
+    font-size: 17px;
+  }
+  .lc-editorial,
+  .lc-submissions {
+    padding: 22px 18px;
+  }
+  .lc-submission summary {
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+  .lc-submission summary time {
+    grid-column: 1/-1;
+  }
+  .lc-test-count {
+    display: none;
+  }
+  .lc-editor-status {
+    font-size: 10px;
+    gap: 8px;
+  }
+  .lc-editor-status > span:last-child {
+    display: none;
+  }
+  .lc-case-fields {
+    grid-template-columns: 1fr;
+  }
+  .lc-case-fields textarea {
+    min-height: 90px;
+    font-size: 14px;
+  }
+  .lc-case-fields label {
+    font-size: 13px;
+  }
+  .lc-case-tabs button {
+    font-size: 13px;
+  }
+  .lc-case-footer {
+    flex-wrap: wrap;
+  }
+  .lc-case-footer > span {
+    font-size: 11px;
+  }
+  .lc-case-footer button {
+    font-size: 12px;
+    min-height: 37px;
+  }
+  .lc-page .test-results {
+    padding: 18px;
+  }
+  .lc-page .test-summary > span {
+    font-size: 12px;
+  }
+  .lc-page .test-case pre {
+    font-size: 13px;
+  }
+  #lc-problem-dialog {
+    top: 58px;
+  }
+  .lc-problem-links a {
+    grid-template-columns: 17px minmax(0, 1fr) 51px 10px;
+    gap: 7px;
+    padding-inline: 8px;
+  }
+  .lc-problem-links strong {
+    font-size: 13px;
+  }
+  .lc-problem-links .badge {
+    font-size: 10px;
+  }
+  .lc-list-heading h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 370px) {
+  .lc-navbar {
+    padding-inline: 9px;
+    gap: 7px;
+  }
+  .lc-problem-list span {
+    display: none;
+  }
+  .lc-problem-list svg {
+    width: 18px;
+    height: 18px;
+  }
+  .lc-run-actions button {
+    padding-inline: 9px;
+  }
+  .lc-panel-tabs button {
+    padding-inline: 8px;
+  }
+  .lc-panel-tabs button svg {
+    width: 12px;
+    height: 12px;
+  }
+  .lc-case-tabs {
+    gap: 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lc-page * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+/* A lab opens as a full-page workspace; any pane can fill its work area. */
+.lc-utilities > [data-lc-fullscreen] {
+  width: auto;
+  display: flex;
+  gap: 6px;
+  padding-inline: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.lc-panel-tabs .lc-pane-expand {
+  margin-left: auto;
+  flex-shrink: 0;
+  min-width: 30px;
+  padding-inline: 6px;
+  font-size: 19px;
+}
+.lc-pane-expand:hover,
+.lc-pane-expand[aria-pressed="true"] {
+  color: var(--lc-blue);
+  background: var(--lc-selected);
+}
+body[data-docs-page="lab"]
+  .lc-page[data-focused-pane]:not([data-focused-pane=""])
+  .lc-workspace {
+  grid-template-columns: minmax(0, 1fr);
+}
+body[data-docs-page="lab"]
+  .lc-page[data-focused-pane]:not([data-focused-pane=""])
+  .lc-splitter {
+  display: none;
+}
+body[data-docs-page="lab"]
+  .lc-page[data-focused-pane="description"]
+  .lc-left-pane {
+  display: flex;
+  height: 100%;
+}
+body[data-docs-page="lab"]
+  .lc-page[data-focused-pane="description"]
+  .lc-right-pane,
+body[data-docs-page="lab"] .lc-page[data-focused-pane="code"] .lc-left-pane,
+body[data-docs-page="lab"] .lc-page[data-focused-pane="tests"] .lc-left-pane,
+body[data-docs-page="lab"] .lc-page[data-focused-pane="code"] .test-panel,
+body[data-docs-page="lab"] .lc-page[data-focused-pane="tests"] .lc-code-pane {
+  display: none;
+}
+body[data-docs-page="lab"] .lc-page[data-focused-pane="code"] .lc-right-pane,
+body[data-docs-page="lab"] .lc-page[data-focused-pane="tests"] .lc-right-pane {
+  display: grid;
+  grid-column: 1;
+  grid-template-rows: minmax(0, 1fr);
+  height: 100%;
+}
+body[data-docs-page="lab"] .lc-page[data-focused-pane="code"] .lc-code-pane,
+body[data-docs-page="lab"] .lc-page[data-focused-pane="tests"] .test-panel {
+  display: flex;
+  min-height: 0;
+  height: 100%;
+}
+@media (max-width: 1100px) {
+  .lc-fullscreen-label {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .lc-utilities > [data-lc-fullscreen] {
+    display: none;
+  }
+  .lc-panel-tabs [data-lc-submission-count] {
+    display: none;
+  }
+  .lc-panel-tabs .lc-pane-expand {
+    min-width: 26px;
+    padding-inline: 4px;
+  }
+}
+
+/* Keep the code canvas tall, with the console docked like the reference. */
+:root[data-doc-theme="dark"] .lc-navbar {
+  background: #080808;
+}
+:root[data-doc-theme="dark"] .lc-run-actions #submit-code {
+  background: #18331e;
+  color: #68d985;
+}
+.lc-console-tabs .lc-console-toggle {
+  margin-left: auto;
+  padding-inline: 8px;
+  flex-shrink: 0;
+}
+.lc-console-toggle[aria-expanded="false"] svg {
+  transform: rotate(180deg);
+}
+.lc-console-tabs .lc-pane-expand {
+  margin-left: 0;
+}
+@media (min-width: 761px) {
+  body[data-docs-page="lab"]
+    .lc-console-collapsed:not([data-focused-pane="code"]):not(
+      [data-focused-pane="tests"]
+    ):not([data-focused-pane="description"])
+    .lc-right-pane {
+    grid-template-rows: minmax(0, 1fr) 8px 43px;
+  }
+  body[data-docs-page="lab"] .lc-console-collapsed .lc-splitter-y {
+    visibility: hidden;
+  }
+  body[data-docs-page="lab"]
+    .lc-console-collapsed
+    .test-panel
+    > [role="tabpanel"] {
+    display: none;
+  }
+  .lc-console-collapsed
+    .lc-console-tabs
+    button[role="tab"][aria-selected="true"] {
+    border-bottom-color: transparent;
+  }
+}
+@media (max-width: 760px) {
+  .lc-console-toggle {
+    display: none !important;
+  }
+}

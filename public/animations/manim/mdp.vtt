@@ -1,0 +1,18 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Fix one action in the current state. The transition model branches into two outcomes.
+
+2
+00:00:04.000 --> 00:00:08.417
+Branch A has probability 0.7 and reward +10. Branch B has probability 0.3 and reward -5.
+
+3
+00:00:08.417 --> 00:00:12.458
+An expectation includes both futures, not only the most likely one.
+
+4
+00:00:12.458 --> 00:00:16.458
+The transition probabilities sum to one. A Markov state contains the information needed to predict the next step.
+

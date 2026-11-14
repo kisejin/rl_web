@@ -1,0 +1,32 @@
+{
+  "id": "kl",
+  "title": "Reward pulls. KL pulls back.",
+  "duration": 23.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "A reference policy gives both answers probability 0.5. The current policy gives A probability 0.8."
+    },
+    {
+      "time": 3.958,
+      "text": "KL averages weighted log-ratios. A contribution can be negative, while total KL is nonnegative."
+    },
+    {
+      "time": 7.917,
+      "text": "Optimize expected rubric reward minus beta times KL from the reference."
+    },
+    {
+      "time": 11.917,
+      "text": "With beta zero, an exact gradient step increases A's probability from 0.8 to about 0.846."
+    },
+    {
+      "time": 15.917,
+      "text": "Return to the same starting policy. With beta two, the KL penalty reverses the update direction."
+    },
+    {
+      "time": 19.875,
+      "text": "Both steps use exact gradients for a finite two-answer bandit. This illustrates regularization, not full LLM training."
+    }
+  ]
+}

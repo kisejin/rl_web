@@ -1,0 +1,22 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start with equal action probabilities, obtained by softmax of logits zero and zero.
+
+2
+00:00:03.958 --> 00:00:07.917
+Observe one sample: action A received reward 1, with baseline zero.
+
+3
+00:00:07.917 --> 00:00:11.917
+The REINFORCE score-function gradient is one-hot A minus the probability vector.
+
+4
+00:00:11.917 --> 00:00:15.917
+With learning rate one, logits become 0.5 and -0.5. Softmax now assigns A probability about 0.731.
+
+5
+00:00:15.917 --> 00:00:19.917
+This is a single sampled update. It increases the rewarded action's probability, not a guarantee of overall improvement.
+

@@ -1,0 +1,30 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Five states form a deterministic chain. Only entering the terminal state gives reward +10.
+
+2
+00:00:04.000 --> 00:00:07.958
+Initialize every value to zero. Terminal continuation value stays zero.
+
+3
+00:00:07.958 --> 00:00:11.958
+Sweep 1: all new values read the previous sweep. Reward information moves back one edge.
+
+4
+00:00:11.958 --> 00:00:15.958
+Sweep 2: all new values read the previous sweep. Reward information moves back one edge.
+
+5
+00:00:15.958 --> 00:00:19.917
+Sweep 3: all new values read the previous sweep. Reward information moves back one edge.
+
+6
+00:00:19.917 --> 00:00:23.875
+Sweep 4: all new values read the previous sweep. Reward information moves back one edge.
+
+7
+00:00:23.875 --> 00:00:27.833
+The start value is gamma cubed times ten: 7.29. This is synchronous dynamic programming.
+

@@ -1,0 +1,43 @@
+:root {
+  --ui-space: 4px;
+  --ui-control: 40px;
+  --ui-radius: 8px;
+  --ui-icon: 18px;
+}
+.ui-icon {
+  display: inline-block;
+  width: var(--ui-icon);
+  height: var(--ui-icon);
+  flex: 0 0 var(--ui-icon);
+  vertical-align: middle;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button svg,
+a svg,
+summary svg {
+  flex-shrink: 0;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--lc-blue, var(--doc-link, #2a6cdf));
+  outline-offset: 3px;
+}
+#toast:empty {
+  display: none;
+}
+#toast:not(.show) {
+  visibility: hidden;
+}

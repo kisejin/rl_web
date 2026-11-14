@@ -1,0 +1,198 @@
+/* Lab controls share a sizing system, without importing the documentation UI. */
+.lc-navbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding-inline: 16px;
+}
+.lc-nav-start {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.lc-nav-start > * {
+  flex-shrink: 0;
+}
+.lc-run-actions {
+  position: static;
+  transform: none;
+  margin: 0;
+  align-items: center;
+}
+.lc-utilities {
+  justify-self: end;
+  margin: 0;
+  align-items: center;
+}
+.lc-run-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  line-height: 1.25;
+  gap: 7px;
+  border-radius: 7px;
+}
+.lc-icon-button,
+.lc-utilities .doc-theme-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  line-height: 1;
+  border-radius: 6px;
+}
+.lc-utilities .doc-theme-button > .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+.lc-nav-arrows {
+  align-items: center;
+}
+.lc-nav-arrows > a,
+.lc-nav-arrows > span[aria-disabled] {
+  width: 30px;
+  height: 32px;
+}
+.lc-nav-arrows .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+.lc-font-controls {
+  align-items: center;
+}
+.lc-font-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+}
+.lc-font-controls .ui-icon {
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+}
+.lc-panel-tabs {
+  align-items: center;
+}
+.lc-panel-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  line-height: 1.3;
+}
+.lc-panel-tabs .lc-pane-expand,
+.lc-panel-tabs .lc-console-toggle {
+  width: 30px;
+  padding-inline: 5px;
+}
+.lc-description-footer a,
+.lc-guide-link,
+.lc-list-all,
+.proof-rubric a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1.5;
+}
+.lc-description-footer .ui-icon,
+.lc-guide-link .ui-icon,
+.lc-list-all .ui-icon,
+.proof-rubric a .ui-icon {
+  width: 15px;
+  height: 15px;
+  flex-basis: 15px;
+}
+.lc-case-footer {
+  align-items: center;
+}
+.lc-case-footer button {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+}
+.lc-topic-pill,
+.lc-problem-tags .badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  line-height: 1.3;
+}
+.lc-language {
+  line-height: 1.4;
+}
+.lc-page .lc-no-submissions > span {
+  display: none;
+}
+#lc-problem-dialog .lc-list-all {
+  display: flex;
+}
+@media (max-width: 1100px) {
+  .lc-navbar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+  .lc-nav-start {
+    gap: 8px;
+  }
+}
+@media (max-width: 760px) {
+  .lc-navbar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px;
+    padding-inline: 10px;
+  }
+  .lc-nav-start {
+    gap: 6px;
+  }
+  .lc-run-actions {
+    margin: 0;
+  }
+  .lc-run-actions button {
+    min-height: 36px;
+    padding-inline: 9px;
+  }
+  .lc-utilities {
+    gap: 1px;
+  }
+  .lc-utilities .lc-icon-button,
+  .lc-utilities .doc-theme-button {
+    min-width: 30px;
+    min-height: 34px;
+    padding: 5px;
+  }
+  .lc-panel-tabs button {
+    padding-inline: 8px;
+    gap: 5px;
+    font-size: 12px;
+  }
+  .lc-panel-tabs .lc-pane-expand {
+    min-width: 26px;
+    width: 26px;
+    padding-inline: 4px;
+  }
+  .lc-panel-tabs {
+    padding-inline: 4px;
+  }
+  .lc-font-controls button {
+    width: 32px;
+    height: 32px;
+  }
+  .lc-editor-toolbar {
+    padding-inline: 10px;
+  }
+}
+@media (max-width: 370px) {
+  .lc-problem-list {
+    width: 28px;
+    min-height: 34px;
+    justify-content: center;
+  }
+}

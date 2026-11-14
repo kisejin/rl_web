@@ -1,0 +1,36 @@
+{
+  "id": "dp",
+  "title": "Let value travel backward",
+  "duration": 27.833,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Five states form a deterministic chain. Only entering the terminal state gives reward +10."
+    },
+    {
+      "time": 4.0,
+      "text": "Initialize every value to zero. Terminal continuation value stays zero."
+    },
+    {
+      "time": 7.958,
+      "text": "Sweep 1: all new values read the previous sweep. Reward information moves back one edge."
+    },
+    {
+      "time": 11.958,
+      "text": "Sweep 2: all new values read the previous sweep. Reward information moves back one edge."
+    },
+    {
+      "time": 15.958,
+      "text": "Sweep 3: all new values read the previous sweep. Reward information moves back one edge."
+    },
+    {
+      "time": 19.917,
+      "text": "Sweep 4: all new values read the previous sweep. Reward information moves back one edge."
+    },
+    {
+      "time": 23.875,
+      "text": "The start value is gamma cubed times ten: 7.29. This is synchronous dynamic programming."
+    }
+  ]
+}

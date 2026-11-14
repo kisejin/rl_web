@@ -1,0 +1,504 @@
+/* Reading layout: consistent rhythm and controls, inspired by shadcn and Exercism. */
+body:not([data-docs-page="lab"]) .btn,
+body:not([data-docs-page="lab"]) .text-btn,
+body:not([data-docs-page="lab"]) .back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+.btn,
+.text-btn {
+  min-height: 44px;
+  border-radius: var(--ui-radius);
+}
+.btn {
+  padding: 11px 18px;
+}
+.btn.small {
+  min-height: 40px;
+  padding: 9px 14px;
+}
+.btn svg,
+.text-btn svg,
+.back-link svg {
+  width: 18px;
+  height: 18px;
+}
+.back-link {
+  min-height: 32px;
+  justify-content: flex-start;
+}
+.hero-actions,
+.lesson-next,
+.section-heading {
+  align-items: center;
+}
+.hero-actions {
+  gap: 12px;
+}
+.hero-actions .text-btn {
+  padding: 10px 14px;
+}
+.hero-actions .text-btn:hover {
+  background: var(--doc-selected);
+  text-decoration: none;
+}
+.topbar {
+  align-items: center;
+}
+.topbar .icon-btn,
+.doc-header-search,
+.doc-toc-toggle,
+.doc-theme-button {
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 8px;
+  border-radius: var(--ui-radius);
+  line-height: 1;
+}
+.doc-theme-button > .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+.doc-theme-word {
+  line-height: 1.25;
+}
+.doc-search-launch {
+  min-height: 40px;
+  border-radius: var(--ui-radius);
+}
+.doc-quick-nav a,
+.lesson-link {
+  min-height: 40px;
+  align-items: center;
+}
+.side-home,
+.doc-quick-nav a,
+.lesson-link {
+  line-height: 1.4;
+}
+.lesson-num,
+.lab-number {
+  font-variant-numeric: tabular-nums;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  line-height: 1.3;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+.lesson-meta,
+.path-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+.lesson-meta > span,
+.path-summary > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.4;
+}
+.lesson-meta svg,
+.path-summary svg {
+  width: 16px;
+  height: 16px;
+}
+.chapter-card {
+  padding: 24px 12px;
+  border-radius: 8px;
+}
+.chapter-top {
+  align-self: start;
+  padding-top: 3px;
+}
+.chapter-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+}
+.chapter-footer > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+.chapter-footer > span:first-child svg {
+  width: 14px;
+  height: 14px;
+}
+.round-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  background: var(--doc-selected);
+  border-radius: 50%;
+}
+.round-arrow svg {
+  width: 17px;
+  height: 17px;
+}
+.chapter-icon {
+  border-radius: 8px;
+}
+.lab-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 0 8px 8px 0;
+}
+.lab-info > svg {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+}
+.lab-info > p {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.lab-info > span {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.lab-toolbar {
+  align-items: center;
+  gap: 16px;
+}
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.filter-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 12px;
+  line-height: 1.4;
+  border-radius: 7px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: var(--ui-radius);
+}
+.search-box svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+}
+.search-box input {
+  min-width: 0;
+  width: 100%;
+  line-height: 1.4;
+  padding: 0;
+}
+.lab-table {
+  border-radius: 10px;
+}
+.lab-table-head,
+.lab-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(112px, 0.48fr) 84px 60px 20px;
+  align-items: center;
+  gap: 16px;
+  padding-inline: 20px;
+}
+.lab-table-head {
+  min-height: 48px;
+}
+.lab-table-head > span:first-child {
+  padding-left: 40px;
+}
+.lab-row {
+  padding-block: 20px;
+}
+.lab-row-title {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  min-width: 0;
+}
+.lab-number {
+  display: grid;
+  place-items: center;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  line-height: 1;
+}
+.lab-row-title > span:last-child {
+  min-width: 0;
+}
+.lab-row b {
+  display: block;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.lab-row small {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.6;
+}
+.lab-row > svg {
+  width: 18px;
+  height: 18px;
+  justify-self: end;
+}
+.lab-time {
+  white-space: nowrap;
+}
+.notebook-stats {
+  align-items: center;
+}
+.aside-note > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+.quiz-option {
+  align-items: flex-start;
+  text-align: left;
+  gap: 12px;
+  line-height: 1.7;
+}
+.quiz-option > span {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  line-height: 1;
+  margin-top: 0;
+}
+.proof-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  line-height: 1.7;
+}
+.proof-details summary svg {
+  width: 18px;
+  height: 18px;
+}
+.film-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.film-tabs button,
+.visual-transport button,
+.proof-walk-controls button,
+.manim-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  line-height: 1.4;
+  border-radius: 7px;
+}
+.film-tabs button {
+  padding: 10px 12px;
+}
+.film-tabs button .ui-icon,
+.visual-transport .ui-icon {
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+}
+.visual-transport {
+  align-items: center;
+  gap: 8px;
+}
+.visual-transport button {
+  padding: 9px 12px;
+}
+.visual-transport [data-visual-back],
+.visual-transport [data-visual-next] {
+  min-width: 40px;
+  padding-inline: 10px;
+}
+.proof-walk-controls {
+  align-items: center;
+  gap: 8px;
+}
+.proof-walk-controls > span {
+  flex: 1 1 180px;
+}
+.doc-search-results a {
+  align-items: center;
+}
+.doc-search-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+footer {
+  align-items: center;
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .topbar {
+    gap: 8px;
+    padding-inline: 12px;
+  }
+  .breadcrumb {
+    flex: 1;
+    min-width: 0;
+  }
+  .top-right {
+    gap: 2px;
+  }
+}
+@media (max-width: 680px) {
+  .lab-table-head,
+  .lab-row {
+    grid-template-columns: minmax(0, 1fr) 64px 18px;
+    gap: 10px;
+    padding-inline: 12px;
+  }
+  .lab-table-head > span:nth-child(2),
+  .lab-table-head > span:nth-child(4),
+  .lab-row > .lab-topic,
+  .lab-row > .lab-time {
+    display: none;
+  }
+  .lab-row-title {
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 8px;
+  }
+  .lab-table-head > span:first-child {
+    padding-left: 32px;
+  }
+  .lab-number {
+    min-width: 24px;
+  }
+  .lab-row b {
+    font-size: 15px;
+  }
+  .lab-row small {
+    font-size: 12px;
+  }
+  .lab-info {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+  .lab-info > svg {
+    margin-top: 3px;
+  }
+  .lab-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-box {
+    width: 100%;
+  }
+  .filter-tabs button {
+    padding-inline: 10px;
+  }
+}
+@media (max-width: 560px) {
+  .hero-actions,
+  .lesson-next {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .hero-actions .btn,
+  .hero-actions .text-btn,
+  .lesson-next .btn,
+  .lesson-next .text-btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .chapter-card {
+    padding: 20px 0;
+    column-gap: 12px;
+  }
+  .film-tabs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .film-tabs button {
+    justify-content: flex-start;
+    padding-inline: 12px;
+  }
+  .visual-transport {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px 40px minmax(0, 1fr);
+    gap: 6px;
+  }
+  .visual-transport button {
+    padding-inline: 8px;
+    min-width: 0;
+    font-size: 13px;
+  }
+}
+.values-toggle {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px;
+  line-height: 1.4;
+  text-align: left;
+}
+.values-toggle svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+.film-utilities {
+  align-items: center;
+  gap: 12px;
+}
+.film-utilities > button,
+.film-utilities select {
+  min-height: 40px;
+  border-radius: 7px;
+}
+.film-utilities > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  line-height: 1.4;
+}
+.film-utilities > button .ui-icon {
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+}

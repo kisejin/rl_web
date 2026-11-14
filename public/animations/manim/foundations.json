@@ -1,0 +1,24 @@
+{
+  "id": "foundations",
+  "title": "A reward now. A reward later.",
+  "duration": 16.0,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "An episode produces rewards 1, 2, 3, and 4. Return combines their consequences."
+    },
+    {
+      "time": 3.958,
+      "text": "At gamma = 0.8, each later reward receives another power of the discount."
+    },
+    {
+      "time": 7.958,
+      "text": "The discounted contributions are 1, 1.6, 1.92, and 2.048. Their sum is 6.568."
+    },
+    {
+      "time": 12.0,
+      "text": "Reward is immediate feedback. Return is the discounted sum across time."
+    }
+  ]
+}

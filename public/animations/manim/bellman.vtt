@@ -1,0 +1,18 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.000
+Consider one state with reward 1 and a deterministic self-loop. Set gamma to 0.75.
+
+2
+00:00:04.000 --> 00:00:11.500
+Start from guesses zero and twelve. Each Bellman backup multiplies their separation by gamma.
+
+3
+00:00:11.500 --> 00:00:15.500
+Both estimates approach four. The distance contracts even though their initial guesses differ.
+
+4
+00:00:15.500 --> 00:00:19.458
+For a finite discounted MDP, the same contraction inequality gives a unique value function and convergence.
+

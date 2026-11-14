@@ -1,0 +1,24 @@
+{
+  "id": "probability",
+  "title": "Expectation is a moving balance point",
+  "duration": 17.042,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "There are two outcomes: zero or ten. Probability determines their weighted average."
+    },
+    {
+      "time": 4.5,
+      "text": "At p = 0.25 the expectation is 2.5. It need not be an outcome you can observe."
+    },
+    {
+      "time": 8.5,
+      "text": "Increase p to 0.75. Mass moves to the ten-point outcome and the balance point moves to 7.5."
+    },
+    {
+      "time": 12.542,
+      "text": "At equal probabilities, the expectation is 5. The probabilities always sum to one."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "bellman",
+  "title": "Two guesses. One fixed point.",
+  "duration": 19.458,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Consider one state with reward 1 and a deterministic self-loop. Set gamma to 0.75."
+    },
+    {
+      "time": 4.0,
+      "text": "Start from guesses zero and twelve. Each Bellman backup multiplies their separation by gamma."
+    },
+    {
+      "time": 11.5,
+      "text": "Both estimates approach four. The distance contracts even though their initial guesses differ."
+    },
+    {
+      "time": 15.5,
+      "text": "For a finite discounted MDP, the same contraction inequality gives a unique value function and convergence."
+    }
+  ]
+}

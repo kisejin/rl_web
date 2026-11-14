@@ -1,0 +1,18 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.500
+There are two outcomes: zero or ten. Probability determines their weighted average.
+
+2
+00:00:04.500 --> 00:00:08.500
+At p = 0.25 the expectation is 2.5. It need not be an outcome you can observe.
+
+3
+00:00:08.500 --> 00:00:12.542
+Increase p to 0.75. Mass moves to the ten-point outcome and the balance point moves to 7.5.
+
+4
+00:00:12.542 --> 00:00:17.042
+At equal probabilities, the expectation is 5. The probabilities always sum to one.
+

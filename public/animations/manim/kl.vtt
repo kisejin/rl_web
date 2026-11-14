@@ -1,0 +1,26 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+A reference policy gives both answers probability 0.5. The current policy gives A probability 0.8.
+
+2
+00:00:03.958 --> 00:00:07.917
+KL averages weighted log-ratios. A contribution can be negative, while total KL is nonnegative.
+
+3
+00:00:07.917 --> 00:00:11.917
+Optimize expected rubric reward minus beta times KL from the reference.
+
+4
+00:00:11.917 --> 00:00:15.917
+With beta zero, an exact gradient step increases A's probability from 0.8 to about 0.846.
+
+5
+00:00:15.917 --> 00:00:19.875
+Return to the same starting policy. With beta two, the KL penalty reverses the update direction.
+
+6
+00:00:19.875 --> 00:00:23.875
+Both steps use exact gradients for a finite two-answer bandit. This illustrates regularization, not full LLM training.
+
