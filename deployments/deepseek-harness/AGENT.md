@@ -39,7 +39,7 @@ Only actual tool execution generates tool activity events. External content, att
 ## Attachments
 
 - Up to three files per request, at most 10 MB per source file.
-- PNG/JPEG/WebP images are normalized in the browser to bounded JPEG images (up to 1280 pixels on the long edge and 500,000 data-URL characters). The actual pixels reach the selected provider through native `image_url` input; no fabricated OCR description replaces them. Vision support depends on the model/gateway. Gemini Flash is a useful starting model.
+- PNG/JPEG/WebP images are normalized in the browser to bounded JPEG images (up to 1280 pixels on the long edge and 500,000 data-URL characters). The actual pixels reach the selected provider through native `image_url` input; no fabricated OCR description replaces them. Vision support depends on the model/gateway. Qwen 3.8 Flash has been verified with native images on this gateway; other model/gateway combinations may reject them.
 - Text PDFs are processed locally with a bundled PDF.js worker. Up to 20 pages / 24,000 characters are extracted with page markers. Scanned PDFs without selectable text need a page screenshot attached as an image. Encrypted/unreadable PDFs report a file error.
 - `.py`, `.txt`, `.md`, `.json`, `.csv` and `.ipynb` are read as text. Files over the text limit are visibly marked as excerpts. The aggregate text limit is 32,000 characters.
 - Binary file data is not saved to conversation history. History retains filenames and answer text. Files are sent only when the learner submits the question. No uploaded code or skill is executed.

@@ -230,7 +230,7 @@ export function mountTutorWorkspace(
     upload.querySelector("[data-upload-status]").textContent = processing
       ? "Reading files…"
       : files.some((f) => f.kind === "image")
-        ? "Image support depends on model"
+        ? "Images: Qwen 3.8 Flash tested"
         : "Images · PDF · code";
     attach.disabled = frozen || processing;
     picker.disabled = frozen || processing;

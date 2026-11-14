@@ -493,6 +493,12 @@ export function mountTutor({
         : e.message === "Failed to fetch"
           ? "Could not connect. Check your connection and retry."
           : e.message || "The tutor is unavailable. Please retry.";
+      if (
+        !request.signal.aborted &&
+        requestAttachments.some((file) => file.kind === "image")
+      )
+        error +=
+          " For images, try Qwen 3.8 Flash, which has been tested with this gateway.";
       if (streamedText.trim()) {
         commitAnswer(true);
         error += " The partial answer has been kept.";

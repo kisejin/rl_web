@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 55 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 53 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 55 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 54 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 

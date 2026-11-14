@@ -196,13 +196,11 @@ test("unsupported files are rejected without sending them or losing the typed qu
     name: "Your question about this lesson",
   });
   await input.fill("Keep my question.");
-  await page
-    .getByLabel("Choose attachments")
-    .setInputFiles({
-      name: "program.exe",
-      mimeType: "application/octet-stream",
-      buffer: Buffer.from("not an allowed file"),
-    });
+  await page.getByLabel("Choose attachments").setInputFiles({
+    name: "program.exe",
+    mimeType: "application/octet-stream",
+    buffer: Buffer.from("not an allowed file"),
+  });
   await expect(page.locator(".tutor-error")).toContainText("Use PNG/JPEG");
   await expect(input).toHaveValue("Keep my question.");
   expect(calls).toBe(0);
@@ -243,4 +241,39 @@ test("agent workspace and dialogs fit a 320px mobile lab and support expansion",
     .boundingBox();
   expect(modal.x).toBeGreaterThanOrEqual(0);
   expect(modal.width).toBeLessThanOrEqual(320);
+});
+
+test("a model image rejection recommends the verified model and retains the question and attachment", async ({
+  page,
+}) => {
+  await page.route("**/api/tutor", (route) =>
+    route.fulfill({
+      status: 502,
+      json: { error: "The model could not process the request." },
+    }),
+  );
+  await page.goto("/#lesson/bellman");
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  const png = await page.evaluate(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 20;
+    canvas.height = 20;
+    return canvas.toDataURL("image/png").split(",")[1];
+  });
+  await page
+    .getByLabel("Choose attachments")
+    .setInputFiles({
+      name: "plot.png",
+      mimeType: "image/png",
+      buffer: Buffer.from(png, "base64"),
+    });
+  await expect(page.locator(".tutor-file-chip")).toHaveCount(1);
+  const input = page.getByRole("textbox", {
+    name: "Your question about this lesson",
+  });
+  await input.fill("Read the image.");
+  await page.getByRole("button", { name: "Send question" }).click();
+  await expect(page.locator(".tutor-error")).toContainText("Qwen 3.8 Flash");
+  await expect(input).toHaveValue("Read the image.");
+  await expect(page.locator(".tutor-file-chip")).toHaveCount(1);
 });
