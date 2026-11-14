@@ -426,7 +426,7 @@ test("stopping a streamed answer preserves the received text as a partial answer
     }),
   );
   await expect(page.locator(".tutor-assistant")).toContainText(
-    "useful partial",
+    "Keep this useful partial explanation.",
   );
   await page.getByRole("button", { name: "Stop", exact: true }).click();
   await expect(page.locator(".tutor-error")).toContainText(
@@ -469,4 +469,73 @@ test("an interrupted stream retains partial output and reports that it did not f
   await expect(
     page.getByRole("combobox", { name: "Tutor model", exact: true }),
   ).toBeEnabled();
+});
+
+test("a batched completed response still reveals progressively before saving", async ({
+  page,
+}) => {
+  await installTutorStream(page);
+  await page.goto("/#lesson/bellman");
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await page
+    .getByRole("textbox", { name: "Your question about this lesson" })
+    .fill("Explain the concept.");
+  await page.getByRole("button", { name: "Send question" }).click();
+  const text = Array.from({ length: 300 }, (_, i) => `word${i}`).join(" ");
+  await page.evaluate((text) => {
+    window.__tutorEmit("delta", { text });
+    window.__tutorEmit("done", { truncated: false });
+    window.__tutorEnd();
+  }, text);
+  await expect(page.locator(".tutor-answer-status")).toHaveText("Displaying…");
+  const prefix = await page
+    .locator(".tutor-assistant .tutor-answer")
+    .innerText();
+  expect(prefix.length).toBeGreaterThan(0);
+  expect(prefix.length).toBeLessThan(text.length);
+  expect(text.startsWith(prefix.trimEnd())).toBeTruthy();
+  await expect(page.locator(".tutor-assistant")).not.toHaveClass(
+    /is-streaming/,
+  );
+  await expect(page.locator(".tutor-assistant .tutor-answer")).toHaveText(text);
+  await page.reload();
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await expect(page.locator(".tutor-assistant .tutor-answer")).toHaveText(text);
+});
+
+test("Stop during queued display keeps the visible prefix without dumping the backlog", async ({
+  page,
+}) => {
+  await installTutorStream(page);
+  await page.goto("/#lesson/bellman");
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await page
+    .getByRole("textbox", { name: "Your question about this lesson" })
+    .fill("Explain the proof.");
+  await page.getByRole("button", { name: "Send question" }).click();
+  await page.evaluate(() => {
+    window.__tutorEmit("delta", { text: "queued ".repeat(1000) });
+    window.__tutorEmit("done", { truncated: false });
+    window.__tutorEnd();
+  });
+  await expect(page.locator(".tutor-answer-status")).toHaveText("Displaying…");
+  const shown = await page.evaluate(() => {
+    const text = document
+      .querySelector(".tutor-assistant .tutor-answer")
+      .textContent.trim();
+    document.querySelector("[data-tutor-stop]").click();
+    return text;
+  });
+  expect(shown.length).toBeLessThan(7000);
+  await expect(page.locator(".tutor-answer-status")).toHaveText(
+    "Partial answer",
+  );
+  await expect(page.locator(".tutor-assistant .tutor-answer")).toHaveText(
+    shown,
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await expect(page.locator(".tutor-assistant .tutor-answer")).toHaveText(
+    shown,
+  );
 });

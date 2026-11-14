@@ -1,3 +1,4 @@
+import { createTextReveal } from "./text-reveal.js";
 import { readTutorResponse } from "./tutor-response.js";
 import {
   DEFAULT_TUTOR_MODEL,
@@ -104,7 +105,8 @@ export function mountTutor({
     streamedText = "",
     streamModel = null,
     draftView = null,
-    renderTimer = null,
+    reveal = null,
+    networkFinished = false,
     answerSaved = false;
   let context =
     tutorContext({ lessonId, labId, sectionKey }) ||
@@ -121,8 +123,8 @@ export function mountTutor({
   const threadKey = () =>
     `rl-atlas-tutor:${context.lessonId}:${context.labId || ""}:${context.sectionKey}`;
   function load() {
-    clearTimeout(renderTimer);
-    renderTimer = null;
+    reveal?.cancel();
+    reveal = null;
     streamedText = "";
     draftView = null;
     messages = [];
@@ -185,7 +187,11 @@ export function mountTutor({
     if (message.incomplete || streaming) {
       const status = document.createElement("span");
       status.className = "tutor-answer-status";
-      status.textContent = streaming ? "Generating…" : "Partial answer";
+      status.textContent = streaming
+        ? networkFinished
+          ? "Displaying…"
+          : "Generating…"
+        : "Partial answer";
       bubble.append(status);
     }
     const content = document.createElement("div");
@@ -234,18 +240,11 @@ export function mountTutor({
     answerSaved = true;
     save();
   }
-  function paintPartial() {
-    renderTimer = null;
-    if (closed || !draftView) return;
-    const follow = followsAnswer();
-    renderTutorAnswer(draftView.content, streamedText);
-    if (follow) log.scrollTop = log.scrollHeight;
-  }
-  function receiveDelta(text) {
+  function receiveShownText(text) {
     if (closed) return;
-    streamedText += text;
+    streamedText = text;
+    const follow = followsAnswer();
     if (!draftView) {
-      const follow = followsAnswer();
       $(".tutor-thinking")?.remove();
       draftView = appendMessage(
         {
@@ -255,8 +254,8 @@ export function mountTutor({
         },
         { streaming: true },
       );
-      if (follow) log.scrollTop = log.scrollHeight;
-    } else if (!renderTimer) renderTimer = setTimeout(paintPartial, 50);
+    } else renderTutorAnswer(draftView.content, streamedText);
+    if (follow) log.scrollTop = log.scrollHeight;
   }
   function draw({ follow = true } = {}) {
     const previousTop = log.scrollTop;
@@ -361,6 +360,7 @@ export function mountTutor({
     if (busy || !question.trim() || question.length > 2000) return;
     const requestModel = selectedModel;
     streamedText = "";
+    networkFinished = false;
     streamModel = requestModel;
     answerSaved = false;
     draftView = null;
@@ -371,6 +371,11 @@ export function mountTutor({
     count();
     draw();
     request = new AbortController();
+    reveal = createTextReveal({
+      onUpdate: receiveShownText,
+      signal: request.signal,
+      immediate: matchMedia("(prefers-reduced-motion: reduce)").matches,
+    });
     const timeout = setTimeout(() => request?.abort("timeout"), 55000);
     let history = [
       ...messages.slice(-10),
@@ -405,14 +410,25 @@ export function mountTutor({
         onMeta: (meta) => {
           if (findTutorModel(meta.model)) streamModel = meta.model;
         },
-        onDelta: receiveDelta,
+        onDelta: (text) => reveal.push(text),
       });
+      networkFinished = true;
+      if (draftView)
+        draftView.bubble.querySelector(".tutor-answer-status").textContent =
+          "Displaying…";
+      await reveal.finish();
       if (closed) return;
       commitAnswer();
       if (result.truncated)
         error =
           "The answer reached its length limit. Ask the tutor to continue.";
     } catch (e) {
+      if (closed) return;
+      if (!request.signal.aborted) {
+        try {
+          await reveal.finish();
+        } catch {}
+      }
       if (closed) return;
       error = request.signal.aborted
         ? request.signal.reason === "timeout"
@@ -429,8 +445,8 @@ export function mountTutor({
       count();
     } finally {
       clearTimeout(timeout);
-      clearTimeout(renderTimer);
-      renderTimer = null;
+      reveal?.cancel();
+      reveal = null;
       if (!closed) {
         busy = false;
         request = null;
@@ -564,7 +580,7 @@ export function mountTutor({
   return () => {
     if (busy) commitAnswer(true);
     closed = true;
-    clearTimeout(renderTimer);
+    reveal?.cancel();
     request?.abort();
     events.abort();
     host.remove();

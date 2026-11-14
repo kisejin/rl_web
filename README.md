@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 44 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 47 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 48 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 49 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -138,10 +138,10 @@ The preference is saved locally under `rl-atlas-tutor-model` and is shared betwe
 
 ### Streaming tutor responses
 
-The chatbot sends `stream: true` to the same-origin tutor API. The server requests OpenAI-compatible SSE streaming and relays answer-text deltas as they arrive, rather than waiting for the full completion or simulating typing afterward. The browser incrementally decodes UTF-8 and SSE frames, updates the visible answer at most every 50 ms, and safely re-renders Markdown and complete LaTeX expressions while generation continues. Scrolling up does not force the learner back to the latest token.
+The chatbot sends `stream: true` to the same-origin tutor API. The server requests OpenAI-compatible SSE streaming and relays answer-text deltas as they arrive, without waiting for the full completion. The browser incrementally decodes UTF-8 and SSE frames and immediately starts revealing incoming words on a 24 ms presentation queue. Large batches catch up adaptively; a Displaying… label identifies any remaining queued text after the network finishes. Reduced-motion preferences skip the presentation delay. Markdown and complete LaTeX expressions render safely while text arrives. Scrolling up does not force the learner back to the latest token.
 
 The response protocol is `meta` (selected model/context), `delta` (answer text), `done` (completion/truncation), and `error` (sanitized failure). Streaming requests disable upstream compression and responses explicitly use identity encoding. Server headers disable caching/transformation and proxy buffering; keepalive comments maintain the open connection. Only answer content is relayed: reasoning fields, authorization headers and provider errors are excluded. Credential redaction works even when the key is split across upstream deltas. Output and event sizes remain bounded.
 
-Stop aborts the browser request and the server cancels its upstream request when the client disconnects. Already received text is retained in the section history with a Partial answer label if stopped, interrupted or timed out; it is never silently presented as a completed answer. The 45-second upstream and 55-second browser deadlines still apply. Older callers without `stream: true` continue receiving JSON, and JSON provider responses are accepted without a fake token animation.
+Stop aborts the browser request and the server cancels its upstream request when the client disconnects. Already visible text is retained in the section history with a Partial answer label if stopped, interrupted or timed out; it is never silently presented as a completed answer. The 45-second upstream and 55-second browser deadlines still apply. Older callers without `stream: true` continue receiving JSON, and JSON provider responses use the same word reveal once their text is available.
 
 Streaming checks cover fragmented UTF-8/CRLF/multiline events, incremental provider and actual HTTP delivery before completion, split-credential redaction, hidden reasoning fields, disconnect cancellation, output limits, safe Markdown/LaTeX while streaming, partial-answer recovery, and legacy JSON behavior. These checks use controlled streams and do not spend provider credits.
