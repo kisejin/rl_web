@@ -1,3 +1,6 @@
+import { atlasTopics } from "./atlas-content.js";
+import { atlasOverview, atlasTopicView, mountAtlas } from "./atlas.js";
+let cleanAtlas = () => {};
 import { mountTutor } from "./tutor.js";
 let cleanTutor = () => {};
 import { loadProgress } from "./progress.js";
@@ -171,6 +174,7 @@ function persist() {
 }
 let page = "home",
   selectedLesson = "foundations",
+  selectedAtlas = "expectation",
   selectedLab = "return",
   filter = "all",
   search = "",
@@ -201,14 +205,16 @@ function render() {
   cleanDocs();
   cleanVisuals();
   cleanProofs();
+  cleanAtlas();
   clearInterval(sim.timer);
   sim.timer = null;
   const percent = Math.round((progress.read.length / lessons.length) * 100);
   $("#app").innerHTML =
-    `<div class="app-shell"><button class="drawer-backdrop ${drawer ? "open" : ""}" data-action="menu" aria-label="Close menu"></button><aside class="sidebar ${drawer ? "open" : ""}"><a class="brand" href="#home" aria-label="RL Atlas home"><span class="brand-mark">${icon("waypoints")}</span><span>RL<span class="brand-light"> Atlas</span><small>LEARN. PROVE. IMPLEMENT.</small></span></a><div class="course-label">UNDERSTAND IT. MAKE IT YOURS.</div><a href="#home" class="side-home ${page === "home" ? "active" : ""}">${icon("compass")}Course overview</a><div class="side-heading">YOUR LEARNING JOURNEY <span>09</span></div><nav class="lesson-nav" aria-label="Chapters">${lessons.map((l, i) => `${i === 3 ? '<div class="nav-section">ALGORITHMS & OPTIMIZATION</div>' : i === 7 ? '<div class="nav-section">REWARD DESIGN</div>' : ""}<a href="#lesson/${l.id}" class="lesson-link ${page === "lesson" && selectedLesson === l.id ? "active" : ""}"><span class="lesson-num ${progress.read.includes(l.id) ? "done" : ""}">${progress.read.includes(l.id) ? icon("check") : l.n}</span><span>${l.short}</span>${l.id === "rubric" ? '<span class="tiny-dot"></span>' : ""}</a>`).join("")}</nav><div class="sidebar-bottom"><div class="progress-caption"><span>Learning progress</span><b>${percent}%</b></div><div class="progress-track"><span style="width:${percent}%"></span></div><small>${progress.read.length}/9 chapters complete</small><a href="#notebook" class="note-link">${icon("notebook-pen")} My notebook ${icon("arrow-up-right")}</a></div></aside><div class="main-shell"><header class="topbar"><button class="icon-btn mobile-menu" aria-label="Open menu" aria-expanded="${drawer}" data-action="menu">${icon("menu")}</button><div class="breadcrumb">Reinforcement Learning <span>/</span> <strong>${{ home: "Explore", curriculum: "Learning path", lesson: "Lesson", labs: "Code lab", lab: "Code lab", notebook: "Notebook" }[page]}</strong></div><div class="top-right"><span class="offline-dot"></span><span class="local-label">Progress saved on this device</span><span class="top-divider"></span><button class="avatar" data-action="notebook" aria-label="Open your notebook">ME</button></div></header><div class="page-wrap"><nav class="top-tabs" aria-label="Main navigation"><a href="#home" class="${page === "home" ? "active" : ""}">${icon("compass")}Explore</a><a href="#curriculum" class="${page === "curriculum" || page === "lesson" ? "active" : ""}">${icon("map")}Learning path</a><a href="#labs" class="${page === "labs" || page === "lab" ? "active" : ""}">${icon("square-code")}Code lab<span class="tab-count">${labs.length}</span></a><a href="#notebook" class="${page === "notebook" ? "active" : ""}">${icon("notebook-pen")}Notebook</a><span class="tab-aside">FROM INTUITION TO IMPLEMENTATION ${icon("arrow-down-right")}</span></nav><main id="main-content">${page === "home" ? home() : page === "curriculum" ? curriculum() : page === "lesson" ? lessonView() : page === "labs" ? labsView() : notebook()}</main><footer><a href="#home">RL Atlas</a><span>Deep understanding. One small step at a time.</span><span>For curious minds who want to understand why ${icon("sprout")}</span></footer></div></div></div><div id="toast" role="status" aria-live="polite"></div>`;
+    `<div class="app-shell"><button class="drawer-backdrop ${drawer ? "open" : ""}" data-action="menu" aria-label="Close menu"></button><aside class="sidebar ${drawer ? "open" : ""}"><a class="brand" href="#home" aria-label="RL Atlas home"><span class="brand-mark">${icon("waypoints")}</span><span>RL<span class="brand-light"> Atlas</span><small>LEARN. PROVE. IMPLEMENT.</small></span></a><div class="course-label">UNDERSTAND IT. MAKE IT YOURS.</div><a href="#home" class="side-home ${page === "home" ? "active" : ""}">${icon("compass")}Course overview</a><div class="side-heading">YOUR LEARNING JOURNEY <span>09</span></div><nav class="lesson-nav" aria-label="Chapters">${lessons.map((l, i) => `${i === 3 ? '<div class="nav-section">ALGORITHMS & OPTIMIZATION</div>' : i === 7 ? '<div class="nav-section">REWARD DESIGN</div>' : ""}<a href="#lesson/${l.id}" class="lesson-link ${page === "lesson" && selectedLesson === l.id ? "active" : ""}"><span class="lesson-num ${progress.read.includes(l.id) ? "done" : ""}">${progress.read.includes(l.id) ? icon("check") : l.n}</span><span>${l.short}</span>${l.id === "rubric" ? '<span class="tiny-dot"></span>' : ""}</a>`).join("")}</nav><div class="sidebar-bottom"><div class="progress-caption"><span>Learning progress</span><b>${percent}%</b></div><div class="progress-track"><span style="width:${percent}%"></span></div><small>${progress.read.length}/9 chapters complete</small><a href="#notebook" class="note-link">${icon("notebook-pen")} My notebook ${icon("arrow-up-right")}</a></div></aside><div class="main-shell"><header class="topbar"><button class="icon-btn mobile-menu" aria-label="Open menu" aria-expanded="${drawer}" data-action="menu">${icon("menu")}</button><div class="breadcrumb">Reinforcement Learning <span>/</span> <strong>${{ home: "Explore", curriculum: "Learning path", atlas: "RL & Deep RL atlas", "atlas-topic": "Deep RL topic", lesson: "Lesson", labs: "Code lab", lab: "Code lab", notebook: "Notebook" }[page]}</strong></div><div class="top-right"><span class="offline-dot"></span><span class="local-label">Progress saved on this device</span><span class="top-divider"></span><button class="avatar" data-action="notebook" aria-label="Open your notebook">ME</button></div></header><div class="page-wrap"><nav class="top-tabs" aria-label="Main navigation"><a href="#home" class="${page === "home" ? "active" : ""}">${icon("compass")}Explore</a><a href="#curriculum" class="${page === "curriculum" || page === "lesson" ? "active" : ""}">${icon("map")}Learning path</a><a href="#labs" class="${page === "labs" || page === "lab" ? "active" : ""}">${icon("square-code")}Code lab<span class="tab-count">${labs.length}</span></a><a href="#notebook" class="${page === "notebook" ? "active" : ""}">${icon("notebook-pen")}Notebook</a><span class="tab-aside">FROM INTUITION TO IMPLEMENTATION ${icon("arrow-down-right")}</span></nav><main id="main-content">${page === "home" ? home() : page === "atlas" ? atlasOverview() : page === "atlas-topic" ? atlasTopicView(selectedAtlas) : page === "curriculum" ? curriculum() : page === "lesson" ? lessonView() : page === "labs" ? labsView() : notebook()}</main><footer><a href="#home">RL Atlas</a><span>Deep understanding. One small step at a time.</span><span>For curious minds who want to understand why ${icon("sprout")}</span></footer></div></div></div><div id="toast" role="status" aria-live="polite"></div>`;
   const docsContext = prepareDocsShell({
     page,
     selectedLesson,
+    selectedAtlas,
     selectedLab,
     lessons,
     labs,
@@ -217,10 +223,16 @@ function render() {
   cleanDocs = mountDocs(docsContext, { lessons, labs });
   cleanVisuals = mountVisuals();
   cleanProofs = mountProofWalkthroughs();
+  cleanAtlas = mountAtlas();
   createIcons({ icons });
   cleanTutor = mountTutor({
-    lessonId: page === "lesson" ? selectedLesson : "foundations",
-    withSectionButtons: page === "lesson",
+    lessonId:
+      page === "atlas-topic"
+        ? "atlas-" + selectedAtlas
+        : page === "lesson"
+          ? selectedLesson
+          : "foundations",
+    withSectionButtons: page === "lesson" || page === "atlas-topic",
   });
   if (page === "home") drawGrid();
   if (page === "lesson" && selectedLesson === "rubric") updateRubric();
@@ -489,13 +501,19 @@ function route() {
     location.replace("/lab.html#" + id);
     return;
   }
-  page = ["home", "curriculum", "labs", "notebook"].includes(p)
-    ? p
-    : p === "lesson" && lessons.some((l) => l.id === id)
-      ? "lesson"
-      : p === "lab" && labs.some((l) => l.id === id)
-        ? "lab"
-        : "home";
+  page =
+    p === "atlas"
+      ? id && atlasTopics.some((t) => t.id === id)
+        ? "atlas-topic"
+        : "atlas"
+      : ["home", "curriculum", "labs", "notebook"].includes(p)
+        ? p
+        : p === "lesson" && lessons.some((l) => l.id === id)
+          ? "lesson"
+          : p === "lab" && labs.some((l) => l.id === id)
+            ? "lab"
+            : "home";
+  if (page === "atlas-topic") selectedAtlas = id;
   if (page === "lesson") selectedLesson = id;
   if (page === "lab") selectedLab = id;
   drawer = false;
@@ -505,7 +523,7 @@ function route() {
       document.getElementById(sectionId)?.scrollIntoView(),
     );
   else window.scrollTo(0, 0);
-  document.title = `${page === "lesson" ? lessons.find((l) => l.id === selectedLesson).title : page === "lab" ? labs.find((l) => l.id === selectedLab).title : { home: "Introduction", curriculum: "Learning path", labs: "Code lab", notebook: "Notebook" }[page]} — RL Atlas`;
+  document.title = `${page === "atlas-topic" ? atlasTopics.find((t) => t.id === selectedAtlas).title : page === "lesson" ? lessons.find((l) => l.id === selectedLesson).title : page === "lab" ? labs.find((l) => l.id === selectedLab).title : { home: "Introduction", curriculum: "Learning path", atlas: "RL & Deep RL atlas", labs: "Code lab", notebook: "Notebook" }[page]} — RL Atlas`;
 }
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && drawer) $(".drawer-backdrop").click();

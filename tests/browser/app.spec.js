@@ -435,7 +435,7 @@ test("documentation search opens with keyboard and navigates across guides and l
     name: "Search concepts, lessons, or code labs",
   });
   await input.fill("Discounted Return");
-  await expect(page.locator(".doc-search-results a")).toContainText(
+  await expect(page.locator(".doc-search-results a").first()).toContainText(
     "Discounted Return",
   );
   await input.press("Enter");

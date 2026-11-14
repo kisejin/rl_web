@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 55 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 54 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 61 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 60 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -151,3 +151,9 @@ Streaming checks cover fragmented UTF-8/CRLF/multiline events, incremental provi
 The official DeepSeek Harness agent core can run directly in this project’s Vercel Functions on Node 24, with HTTPS supplied by Vercel. See the [Vercel setup guide](deployments/deepseek-harness/VERCEL.md) for the protected runtime endpoint, activation and rollback. The existing Qwencoder API key stays in the same project. A separate bridge token protects server-to-server calls. The current chat UI and streaming protocol are preserved. [Docker deployment](deployments/deepseek-harness/README.md) remains available as an alternative.
 
 The [agent workspace guide](deployments/deepseek-harness/AGENT.md) documents built-in MCP tools, Markdown skills, Plan/Goal, opt-in paper search, slash commands and file attachments. These capabilities keep the existing model picker and streaming UI. Native image support depends on the selected model; PDF input currently extracts selectable text in the browser.
+
+### Visual RL and Deep RL atlas
+
+Open [the atlas](https://rlatlas.vercel.app/#atlas) for 35 sourced topics, 248 formula/derivation displays, and 35 original interactive numerical animations. The progression includes probability, Bellman/TD control, deep value learning, policy gradients, PPO/TRPO, continuous control, off-policy evaluation, offline RL, imitation/multi-agent learning, RLHF/DPO/GRPO, constraints and evaluation. Each topic has explicit assumptions, a derivation, an example, misconceptions, knowledge checks and optional self-review tracking. The atlas is indexed by documentation search and the learning MCP server, and supports section-aware tutoring. The existing core course, Manim films and Python labs remain available.
+
+See [source and mathematical review notes](docs/rl-atlas-source-notes.md) for provenance, scope, conventions and numerical checks.

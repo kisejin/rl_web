@@ -2,17 +2,20 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { z } from "zod";
-import { lessons } from "../src/content.js";
-import { tutorTopics } from "../src/tutor-context.js";
+import {
+  tutorTopics,
+  tutorContext,
+  tutorLessonCatalog,
+} from "../src/tutor-context.js";
 import { normalizeAgentState } from "../src/tutor-agent.js";
 import { readTutorSkill } from "./tutor-skills.js";
 
-const records = lessons.flatMap((lesson) =>
+const records = tutorLessonCatalog.flatMap((lesson) =>
   tutorTopics(lesson.id).map((topic) => ({
     lessonId: lesson.id,
     title: lesson.title + " · " + topic.title,
     section: topic.key,
-    url: "/#lesson/" + lesson.id,
+    url: tutorContext({ lessonId: lesson.id, sectionKey: topic.key }).link,
     text: JSON.stringify(topic.content),
   })),
 );
@@ -228,7 +231,7 @@ export async function createTutorMCP({
           uri: uri.href,
           mimeType: "application/json",
           text: JSON.stringify(
-            lessons.map((l) => ({ id: l.id, title: l.title })),
+            tutorLessonCatalog.map((l) => ({ id: l.id, title: l.title })),
           ),
         },
       ],

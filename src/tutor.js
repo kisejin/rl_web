@@ -10,8 +10,12 @@ import "./tutor.css";
 import { Marked } from "marked";
 import DOMPurify from "dompurify";
 import renderMathInElement from "katex/contrib/auto-render";
-import { lessons } from "./content.js";
-import { tutorTopics, tutorContext } from "./tutor-context.js";
+
+import {
+  tutorTopics,
+  tutorContext,
+  tutorLessonCatalog,
+} from "./tutor-context.js";
 import { uiIcon } from "./ui-icons.js";
 const markdown = new Marked({ gfm: true, breaks: true });
 let keepOpen = false;
@@ -116,7 +120,7 @@ export function mountTutor({
     tutorContext({ lessonId: "foundations" });
   const host = document.createElement("div");
   host.className = "tutor-root";
-  host.innerHTML = `<button class="tutor-launch" aria-label="Open AI study tutor" aria-expanded="false" aria-controls="study-tutor">${uiIcon("chat")}<span>Ask AI</span></button><section id="study-tutor" class="tutor-panel" role="dialog" aria-labelledby="tutor-title" aria-modal="false" hidden><header class="tutor-header"><span class="tutor-avatar">${uiIcon("chat")}</span><div><h2 id="tutor-title">RL Atlas Tutor</h2><p>Your lesson companion</p></div><button class="tutor-icon-btn" data-tutor-clear aria-label="Clear this conversation" title="Clear conversation">${uiIcon("reset")}</button><button class="tutor-icon-btn" data-tutor-close aria-label="Close AI tutor">${uiIcon("close")}</button></header><div class="tutor-context"><label>Model<select id="tutor-model" aria-label="Tutor model">${tutorModels.map((model) => `<option value="${model.id}">${escapeHTML(model.name)}</option>`).join("")}</select></label><label>Lesson<select id="tutor-lesson" aria-label="Tutor lesson">${lessons.map((l) => `<option value="${l.id}">${escapeHTML(l.title)}</option>`).join("")}</select></label><label>Discussing<select id="tutor-section" aria-label="Tutor section"></select></label><a class="tutor-source" href="#" data-tutor-source>${uiIcon("book")}<span></span>${uiIcon("arrow-up-right")}</a></div><div class="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" aria-relevant="additions"></div><div class="tutor-error" role="alert" hidden><p></p><button data-tutor-retry>Try again</button></div><form class="tutor-form"><label class="tutor-sr-only" for="tutor-question">Your question about this lesson</label><textarea id="tutor-question" rows="2" maxlength="2000" placeholder="Ask about an idea, equation, or proof…" required></textarea><div class="tutor-compose-actions"><span data-tutor-count>0 / 2000</span><span class="tutor-key-hint">Enter to send · Shift+Enter for a new line</span><button class="tutor-send" type="submit" aria-label="Send question">${uiIcon("send")}<span>Send</span></button><button class="tutor-stop" type="button" data-tutor-stop hidden>${uiIcon("stop")} Stop</button></div><p class="tutor-disclaimer">AI can make mistakes. Check the lesson and every proof step. Your question, attached files and lesson context are shared with the model. Search papers sends queries to Crossref when enabled.</p></form></section>`;
+  host.innerHTML = `<button class="tutor-launch" aria-label="Open AI study tutor" aria-expanded="false" aria-controls="study-tutor">${uiIcon("chat")}<span>Ask AI</span></button><section id="study-tutor" class="tutor-panel" role="dialog" aria-labelledby="tutor-title" aria-modal="false" hidden><header class="tutor-header"><span class="tutor-avatar">${uiIcon("chat")}</span><div><h2 id="tutor-title">RL Atlas Tutor</h2><p>Your lesson companion</p></div><button class="tutor-icon-btn" data-tutor-clear aria-label="Clear this conversation" title="Clear conversation">${uiIcon("reset")}</button><button class="tutor-icon-btn" data-tutor-close aria-label="Close AI tutor">${uiIcon("close")}</button></header><div class="tutor-context"><label>Model<select id="tutor-model" aria-label="Tutor model">${tutorModels.map((model) => `<option value="${model.id}">${escapeHTML(model.name)}</option>`).join("")}</select></label><label>Lesson<select id="tutor-lesson" aria-label="Tutor lesson">${tutorLessonCatalog.map((l) => `<option value="${l.id}">${escapeHTML(l.title)}</option>`).join("")}</select></label><label>Discussing<select id="tutor-section" aria-label="Tutor section"></select></label><a class="tutor-source" href="#" data-tutor-source>${uiIcon("book")}<span></span>${uiIcon("arrow-up-right")}</a></div><div class="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" aria-relevant="additions"></div><div class="tutor-error" role="alert" hidden><p></p><button data-tutor-retry>Try again</button></div><form class="tutor-form"><label class="tutor-sr-only" for="tutor-question">Your question about this lesson</label><textarea id="tutor-question" rows="2" maxlength="2000" placeholder="Ask about an idea, equation, or proof…" required></textarea><div class="tutor-compose-actions"><span data-tutor-count>0 / 2000</span><span class="tutor-key-hint">Enter to send · Shift+Enter for a new line</span><button class="tutor-send" type="submit" aria-label="Send question">${uiIcon("send")}<span>Send</span></button><button class="tutor-stop" type="button" data-tutor-stop hidden>${uiIcon("stop")} Stop</button></div><p class="tutor-disclaimer">AI can make mistakes. Check the lesson and every proof step. Your question, attached files and lesson context are shared with the model. Search papers sends queries to Crossref when enabled.</p></form></section>`;
   document.body.append(host);
   const $ = (selector) => host.querySelector(selector),
     panel = $(".tutor-panel"),
@@ -613,6 +617,15 @@ export function mountTutor({
     injected.push(b);
   }
   if (withSectionButtons) {
+    document
+      .querySelectorAll("[data-atlas-discuss]")
+      .forEach((section) =>
+        sectionButton(
+          section,
+          section.dataset.atlasDiscuss,
+          "Discuss this topic with AI",
+        ),
+      );
     sectionButton(document.querySelector(".intuition-box"), "intuition");
     document
       .querySelectorAll(".prose-section")

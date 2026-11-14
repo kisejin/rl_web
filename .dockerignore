@@ -22,3 +22,6 @@
 !skills/
 !skills/tutor/
 !skills/tutor/**
+
+!src/atlas-content.js
+!src/atlas-sources.js

@@ -1,6 +1,6 @@
 # Manim films for RL Atlas
 
-These are original animated mathematical explanations rendered with **Manim Community 0.22.1**. All ten visual modules have a film, an English caption track, a poster, and a timestamped transcript. No footage, audio, characters, or artwork from 3Blue1Brown is included.
+These are original animated mathematical explanations rendered with **Manim Community 0.22.1**. All ten core-course visual modules have a film, an English caption track, a poster, and a timestamped transcript. No footage, audio, characters, or artwork from 3Blue1Brown is included.
 
 ## Library research and choice
 
@@ -53,3 +53,5 @@ TEXMFROOT=/usr/share/texlive TEXMFVAR=/tmp/rl-texmf-var TEXMFCONFIG=/tmp/rl-texm
 Videos do not autoplay. Switching to the interactive model pauses the video; switching back stops the interactive timer. Navigation pauses both. Captions and a transcript make the silent films readable without narration.
 
 Manim is MIT licensed. The upstream and Community copyright notices are retained in `LICENSE-Manim.txt` and `LICENSE-Manim-Community.txt`.
+
+The extended visual RL & Deep RL atlas uses 35 additional original SVG/requestAnimationFrame models in `src/atlas-scenes.js` and `src/atlas-visuals.js`. These are live numerical illustrations with parameter controls and reduced-motion support; they are not prerecorded Manim films. They complement the ten core-course films above.

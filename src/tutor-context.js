@@ -1,5 +1,66 @@
+import { atlasTopics } from "./atlas-content.js";
+import { atlasSources } from "./atlas-sources.js";
 import { lessons, labs } from "./content.js";
+export const tutorLessonCatalog = [
+  ...lessons,
+  ...atlasTopics.map((t) => ({
+    id: "atlas-" + t.id,
+    title: "Atlas · " + t.title,
+  })),
+];
+function atlasFor(id) {
+  return typeof id === "string" && id.startsWith("atlas-")
+    ? atlasTopics.find((t) => t.id === id.slice(6))
+    : null;
+}
 export function tutorTopics(lessonId, labId) {
+  const advanced = atlasFor(lessonId);
+  if (advanced)
+    return [
+      {
+        key: "overview",
+        title: "Concept overview",
+        content: {
+          summary: advanced.summary,
+          symbols: advanced.symbols,
+          assumptions: advanced.assumptions,
+          example: advanced.example,
+        },
+      },
+      {
+        key: "intuition",
+        title: "Intuition and example",
+        content: {
+          summary: advanced.summary,
+          example: advanced.example,
+          pitfall: advanced.pitfall,
+        },
+      },
+      {
+        key: "equations",
+        title: "Equations and their meaning",
+        content: advanced.equations,
+      },
+      {
+        key: "equation",
+        title: "The central equation",
+        content: advanced.equations[0],
+      },
+      {
+        key: "proof",
+        title: advanced.derivation.claim,
+        content: advanced.derivation,
+      },
+      {
+        key: "practice",
+        title: "Derivation and implementation practice",
+        content: {
+          practice: advanced.practice,
+          check: advanced.check.question,
+          assumptions: advanced.assumptions,
+        },
+      },
+    ];
   const lesson = lessons.find((item) => item.id === lessonId);
   if (!lesson) return [];
   const topics = [
@@ -69,6 +130,32 @@ export function labLessonId(lab) {
   );
 }
 export function tutorContext({ lessonId, sectionKey = "overview", labId }) {
+  const advanced = atlasFor(lessonId);
+  if (advanced) {
+    if (labId) return null;
+    const topic = tutorTopics(lessonId).find((t) => t.key === sectionKey);
+    if (!topic) return null;
+    return {
+      lessonId,
+      sectionKey,
+      title: advanced.title,
+      sectionTitle: topic.title,
+      link: "/#atlas/" + advanced.id,
+      material: {
+        lessonTitle: advanced.title,
+        selectedSection: topic.title,
+        selectedContent: topic.content,
+        coreEquation: advanced.equations[0].tex,
+        assumptions: advanced.assumptions,
+        lessonSections: advanced.equations.map((e) => [e.name, e.explain]),
+        takeaway: advanced.pitfall,
+        numericalExample: advanced.example,
+        references: advanced.sources.map((id) => atlasSources[id]),
+        illustrationNote:
+          "The animation is an illustrative numerical model. Changed slider values are not sent to the tutor unless the learner shares them.",
+      },
+    };
+  }
   const lesson = lessons.find((item) => item.id === lessonId);
   if (!lesson) return null;
   const lab = labId ? labs.find((item) => item.id === labId) : null;
