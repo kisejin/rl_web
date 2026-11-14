@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 37 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 44 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 44 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 47 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -135,3 +135,13 @@ The endpoint validates context IDs and roles against authored course content, bo
 The Model selector offers the 13 requested models, with display names and exact API IDs shared in `src/tutor-models.js`. IDs were checked against [the provider catalog](https://www.qwencoder.cloud/models?usagePackageId=6a3c217ae8bba3ee79f177f2) on 2026-11-14. The selected model is sent as `model` to the same-origin tutor endpoint and validated against that catalog on the server before any provider call. Requests without `model` continue using the configured server default. Unknown models are rejected instead of silently falling back.
 
 The preference is saved locally under `rl-atlas-tutor-model` and is shared between lessons and standalone labs. Model switching retains the section conversation; each new answer records and displays its own model, including after a reload. Earlier answers without model metadata keep their original generic attribution. Selection is disabled during a pending answer. Credentials stay server-side; tests route all 13 choices with mocked provider responses and do not spend model credits.
+
+### Streaming tutor responses
+
+The chatbot sends `stream: true` to the same-origin tutor API. The server requests OpenAI-compatible SSE streaming and relays answer-text deltas as they arrive, rather than waiting for the full completion or simulating typing afterward. The browser incrementally decodes UTF-8 and SSE frames, updates the visible answer at most every 50 ms, and safely re-renders Markdown and complete LaTeX expressions while generation continues. Scrolling up does not force the learner back to the latest token.
+
+The response protocol is `meta` (selected model/context), `delta` (answer text), `done` (completion/truncation), and `error` (sanitized failure). Server headers disable caching/transformation and proxy buffering; keepalive comments maintain the open connection. Only answer content is relayed: reasoning fields, authorization headers and provider errors are excluded. Credential redaction works even when the key is split across upstream deltas. Output and event sizes remain bounded.
+
+Stop aborts the browser request and the server cancels its upstream request when the client disconnects. Already received text is retained in the section history with a Partial answer label if stopped, interrupted or timed out; it is never silently presented as a completed answer. The 45-second upstream and 55-second browser deadlines still apply. Older callers without `stream: true` continue receiving JSON, and JSON provider responses are accepted without a fake token animation.
+
+Streaming checks cover fragmented UTF-8/CRLF/multiline events, incremental provider and actual HTTP delivery before completion, split-credential redaction, hidden reasoning fields, disconnect cancellation, output limits, safe Markdown/LaTeX while streaming, partial-answer recovery, and legacy JSON behavior. These checks use controlled streams and do not spend provider credits.

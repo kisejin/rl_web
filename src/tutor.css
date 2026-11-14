@@ -584,3 +584,22 @@ body[data-docs-page="lab"] .tutor-launch {
     font-size: 9px !important;
   }
 }
+.tutor-answer-status {
+  display: block;
+  color: var(--tutor-muted);
+  font-size: 11px;
+  line-height: 1.4;
+  margin: -3px 0 8px;
+}
+.tutor-message.is-streaming {
+  border-color: var(--tutor-brand);
+}
+.tutor-message.is-streaming .tutor-answer::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--tutor-brand);
+}

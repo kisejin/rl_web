@@ -1,3 +1,4 @@
+import { readTutorResponse } from "./tutor-response.js";
 import {
   DEFAULT_TUTOR_MODEL,
   findTutorModel,
@@ -99,7 +100,12 @@ export function mountTutor({
     error = "",
     lastQuestion = "",
     messages = [],
-    previousFocus = null;
+    previousFocus = null,
+    streamedText = "",
+    streamModel = null,
+    draftView = null,
+    renderTimer = null,
+    answerSaved = false;
   let context =
     tutorContext({ lessonId, labId, sectionKey }) ||
     tutorContext({ lessonId: "foundations" });
@@ -115,6 +121,10 @@ export function mountTutor({
   const threadKey = () =>
     `rl-atlas-tutor:${context.lessonId}:${context.labId || ""}:${context.sectionKey}`;
   function load() {
+    clearTimeout(renderTimer);
+    renderTimer = null;
+    streamedText = "";
+    draftView = null;
     messages = [];
     try {
       const value = JSON.parse(sessionStorage.getItem(threadKey()) || "[]");
@@ -130,6 +140,7 @@ export function mountTutor({
           .map((m) => ({
             role: m.role,
             content: m.content.slice(0, 14000),
+            ...(m.incomplete === true ? { incomplete: true } : {}),
             ...(m.role === "assistant" && findTutorModel(m.model)
               ? { model: m.model }
               : {}),
@@ -154,7 +165,7 @@ export function mountTutor({
     $(".tutor-error").hidden = !error;
     $(".tutor-error p").textContent = error;
   }
-  function appendMessage(message) {
+  function appendMessage(message, { streaming = false } = {}) {
     const bubble = document.createElement("article");
     bubble.className = "tutor-message tutor-" + message.role;
     const name = document.createElement("span");
@@ -166,13 +177,24 @@ export function mountTutor({
           ? `RL Atlas Tutor · ${findTutorModel(message.model).name}`
           : "RL Atlas Tutor";
     bubble.append(name);
+    if (streaming) {
+      bubble.classList.add("is-streaming");
+      bubble.setAttribute("aria-busy", "true");
+      bubble.setAttribute("aria-live", "off");
+    }
+    if (message.incomplete || streaming) {
+      const status = document.createElement("span");
+      status.className = "tutor-answer-status";
+      status.textContent = streaming ? "Generating…" : "Partial answer";
+      bubble.append(status);
+    }
     const content = document.createElement("div");
     content.className = "tutor-answer";
     if (message.role === "assistant")
       renderTutorAnswer(content, message.content);
     else content.textContent = message.content;
     bubble.append(content);
-    if (message.role === "assistant") {
+    if (message.role === "assistant" && !streaming) {
       const copy = document.createElement("button");
       copy.className = "tutor-copy";
       copy.type = "button";
@@ -193,8 +215,52 @@ export function mountTutor({
       bubble.append(copy);
     }
     log.append(bubble);
+    return { bubble, content, name };
   }
-  function draw() {
+  const followsAnswer = () =>
+    log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+  function commitAnswer(incomplete = false) {
+    if (answerSaved || !streamedText.trim()) return;
+    messages.push(
+      { role: "user", content: lastQuestion },
+      {
+        role: "assistant",
+        content: streamedText,
+        model: streamModel || selectedModel,
+        ...(incomplete ? { incomplete: true } : {}),
+      },
+    );
+    messages = messages.slice(-10);
+    answerSaved = true;
+    save();
+  }
+  function paintPartial() {
+    renderTimer = null;
+    if (closed || !draftView) return;
+    const follow = followsAnswer();
+    renderTutorAnswer(draftView.content, streamedText);
+    if (follow) log.scrollTop = log.scrollHeight;
+  }
+  function receiveDelta(text) {
+    if (closed) return;
+    streamedText += text;
+    if (!draftView) {
+      const follow = followsAnswer();
+      $(".tutor-thinking")?.remove();
+      draftView = appendMessage(
+        {
+          role: "assistant",
+          content: streamedText,
+          model: streamModel || selectedModel,
+        },
+        { streaming: true },
+      );
+      if (follow) log.scrollTop = log.scrollHeight;
+    } else if (!renderTimer) renderTimer = setTimeout(paintPartial, 50);
+  }
+  function draw({ follow = true } = {}) {
+    const previousTop = log.scrollTop;
+    draftView = null;
     log.replaceChildren();
     if (!messages.length && !busy) {
       const empty = document.createElement("div");
@@ -232,14 +298,25 @@ export function mountTutor({
     for (const message of messages) appendMessage(message);
     if (busy) {
       appendMessage({ role: "user", content: lastQuestion });
-      const thinking = document.createElement("div");
-      thinking.className = "tutor-thinking";
-      thinking.textContent = `${findTutorModel(selectedModel).name} is thinking about this section…`;
-      thinking.setAttribute("role", "status");
-      log.append(thinking);
+      if (streamedText)
+        draftView = appendMessage(
+          {
+            role: "assistant",
+            content: streamedText,
+            model: streamModel || selectedModel,
+          },
+          { streaming: true },
+        );
+      else {
+        const thinking = document.createElement("div");
+        thinking.className = "tutor-thinking";
+        thinking.textContent = `${findTutorModel(selectedModel).name} is thinking about this section…`;
+        thinking.setAttribute("role", "status");
+        log.append(thinking);
+      }
     }
     controls();
-    log.scrollTop = log.scrollHeight;
+    log.scrollTop = follow ? log.scrollHeight : previousTop;
   }
   function count() {
     $("[data-tutor-count]").textContent = `${input.value.length} / 2000`;
@@ -283,6 +360,10 @@ export function mountTutor({
   async function submit(question = input.value.trim()) {
     if (busy || !question.trim() || question.length > 2000) return;
     const requestModel = selectedModel;
+    streamedText = "";
+    streamModel = requestModel;
+    answerSaved = false;
+    draftView = null;
     lastQuestion = question.trim();
     busy = true;
     error = "";
@@ -308,6 +389,7 @@ export function mountTutor({
         credentials: "same-origin",
         body: JSON.stringify({
           model: requestModel,
+          stream: true,
           lessonId: context.lessonId,
           sectionKey: context.sectionKey,
           ...(context.labId ? { labId: context.labId } : {}),
@@ -315,31 +397,15 @@ export function mountTutor({
         }),
         signal: request.signal,
       });
-      let result;
-      try {
-        result = await response.json();
-      } catch {
-        throw new Error(
-          "The tutor returned an unreadable response. Please retry.",
-        );
-      }
-      if (!response.ok)
-        throw new Error(
-          result.error || "The tutor is unavailable. Please retry.",
-        );
-      if (typeof result.reply !== "string" || !result.reply.trim())
-        throw new Error("No answer was returned. Please retry.");
-      if (closed) return;
-      messages.push(
-        { role: "user", content: lastQuestion },
-        {
-          role: "assistant",
-          content: result.reply.slice(0, 14000),
-          model: findTutorModel(result.model) ? result.model : requestModel,
+      const result = await readTutorResponse(response, {
+        signal: request.signal,
+        onMeta: (meta) => {
+          if (findTutorModel(meta.model)) streamModel = meta.model;
         },
-      );
-      messages = messages.slice(-10);
-      save();
+        onDelta: receiveDelta,
+      });
+      if (closed) return;
+      commitAnswer();
       if (result.truncated)
         error =
           "The answer reached its length limit. Ask the tutor to continue.";
@@ -352,14 +418,20 @@ export function mountTutor({
         : e.message === "Failed to fetch"
           ? "Could not connect. Check your connection and retry."
           : e.message || "The tutor is unavailable. Please retry.";
-      input.value = lastQuestion;
+      if (streamedText.trim()) {
+        commitAnswer(true);
+        error += " The partial answer has been kept.";
+        input.value = "";
+      } else input.value = lastQuestion;
       count();
     } finally {
       clearTimeout(timeout);
+      clearTimeout(renderTimer);
+      renderTimer = null;
       if (!closed) {
         busy = false;
         request = null;
-        draw();
+        draw({ follow: followsAnswer() });
         if (!panel.hidden) input.focus({ preventScroll: true });
       }
     }
@@ -487,7 +559,9 @@ export function mountTutor({
   choose({ lessonId, labId, sectionKey });
   if (keepOpen) open();
   return () => {
+    if (busy) commitAnswer(true);
     closed = true;
+    clearTimeout(renderTimer);
     request?.abort();
     events.abort();
     host.remove();

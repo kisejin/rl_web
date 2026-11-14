@@ -27,6 +27,7 @@ test("section tutor sends only lesson context and renders safe Markdown, code an
     "messages",
     "model",
     "sectionKey",
+    "stream",
   ]);
   await expect(page.locator(".tutor-assistant .katex-display")).toHaveCount(1);
   await expect(page.locator(".tutor-assistant pre code")).toContainText(
@@ -306,4 +307,165 @@ test("model preference survives reload and lab navigation without relabeling ear
   );
   expect(lastRequest.model).toBe("qwen3.8-max");
   expect(lastRequest.labId).toBe("rubric");
+});
+
+async function installTutorStream(page) {
+  await page.addInitScript(() => {
+    const original = window.fetch.bind(window);
+    let controller;
+    window.__tutorStreamClosed = false;
+    window.fetch = async (url, options) => {
+      if (url !== "/api/tutor") return original(url, options);
+      window.__tutorStreamRequest = JSON.parse(options.body);
+      const body = new ReadableStream({
+        start(c) {
+          controller = c;
+          options.signal.addEventListener(
+            "abort",
+            () => {
+              window.__tutorStreamClosed = true;
+              c.error(options.signal.reason);
+            },
+            { once: true },
+          );
+        },
+        cancel() {
+          window.__tutorStreamClosed = true;
+        },
+      });
+      return new Response(body, {
+        headers: { "Content-Type": "text/event-stream" },
+      });
+    };
+    window.__tutorEmit = (event, data, bytewise = false) => {
+      const bytes = new TextEncoder().encode(
+        `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`,
+      );
+      if (bytewise) {
+        for (const byte of bytes) controller.enqueue(new Uint8Array([byte]));
+      } else controller.enqueue(bytes);
+    };
+    window.__tutorEnd = () => {
+      window.__tutorStreamClosed = true;
+      controller.close();
+    };
+  });
+}
+test("answer text appears before streaming completes, with UTF-8, live math and safe code rendering", async ({
+  page,
+}) => {
+  await installTutorStream(page);
+  await page.goto("/#lesson/bellman");
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await page
+    .getByRole("textbox", { name: "Your question about this lesson" })
+    .fill("Explain this inequality.");
+  await page.getByRole("button", { name: "Send question" }).click();
+  await page.evaluate(() => {
+    window.__tutorEmit("meta", { model: "qwen3.8-flash" });
+    window.__tutorEmit(
+      "delta",
+      { text: "Tiếng Việt 🧠: First words arrive now.\n\n" },
+      true,
+    );
+  });
+  await expect(page.locator(".tutor-assistant .tutor-answer")).toContainText(
+    "Tiếng Việt 🧠: First words arrive now.",
+  );
+  await expect(page.locator(".tutor-assistant")).toHaveClass(/is-streaming/);
+  await expect(
+    page.getByRole("button", { name: "Stop", exact: true }),
+  ).toBeVisible();
+  expect(await page.evaluate(() => window.__tutorStreamClosed)).toBeFalsy();
+  expect(await page.evaluate(() => window.__tutorStreamRequest.stream)).toBe(
+    true,
+  );
+  await page.evaluate(() =>
+    window.__tutorEmit("delta", {
+      text: '\\[\\gamma<1\\]\n\n```python\nvalue = 1\n```\n\n<img src=x onerror="window.streamXss=true">',
+    }),
+  );
+  await expect(page.locator(".tutor-assistant .katex-display")).toHaveCount(1);
+  await expect(page.locator(".tutor-assistant pre code")).toContainText(
+    "value = 1",
+  );
+  await expect(page.locator(".tutor-assistant img")).toHaveCount(0);
+  expect(await page.evaluate(() => window.streamXss)).toBeUndefined();
+  await page.evaluate(() => {
+    window.__tutorEmit("done", { truncated: false });
+    window.__tutorEnd();
+  });
+  await expect(
+    page.getByRole("button", { name: "Send question" }),
+  ).toBeVisible();
+  await expect(page.locator(".tutor-assistant")).not.toHaveClass(
+    /is-streaming/,
+  );
+  await expect(
+    page.getByRole("button", { name: "Copy tutor answer" }),
+  ).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await expect(page.locator(".tutor-assistant")).toContainText("Tiếng Việt 🧠");
+  await expect(page.locator(".tutor-answer-status")).toHaveCount(0);
+});
+test("stopping a streamed answer preserves the received text as a partial answer", async ({
+  page,
+}) => {
+  await installTutorStream(page);
+  await page.goto("/#lesson/bellman");
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await page
+    .getByRole("textbox", { name: "Your question about this lesson" })
+    .fill("Explain the proof.");
+  await page.getByRole("button", { name: "Send question" }).click();
+  await page.evaluate(() =>
+    window.__tutorEmit("delta", {
+      text: "Keep this useful partial explanation.",
+    }),
+  );
+  await expect(page.locator(".tutor-assistant")).toContainText(
+    "useful partial",
+  );
+  await page.getByRole("button", { name: "Stop", exact: true }).click();
+  await expect(page.locator(".tutor-error")).toContainText(
+    "partial answer has been kept",
+  );
+  await expect(page.locator(".tutor-answer-status")).toHaveText(
+    "Partial answer",
+  );
+  await expect(page.locator(".tutor-user")).toHaveCount(1);
+  await page.reload();
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await expect(page.locator(".tutor-assistant")).toContainText(
+    "Keep this useful partial explanation.",
+  );
+  await expect(page.locator(".tutor-answer-status")).toHaveText(
+    "Partial answer",
+  );
+});
+test("an interrupted stream retains partial output and reports that it did not finish", async ({
+  page,
+}) => {
+  await installTutorStream(page);
+  await page.goto("/#lesson/bellman");
+  await page.getByRole("button", { name: "Open AI study tutor" }).click();
+  await page
+    .getByRole("textbox", { name: "Your question about this lesson" })
+    .fill("Explain this step.");
+  await page.getByRole("button", { name: "Send question" }).click();
+  await page.evaluate(() => {
+    window.__tutorEmit("delta", { text: "The first step is useful." });
+    window.__tutorEnd();
+  });
+  await expect(page.locator(".tutor-error")).toContainText("connection ended");
+  await expect(page.locator(".tutor-assistant")).toContainText(
+    "The first step is useful.",
+  );
+  await expect(page.locator(".tutor-answer-status")).toHaveText(
+    "Partial answer",
+  );
+  await expect(
+    page.getByRole("combobox", { name: "Tutor model", exact: true }),
+  ).toBeEnabled();
 });

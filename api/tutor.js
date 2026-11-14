@@ -1,5 +1,7 @@
+import { once } from "node:events";
 import {
   getTutorReply,
+  openTutorStream,
   TutorError,
   MAX_BODY_BYTES,
 } from "../server/tutor-service.js";
@@ -88,14 +90,54 @@ export default async function handler(req, res) {
       error: "Please wait a minute before asking more questions.",
     });
   }
+  const controller = new AbortController();
+  const disconnect = () => {
+    if (!res.writableEnded) controller.abort();
+  };
+  res.on?.("close", disconnect);
+  req.on?.("aborted", disconnect);
+  let heartbeat;
+  async function writeEvent(event, data) {
+    if (res.destroyed || controller.signal.aborted)
+      throw new Error("Client disconnected");
+    if (!res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`))
+      await once(res, "drain", { signal: controller.signal });
+  }
   try {
-    return send(200, await getTutorReply(await requestBody(req)));
+    const body = await requestBody(req);
+    if (body?.stream !== true)
+      return send(
+        200,
+        await getTutorReply(body, { signal: controller.signal }),
+      );
+    const stream = await openTutorStream(body, { signal: controller.signal });
+    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+    res.setHeader("Cache-Control", "no-store, no-transform");
+    res.setHeader("X-Accel-Buffering", "no");
+    res.statusCode = 200;
+    res.flushHeaders?.();
+    heartbeat = setInterval(() => {
+      if (!res.destroyed && !res.writableEnded) res.write(": keepalive\n\n");
+    }, 10000);
+    for await (const frame of stream) await writeEvent(frame.event, frame.data);
+    if (!res.destroyed) res.end();
   } catch (error) {
-    return send(error instanceof TutorError ? error.status : 500, {
-      error:
-        error instanceof TutorError
-          ? error.message
-          : "The study tutor is temporarily unavailable. Please retry.",
-    });
+    if (res.destroyed || controller.signal.aborted) return;
+    const message =
+      error instanceof TutorError
+        ? error.message
+        : "The study tutor is temporarily unavailable. Please retry.";
+    if (res.headersSent) {
+      await writeEvent("error", { error: message }).catch(() => {});
+      if (!res.destroyed) res.end();
+    } else
+      return send(error instanceof TutorError ? error.status : 500, {
+        error: message,
+      });
+  } finally {
+    clearInterval(heartbeat);
+    res.off?.("close", disconnect);
+    req.off?.("aborted", disconnect);
+    controller.abort();
   }
 }
