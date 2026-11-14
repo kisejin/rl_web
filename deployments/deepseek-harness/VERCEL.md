@@ -2,6 +2,8 @@
 
 This deployment uses the **official DeepSeek Harness agent core** inside a Node 24 Vercel Function. Vercel provides the HTTPS endpoint and certificate. It requires no VPS, Docker host, listening server, subprocess or persistent filesystem. The full upstream Harness administrative Web UI and its shell tools are not part of this runtime.
 
+Production configuration: the `rlatlas` project hosts both the tutor and the Harness function. The runtime health, unauthenticated rejection and authenticated completion were verified over HTTPS before enabling `DEEPSEEK_HARNESS_URL`. The provider key remains in its original Sensitive Vercel variable.
+
 ## Endpoints
 
 - Website and chat UI: `https://rlatlas.vercel.app`
