@@ -7,17 +7,11 @@
   "functions": {
     "api/tutor.js": {
       "maxDuration": 60,
-      "includeFiles": [
-        "skills/tutor/**",
-        "public/research-feed.json"
-      ]
+      "includeFiles": "{skills/tutor/**,public/research-feed.json}"
     },
     "api/harness.js": {
       "maxDuration": 60,
-      "includeFiles": [
-        "skills/tutor/**",
-        "public/research-feed.json"
-      ]
+      "includeFiles": "{skills/tutor/**,public/research-feed.json}"
     },
     "api/research.js": {
       "maxDuration": 15,
