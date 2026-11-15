@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 92 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 63 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 103 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 68 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -157,3 +157,7 @@ The [agent workspace guide](deployments/deepseek-harness/AGENT.md) documents bui
 Open [the atlas](https://rlatlas.vercel.app/#atlas) for 35 sourced topics, 248 formula/derivation displays, and 35 original interactive numerical animations. The progression includes probability, Bellman/TD control, deep value learning, policy gradients, PPO/TRPO, continuous control, off-policy evaluation, offline RL, imitation/multi-agent learning, RLHF/DPO/GRPO, constraints and evaluation. Each topic has explicit assumptions, a derivation, an example, misconceptions, knowledge checks and optional self-review tracking. The atlas is indexed by documentation search and the learning MCP server, and supports section-aware tutoring. The existing core course, Manim films and Python labs remain available.
 
 See [source and mathematical review notes](docs/rl-atlas-source-notes.md) for provenance, scope, conventions and numerical checks.
+
+## Daily research feed
+
+The [research desk](https://rlatlas.vercel.app/#research) discovers RL/RLVR, on-policy self-distillation and rubric-reward papers daily at approximately 09:00 Vietnam time. A protected Vercel Cron job persists the collection in Vercel Blob. Every paper has a labeled abstract digest and source links; up to eight entries per daily refresh receive server-side AI summaries. Topic/date/source filters, incremental loading and a local saved reading list support browsing. [Operations and provenance](docs/research-feed.md) describe source failures, the bounded archive and summary limits.

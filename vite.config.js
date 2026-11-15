@@ -1,3 +1,5 @@
+import researchHandler from "./api/research.js";
+import researchRefreshHandler from "./api/research-refresh.js";
 import tutorHandler from "./api/tutor.js";
 import harnessHandler from "./api/harness.js";
 import { defineConfig, loadEnv } from "vite";
@@ -10,11 +12,23 @@ export default defineConfig({
           "QWENCODER_",
           "HARNESS_",
           "DEEPSEEK_HARNESS_",
+          "BLOB_",
+          "CRON_",
         ]);
         for (const [name, value] of Object.entries(settings))
           if (!process.env[name]) process.env[name] = value;
         server.middlewares.use((req, res, next) => {
           const path = req.url?.split("?")[0];
+          if (path === "/api/research" || path === "/api/research-refresh") {
+            res.status = (status) => {
+              res.statusCode = status;
+              return res;
+            };
+            res.json = (value) => res.end(JSON.stringify(value));
+          }
+          if (path === "/api/research") return researchHandler(req, res);
+          if (path === "/api/research-refresh")
+            return researchRefreshHandler(req, res);
           if (path === "/api/tutor") return tutorHandler(req, res);
           if (
             path === "/api/harness" ||

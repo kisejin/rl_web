@@ -12,12 +12,26 @@
     "api/harness.js": {
       "maxDuration": 60,
       "includeFiles": "skills/tutor/**"
+    },
+    "api/research.js": {
+      "maxDuration": 15,
+      "includeFiles": "public/research-feed.json"
+    },
+    "api/research-refresh.js": {
+      "maxDuration": 60,
+      "includeFiles": "public/research-feed.json"
     }
   },
   "rewrites": [
     {
       "source": "/harness/v1/chat/completions",
       "destination": "/api/harness"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/research-refresh",
+      "schedule": "0 2 * * *"
     }
   ]
 }

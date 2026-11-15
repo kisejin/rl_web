@@ -61,7 +61,7 @@ export function prepareDocsShell({
   const quick = document.createElement("nav");
   quick.className = "doc-quick-nav";
   quick.setAttribute("aria-label", "Documentation");
-  quick.innerHTML = `<a href="#atlas" class="${["atlas", "atlas-topic"].includes(page) ? "active" : ""}">RL & Deep RL atlas <span>${atlasTopics.length}</span></a><a href="#curriculum" class="${page === "curriculum" ? "active" : ""}">Learning path</a><a href="#labs" class="${["labs", "lab"].includes(page) ? "active" : ""}">Code labs <span>${labs.length}</span></a><a href="#notebook" class="${page === "notebook" ? "active" : ""}">My notebook</a>`;
+  quick.innerHTML = `<a href="#atlas" class="${["atlas", "atlas-topic"].includes(page) ? "active" : ""}">RL & Deep RL atlas <span>${atlasTopics.length}</span></a><a href="#curriculum" class="${page === "curriculum" ? "active" : ""}">Learning path</a><a href="#labs" class="${["labs", "lab"].includes(page) ? "active" : ""}">Code labs <span>${labs.length}</span></a><a href="#research" class="${page === "research" ? "active" : ""}">Research feed <span>Daily</span></a><a href="#notebook" class="${page === "notebook" ? "active" : ""}">My notebook</a>`;
   sidebar.querySelector(".side-home").after(quick);
   const group = document.createElement("div");
   group.className = "nav-section";
@@ -101,6 +101,7 @@ export function prepareDocsShell({
               atlas: "RL & Deep RL atlas",
               labs: "Code labs",
               notebook: "My notebook",
+              research: "Daily research feed",
             }[page];
   $(".breadcrumb").innerHTML =
     `<span class="doc-crumb-home">Docs</span><span>/</span><span>${page === "lab" ? "Code labs" : "Reinforcement Learning"}</span><span>/</span><strong>${esc(title)}</strong>`;
@@ -256,6 +257,12 @@ export function mountDocs(context, { lessons, labs }) {
     options,
   );
   const index = [
+    {
+      title: "Daily RL research feed",
+      kind: "Research",
+      href: "#research",
+      text: "Daily research papers RL reinforcement learning RLVR verifiable rewards on-policy self-distillation rubric as reward new methods summaries",
+    },
     ...lessons.map((l) => ({
       title: l.title,
       kind: "Learning guide",
