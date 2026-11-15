@@ -29,7 +29,7 @@ export function createResearchRefreshHandler({
     apiKey: process.env.QWENCODER_API_KEY,
     baseUrl:
       process.env.QWENCODER_BASE_URL || "https://api.qwencoder.cloud/api/v1",
-    model: "qwen3.8-flash",
+    model: "gemini-3.8-flash",
   }),
 } = {}) {
   return async function handler(req, res) {
@@ -42,6 +42,7 @@ export function createResearchRefreshHandler({
     if (!authorized(req.headers.authorization, secret()))
       return res.status(401).json({ error: "Unauthorized" });
     try {
+      const started = Date.now();
       const current = now(),
         stored = await read();
       const summaryOnly =
@@ -65,17 +66,15 @@ export function createResearchRefreshHandler({
             : {}),
         };
         await write(feed);
-        return res
-          .status(200)
-          .json({
-            status: "summaries-updated",
-            papers: feed.papers.length,
-            aiSummaries: feed.papers.filter((p) => p.summary?.kind === "ai")
-              .length,
-            summaryStatus: feed.summaryStatus,
-            ...(feed.summaryIssue ? { summaryIssue: feed.summaryIssue } : {}),
-            ...(feed.summaryIssue ? { summaryIssue: feed.summaryIssue } : {}),
-          });
+        return res.status(200).json({
+          status: "summaries-updated",
+          papers: feed.papers.length,
+          aiSummaries: feed.papers.filter((p) => p.summary?.kind === "ai")
+            .length,
+          summaryStatus: feed.summaryStatus,
+          ...(feed.summaryIssue ? { summaryIssue: feed.summaryIssue } : {}),
+          ...(feed.summaryIssue ? { summaryIssue: feed.summaryIssue } : {}),
+        });
       }
       if (
         stored?.lastAttemptAt?.slice(0, 10) ===
@@ -90,7 +89,18 @@ export function createResearchRefreshHandler({
       const previous = stored || (await seed());
       const discovered = await discover({ now: current });
       const papers = mergeResearch(previous, discovered.papers, current);
-      const summarized = await summarize(papers, summaryOptions());
+      const budget = Math.max(0, 50000 - (Date.now() - started));
+      const summarized =
+        budget < 1000
+          ? {
+              papers,
+              summaryStatus: "extractive-fallback",
+              summaryIssue: { reason: "time-budget" },
+            }
+          : await summarize(papers, {
+              ...summaryOptions(),
+              timeoutMs: Math.min(20000, budget),
+            });
       const feed = makeFeed(previous, discovered, summarized, current);
       await write(feed);
       return res.status(feed.status === "unavailable" ? 502 : 200).json({

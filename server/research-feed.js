@@ -1,3 +1,4 @@
+import { readSSE } from "../src/sse.js";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 import { classifyResearch } from "../src/research-topics.js";
 export const FEED_VERSION = 1;
@@ -275,8 +276,9 @@ export async function summarizeResearch(
     fetchImpl = fetch,
     apiKey,
     baseUrl = "https://api.qwencoder.cloud/api/v1",
-    model = "qwen3.8-flash",
+    model = "gemini-3.8-flash",
     timeoutMs = 20000,
+    splitBatches = true,
   } = {},
 ) {
   if (!apiKey) return { papers, summaryStatus: "extractive-only" };
@@ -286,25 +288,61 @@ export async function summarizeResearch(
     .sort((a, b) => priority(b) - priority(a))
     .slice(0, 8);
   if (!batch.length) return { papers, summaryStatus: "up-to-date" };
+  if (splitBatches && batch.length > 2) {
+    const groups = [];
+    for (let i = 0; i < batch.length; i += 2)
+      groups.push(batch.slice(i, i + 2));
+    const results = await Promise.all(
+      groups.map((group) =>
+        summarizeResearch(group, {
+          fetchImpl,
+          apiKey,
+          baseUrl,
+          model,
+          timeoutMs,
+          splitBatches: false,
+        }),
+      ),
+    );
+    const summaries = new Map(
+      results
+        .flatMap((r) => r.papers)
+        .filter((p) => p.summary?.kind === "ai")
+        .map((p) => [p.id, p.summary]),
+    );
+    const issue = results.find((r) => r.summaryIssue)?.summaryIssue;
+    return {
+      papers: papers.map((p) =>
+        summaries.has(p.id) ? { ...p, summary: summaries.get(p.id) } : p,
+      ),
+      summaryStatus: summaries.size
+        ? "ai-and-extractive"
+        : "extractive-fallback",
+      ...(issue ? { summaryIssue: issue } : {}),
+    };
+  }
   let stage = "request",
     status,
     finishReason;
   try {
+    const summarySignal = AbortSignal.timeout(timeoutMs);
     const response = await fetchImpl(
       baseUrl.replace(/\/$/, "") + "/chat/completions",
       {
         method: "POST",
-        signal: AbortSignal.timeout(timeoutMs),
+        signal: summarySignal,
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + apiKey,
+          Accept: "text/event-stream",
+          "Accept-Encoding": "identity",
         },
         body: JSON.stringify({
           model,
           temperature: 0.1,
-          max_tokens: 4000,
+          max_tokens: 2000,
           response_format: { type: "json_object" },
-          stream: false,
+          stream: true,
           messages: [
             {
               role: "system",
@@ -327,10 +365,30 @@ export async function summarizeResearch(
     );
     status = response.status;
     stage = "response";
-    const data = JSON.parse(await readBounded(response, 100000));
-    finishReason = data.choices?.[0]?.finish_reason;
+    let content = "";
+    if (response.headers.get("content-type")?.includes("text/event-stream")) {
+      if (!response.ok) throw new Error("Provider unavailable");
+      let received = 0;
+      for await (const event of readSSE(response.body, {
+        signal: summarySignal,
+        maxEventSize: 100000,
+      })) {
+        received += event.data.length;
+        if (received > 100000) throw new Error("Summary response too large");
+        if (event.data === "[DONE]") break;
+        const chunk = JSON.parse(event.data);
+        if (chunk.error) throw new Error("Provider unavailable");
+        const choice = chunk.choices?.[0];
+        if (typeof choice?.delta?.content === "string")
+          content += choice.delta.content;
+        if (choice?.finish_reason) finishReason = choice.finish_reason;
+      }
+    } else {
+      const data = JSON.parse(await readBounded(response, 100000));
+      finishReason = data.choices?.[0]?.finish_reason;
+      content = data.choices?.[0]?.message?.content;
+    }
     stage = "summary-json";
-    const content = data.choices?.[0]?.message?.content;
     if (typeof content !== "string") throw new Error("Missing summary");
     const parsed = JSON.parse(
       content.replace(/^\s*```(?:json)?\s*/i, "").replace(/\s*```\s*$/, ""),
@@ -374,12 +432,11 @@ export async function summarizeResearch(
         )
           ? finishReason
           : null,
-        reason:
-          error?.name === "TimeoutError"
-            ? "timeout"
-            : stage === "summary-json"
-              ? "invalid-json"
-              : "provider-unavailable",
+        reason: ["TimeoutError", "AbortError"].includes(error?.name)
+          ? "timeout"
+          : stage === "summary-json"
+            ? "invalid-json"
+            : "provider-unavailable",
       },
     };
   }

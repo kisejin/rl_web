@@ -21,7 +21,12 @@ export async function readResearchStore({
   fetchImpl = fetch,
 } = {}) {
   if (!token) throw new Error("Research storage is not configured");
-  const result = await list({ prefix: "research/feed.json", limit: 1, token });
+  const result = await list({
+    prefix: "research/feed.json",
+    limit: 1,
+    token,
+    abortSignal: AbortSignal.timeout(5000),
+  });
   const blob = result.blobs.find((b) => b.pathname === "research/feed.json");
   if (!blob) return null;
   const data = JSON.parse(
@@ -48,5 +53,6 @@ export async function writeResearchStore(
     allowOverwrite: true,
     cacheControlMaxAge: 60,
     token,
+    abortSignal: AbortSignal.timeout(5000),
   });
 }

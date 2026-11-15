@@ -194,7 +194,7 @@ test("summary enrichment is bounded, validates IDs, uses server-only credentials
   assert.equal(enriched.papers.length, 1);
   assert.equal(enriched.papers[0].summary.kind, "ai");
   assert.ok(!JSON.stringify(payload).includes("secret-test-key"));
-  assert.equal(payload.model, "qwen3.8-flash");
+  assert.equal(payload.model, "gemini-3.8-flash");
   const bad = await summarizeResearch(papers, {
     apiKey: "secret-test-key",
     fetchImpl: async () =>
@@ -365,4 +365,49 @@ test("authenticated summary retries keep discovery dates intact and do not crawl
   assert.equal(written.lastAttemptAt, previous.lastAttemptAt);
   assert.equal(written.papers[0].summary.kind, "ai");
   assert.equal(res.data.aiSummaries, 1);
+});
+
+test("research enrichment decodes provider SSE and isolates small-batch failures", async () => {
+  const papers = Array.from({ length: 5 }, (_, i) => ({
+    ...p(),
+    id: "2611." + String(i).padStart(5, "0"),
+  }));
+  let calls = 0;
+  const result = await summarizeResearch(papers, {
+    apiKey: "test-key",
+    fetchImpl: async (url, options) => {
+      calls++;
+      const payload = JSON.parse(options.body);
+      assert.equal(payload.stream, true);
+      assert.equal(options.headers.Accept, "text/event-stream");
+      const group = JSON.parse(payload.messages[1].content);
+      assert.ok(group.length <= 2);
+      if (group[0].id === papers[2].id) throw new Error("unavailable");
+      const content = JSON.stringify({
+        summaries: group.map((p) => ({
+          id: p.id,
+          overview: "Author claim.",
+          method: "A method.",
+          limitations: "Abstract only.",
+        })),
+      });
+      const split = Math.floor(content.length / 2);
+      const chunks =
+        [content.slice(0, split), content.slice(split)]
+          .map(
+            (part) =>
+              "data: " +
+              JSON.stringify({ choices: [{ delta: { content: part } }] }) +
+              "\n\n",
+          )
+          .join("") + "data: [DONE]\n\n";
+      return new Response(chunks, {
+        headers: { "content-type": "text/event-stream" },
+      });
+    },
+  });
+  assert.equal(calls, 3);
+  assert.equal(result.papers.filter((p) => p.summary.kind === "ai").length, 3);
+  assert.equal(result.papers[2].summary.kind, "extractive");
+  assert.equal(result.summaryStatus, "ai-and-extractive");
 });
