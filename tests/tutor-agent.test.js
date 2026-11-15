@@ -102,7 +102,7 @@ test("MCP exposes real tools/resources, reads trusted skills and attachments, an
   });
   const b = await createTutorMCP({ options: settings() });
   try {
-    assert.equal(a.tools.length, 6);
+    assert.equal(a.tools.length, 8);
     assert.ok(!a.tools.some((t) => t.name === "web_search"));
     const resources = await a.client.listResources();
     assert.equal(resources.resources[0].uri, "rlatlas://course/index");

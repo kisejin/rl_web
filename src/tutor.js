@@ -1,3 +1,4 @@
+import { validPaperId } from "./paper-context.js";
 import { mountTutorWorkspace } from "./tutor-workspace.js";
 import { createTextReveal } from "./text-reveal.js";
 import { readTutorResponse } from "./tutor-response.js";
@@ -30,7 +31,7 @@ const escapeHTML = (value) =>
 export function renderTutorAnswer(node, source) {
   const math = [];
   const protectedText = source.replace(
-    /\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$[^\n$]+\$/g,
+    /\\begin\{(align\*?|equation\*?|gather\*?|aligned|gathered)\}[\s\S]*?\\end\{\1\}|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$[^\n$]+\$/g,
     (text) => {
       math.push(text);
       return `RLATLASMATHTOKEN${math.length - 1}END`;
@@ -76,6 +77,20 @@ export function renderTutorAnswer(node, source) {
   }
   renderMathInElement(node, {
     delimiters: [
+      ...[
+        "align",
+        "align*",
+        "equation",
+        "equation*",
+        "gather",
+        "gather*",
+        "aligned",
+        "gathered",
+      ].map((name) => ({
+        left: "\\begin{" + name + "}",
+        right: "\\end{" + name + "}",
+        display: true,
+      })),
       { left: "$$", right: "$$", display: true },
       { left: "\\[", right: "\\]", display: true },
       { left: "\\(", right: "\\)", display: false },
@@ -115,12 +130,13 @@ export function mountTutor({
     answerSaved = false,
     requestFileNames = [],
     localError = false;
+  const papers = new Map();
   let context =
     tutorContext({ lessonId, labId, sectionKey }) ||
     tutorContext({ lessonId: "foundations" });
   const host = document.createElement("div");
   host.className = "tutor-root";
-  host.innerHTML = `<button class="tutor-launch" aria-label="Open AI study tutor" aria-expanded="false" aria-controls="study-tutor">${uiIcon("chat")}<span>Ask AI</span></button><section id="study-tutor" class="tutor-panel" role="dialog" aria-labelledby="tutor-title" aria-modal="false" hidden><header class="tutor-header"><span class="tutor-avatar">${uiIcon("chat")}</span><div><h2 id="tutor-title">RL Atlas Tutor</h2><p>Your lesson companion</p></div><button class="tutor-icon-btn" data-tutor-clear aria-label="Clear this conversation" title="Clear conversation">${uiIcon("reset")}</button><button class="tutor-icon-btn" data-tutor-close aria-label="Close AI tutor">${uiIcon("close")}</button></header><div class="tutor-context"><label>Model<select id="tutor-model" aria-label="Tutor model">${tutorModels.map((model) => `<option value="${model.id}">${escapeHTML(model.name)}</option>`).join("")}</select></label><label>Lesson<select id="tutor-lesson" aria-label="Tutor lesson">${tutorLessonCatalog.map((l) => `<option value="${l.id}">${escapeHTML(l.title)}</option>`).join("")}</select></label><label>Discussing<select id="tutor-section" aria-label="Tutor section"></select></label><a class="tutor-source" href="#" data-tutor-source>${uiIcon("book")}<span></span>${uiIcon("arrow-up-right")}</a></div><div class="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" aria-relevant="additions"></div><div class="tutor-error" role="alert" hidden><p></p><button data-tutor-retry>Try again</button></div><form class="tutor-form"><label class="tutor-sr-only" for="tutor-question">Your question about this lesson</label><textarea id="tutor-question" rows="2" maxlength="2000" placeholder="Ask about an idea, equation, or proof…" required></textarea><div class="tutor-compose-actions"><span data-tutor-count>0 / 2000</span><span class="tutor-key-hint">Enter to send · Shift+Enter for a new line</span><button class="tutor-send" type="submit" aria-label="Send question">${uiIcon("send")}<span>Send</span></button><button class="tutor-stop" type="button" data-tutor-stop hidden>${uiIcon("stop")} Stop</button></div><p class="tutor-disclaimer">AI can make mistakes. Check the lesson and every proof step. Your question, attached files and lesson context are shared with the model. Search papers sends queries to Crossref when enabled.</p></form></section>`;
+  host.innerHTML = `<button class="tutor-launch" aria-label="Open AI study tutor" aria-expanded="false" aria-controls="study-tutor">${uiIcon("chat")}<span>Ask AI</span></button><section id="study-tutor" class="tutor-panel" role="dialog" aria-labelledby="tutor-title" aria-modal="false" hidden><header class="tutor-header"><span class="tutor-avatar">${uiIcon("chat")}</span><div><h2 id="tutor-title">RL Atlas Tutor</h2><p>Your lesson companion</p></div><button class="tutor-icon-btn" data-tutor-clear aria-label="Clear this conversation" title="Clear conversation">${uiIcon("reset")}</button><button class="tutor-icon-btn" data-tutor-close aria-label="Close AI tutor">${uiIcon("close")}</button></header><div class="tutor-context"><label>Model<select id="tutor-model" aria-label="Tutor model">${tutorModels.map((model) => `<option value="${model.id}">${escapeHTML(model.name)}</option>`).join("")}</select></label><label class="tutor-lesson-picker">Lesson<select id="tutor-lesson" aria-label="Tutor lesson">${tutorLessonCatalog.map((l) => `<option value="${l.id}">${escapeHTML(l.title)}</option>`).join("")}</select></label><label class="tutor-paper-picker" hidden>Paper<select id="tutor-paper" aria-label="Tutor research paper"><option value="">Search the collected library</option></select></label><label>Discussing<select id="tutor-section" aria-label="Tutor section"></select></label><a class="tutor-source" href="#" data-tutor-source>${uiIcon("book")}<span></span>${uiIcon("arrow-up-right")}</a></div><div class="tutor-messages" role="log" aria-label="Tutor conversation" aria-live="polite" aria-relevant="additions"></div><div class="tutor-error" role="alert" hidden><p></p><button data-tutor-retry>Try again</button></div><form class="tutor-form"><label class="tutor-sr-only" for="tutor-question">Your question about this lesson</label><textarea id="tutor-question" rows="2" maxlength="2000" placeholder="Ask about an idea, equation, or proof…" required></textarea><div class="tutor-compose-actions"><span data-tutor-count>0 / 2000</span><span class="tutor-key-hint">Enter to send · Shift+Enter for a new line</span><button class="tutor-send" type="submit" aria-label="Send question">${uiIcon("send")}<span>Send</span></button><button class="tutor-stop" type="button" data-tutor-stop hidden>${uiIcon("stop")} Stop</button></div><p class="tutor-disclaimer">AI can make mistakes. Check the lesson and every proof step. Your question, attached files and lesson context are shared with the model. Search papers sends queries to Crossref when enabled.</p></form></section>`;
   document.body.append(host);
   const $ = (selector) => host.querySelector(selector),
     panel = $(".tutor-panel"),
@@ -142,7 +158,7 @@ export function mountTutor({
   });
   $("#tutor-model").value = selectedModel;
   const threadKey = () =>
-    `rl-atlas-tutor:${context.lessonId}:${context.labId || ""}:${context.sectionKey}`;
+    `rl-atlas-tutor:${context.lessonId}:${context.labId || context.paperId || ""}:${context.sectionKey}`;
   function load() {
     workspace.load(threadKey());
     reveal?.cancel();
@@ -193,6 +209,7 @@ export function mountTutor({
     $("#tutor-model").disabled = busy;
     $("#tutor-lesson").disabled = busy;
     $("#tutor-section").disabled = busy;
+    $("#tutor-paper").disabled = busy;
     input.disabled = busy;
     $("[data-tutor-clear]").disabled = busy;
     $(".tutor-error").hidden = !error;
@@ -367,21 +384,48 @@ export function mountTutor({
     $("[data-tutor-count]").textContent = `${input.value.length} / 2000`;
   }
   function choose(next) {
-    context = tutorContext(next) || context;
+    context =
+      tutorContext({ ...next, paper: papers.get(next.paperId) }) || context;
     load();
     input.value = "";
     count();
     $("#tutor-lesson").value = context.lessonId;
-    $("#tutor-section").innerHTML = tutorTopics(context.lessonId, context.labId)
+    $("#tutor-section").innerHTML = tutorTopics(
+      context.lessonId,
+      context.labId,
+      papers.get(context.paperId),
+    )
       .map((t) => `<option value="${t.key}">${escapeHTML(t.title)}</option>`)
       .join("");
     $("#tutor-section").value = context.sectionKey;
+    host.classList.toggle(
+      "is-research-context",
+      context.lessonId === "research",
+    );
+    $(".tutor-paper-picker").hidden = context.lessonId !== "research";
+    $("#tutor-paper").value = context.paperId || "";
+    $(".tutor-header p").textContent = context.paperId
+      ? "Abstract-based paper discussion"
+      : context.lessonId === "research"
+        ? "Search the collected research library"
+        : "Your lesson companion";
     const source = $("[data-tutor-source]");
     source.href = context.link;
     source.querySelector("span").textContent =
       context.labId && context.sectionKey === "lab"
         ? "Open Python lab"
-        : "Open lesson";
+        : context.paperId
+          ? "Open paper on arXiv"
+          : context.lessonId === "research"
+            ? "Open research feed"
+            : "Open lesson";
+    if (context.paperId) {
+      source.target = "_blank";
+      source.rel = "noopener noreferrer";
+    } else {
+      source.removeAttribute("target");
+      source.removeAttribute("rel");
+    }
     draw();
   }
   function open(section) {
@@ -458,6 +502,7 @@ export function mountTutor({
           lessonId: context.lessonId,
           sectionKey: context.sectionKey,
           ...(context.labId ? { labId: context.labId } : {}),
+          ...(context.paperId ? { paperId: context.paperId } : {}),
           messages: history,
           agent,
           attachments: requestAttachments,
@@ -586,6 +631,7 @@ export function mountTutor({
       choose({
         lessonId: context.lessonId,
         labId: context.labId,
+        paperId: context.paperId,
         sectionKey: e.target.value,
       }),
     { signal },
@@ -650,6 +696,44 @@ export function mountTutor({
       "Ask for a proof hint",
     );
   }
+  document.addEventListener(
+    "rlatlas:research-feed",
+    (e) => {
+      papers.clear();
+      for (const p of e.detail?.papers || [])
+        if (validPaperId(p.id)) papers.set(p.id, p);
+      $("#tutor-paper").innerHTML =
+        '<option value="">Search the collected library</option>' +
+        [...papers.values()]
+          .map(
+            (p) =>
+              `<option value="${escapeHTML(p.id)}">${escapeHTML(p.title)}</option>`,
+          )
+          .join("");
+      $("#tutor-paper").value = context.paperId || "";
+    },
+    { signal },
+  );
+  document.addEventListener(
+    "rlatlas:discuss-paper",
+    (e) => {
+      const id = e.detail?.paperId;
+      if (busy || !papers.has(id)) return;
+      choose({ lessonId: "research", paperId: id, sectionKey: "overview" });
+      open();
+    },
+    { signal },
+  );
+  $("#tutor-paper").addEventListener(
+    "change",
+    (e) =>
+      choose({
+        lessonId: "research",
+        paperId: e.target.value || undefined,
+        sectionKey: "overview",
+      }),
+    { signal },
+  );
   choose({ lessonId, labId, sectionKey });
   if (keepOpen) open();
   return () => {

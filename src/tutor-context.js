@@ -1,7 +1,13 @@
+import {
+  paperTutorContext,
+  researchLibraryContext,
+  paperSections,
+} from "./paper-context.js";
 import { atlasTopics } from "./atlas-content.js";
 import { atlasSources } from "./atlas-sources.js";
 import { lessons, labs } from "./content.js";
 export const tutorLessonCatalog = [
+  { id: "research", title: "Research · Collected papers" },
   ...lessons,
   ...atlasTopics.map((t) => ({
     id: "atlas-" + t.id,
@@ -28,7 +34,20 @@ function labMaterial(lab) {
     assumptions: lab.assumptions,
   };
 }
-export function tutorTopics(lessonId, labId) {
+export function tutorTopics(lessonId, labId, paper) {
+  if (lessonId === "research")
+    return paper
+      ? paperSections.map((s) => ({
+          ...s,
+          content: paperTutorContext(paper, s.key)?.material,
+        }))
+      : [
+          {
+            key: "overview",
+            title: "Search and discuss collected papers",
+            content: researchLibraryContext().material,
+          },
+        ];
   const advanced = atlasFor(lessonId);
   if (advanced)
     return [
@@ -154,7 +173,22 @@ export function labLessonId(lab) {
     "foundations"
   );
 }
-export function tutorContext({ lessonId, sectionKey = "overview", labId }) {
+export function tutorContext({
+  lessonId,
+  sectionKey = "overview",
+  labId,
+  paperId,
+  paper,
+}) {
+  if (lessonId === "research") {
+    if (labId) return null;
+    return paperId
+      ? paper?.id === paperId
+        ? paperTutorContext(paper, sectionKey)
+        : null
+      : researchLibraryContext(sectionKey);
+  }
+  if (paperId) return null;
   const advanced = atlasFor(lessonId);
   if (advanced) {
     const lab = labId ? labs.find((item) => item.id === labId) : null;

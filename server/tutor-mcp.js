@@ -1,3 +1,5 @@
+import { loadPaperLibrary, searchPaperLibrary } from "./paper-library.js";
+import { paperTutorContext, validPaperId } from "../src/paper-context.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
@@ -103,6 +105,7 @@ export async function createTutorMCP({
   onAgent = () => {},
   fetchImpl = fetch,
   signal,
+  readPaperLibrary = loadPaperLibrary,
 }) {
   const server = new McpServer({ name: "rl-atlas-learning", version: "1.0.0" });
   const client = new Client({ name: "rl-atlas-harness", version: "1.0.0" });
@@ -160,6 +163,51 @@ export async function createTutorMCP({
         return { error: "Unknown lesson/section. Use course_search." };
       onAgent({ type: "sources", sources: [match] });
       return { ...match, text: match.text.slice(0, 7000) };
+    },
+  );
+  let paperLibrary;
+  const library = () =>
+    (paperLibrary ||= Promise.resolve().then(() => readPaperLibrary()));
+  tool(
+    "search_papers",
+    "Search the saved, crawled RL research collection by title, author-independent abstract keywords or arXiv ID. Returns metadata and abstract excerpts, not full PDFs. Use read_paper before discussing specifics.",
+    { query: z.string().min(2).max(200) },
+    async ({ query }) => {
+      const collection = await library(),
+        matches = searchPaperLibrary(collection, query);
+      onAgent({ type: "sources", sources: matches });
+      return {
+        matches,
+        collectionUpdatedAt: collection.updatedAt,
+        collectionSource: collection.source,
+        evidenceScope:
+          "Metadata and abstracts only; full papers have not been retrieved.",
+      };
+    },
+  );
+  tool(
+    "read_paper",
+    "Read the collected abstract, metadata and existing AI summary for a saved arXiv paper. This does not fetch/read the full PDF. Cite the canonical URL and attribute author claims.",
+    { id: z.string().max(60) },
+    async ({ id }) => {
+      if (!validPaperId(id))
+        return { error: "Choose a valid collected arXiv ID." };
+      const collection = await library(),
+        paper = collection.papers.find((p) => p.id === id);
+      if (!paper)
+        return {
+          error: "Paper not in the saved collection. Use search_papers.",
+        };
+      const context = paperTutorContext(paper);
+      onAgent({
+        type: "sources",
+        sources: [{ title: paper.title, url: context.link }],
+      });
+      return {
+        ...context.material,
+        collectionSource: collection.source,
+        collectionUpdatedAt: collection.updatedAt,
+      };
     },
   );
   tool(

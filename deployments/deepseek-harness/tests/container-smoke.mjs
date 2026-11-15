@@ -99,3 +99,29 @@ try {
     new Promise((resolve) => gateway.close(resolve)),
   ]);
 }
+
+// The optional server can discuss collected abstracts without external network access.
+const { createTutorMCP } = await import("../../server/tutor-mcp.js");
+const { loadPaperLibrary } = await import("../../server/paper-library.js");
+const collection = await loadPaperLibrary();
+assert.equal(collection.source, "bundled");
+const papersMcp = await createTutorMCP({
+  options: {
+    mode: "ask",
+    skill: "intuition",
+    webSearch: false,
+    state: { steps: [] },
+  },
+});
+try {
+  const result = await papersMcp.client.callTool({
+    name: "read_paper",
+    arguments: { id: collection.papers[0].id },
+  });
+  assert.match(result.content[0].text, /Full paper\/PDF has NOT been read/);
+  console.log(
+    "PASS: built Docker image reads the collected paper library through MCP without network or filesystem writes.",
+  );
+} finally {
+  await papersMcp.close();
+}

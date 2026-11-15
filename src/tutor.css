@@ -603,3 +603,45 @@ body[data-docs-page="lab"] .tutor-launch {
   vertical-align: text-bottom;
   background: var(--tutor-brand);
 }
+
+.tutor-paper-picker {
+  grid-column: 1 / -1;
+}
+.tutor-paper-picker[hidden] {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .is-research-context .tutor-context {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px;
+    padding: 8px 12px;
+  }
+  .is-research-context .tutor-context label {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
+    font-size: 11px;
+  }
+  .is-research-context .tutor-context .tutor-lesson-picker {
+    display: none;
+  }
+  .is-research-context .tutor-context .tutor-paper-picker {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    align-items: center;
+    grid-row: 1;
+  }
+  .is-research-context .tutor-source {
+    grid-column: 1 / -1;
+  }
+  .is-research-context .tutor-header p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .is-research-context .tutor-header > div {
+    min-width: 0;
+  }
+}

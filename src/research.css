@@ -299,3 +299,36 @@
   background: var(--doc-surface);
   color: var(--doc-link);
 }
+
+.research-math-block {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 12px 0;
+  padding: 6px 0;
+}
+.research-math-inline {
+  overflow-wrap: normal;
+}
+.research-math .katex {
+  font-size: max(1.05em, 17px);
+}
+.research-math-block .katex-display {
+  margin: 0;
+  text-align: left;
+}
+.research-math-block .katex-display > .katex {
+  text-align: left;
+}
+.research-math-fallback {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.research-discuss {
+  border: 1px solid var(--doc-link);
+  color: var(--doc-link);
+  background: var(--doc-selected);
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}

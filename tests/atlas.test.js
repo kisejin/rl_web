@@ -112,7 +112,7 @@ test("importance correction, expectiles, shaping, group baselines and local trus
     close(atlasSceneModel("trpo", 4, delta).metrics[0].value, delta);
 });
 test("advanced topics are available in section-aware tutoring and real MCP course search", () => {
-  assert.equal(tutorLessonCatalog.length, 44);
+  assert.equal(tutorLessonCatalog.length, 45);
   const context = tutorContext({ lessonId: "atlas-ppo", sectionKey: "proof" });
   assert.ok(context);
   assert.equal(context.link, "/#atlas/ppo");

@@ -28,3 +28,11 @@
 
 !src/atlas-labs.js
 !src/atlas-lab-data.js
+
+!src/paper-context.js
+!src/research-topics.js
+!server/paper-library.js
+!server/research-store.js
+!server/research-feed.js
+!public/
+!public/research-feed.json

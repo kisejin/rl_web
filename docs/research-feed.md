@@ -30,3 +30,13 @@ The summary prompt treats abstracts as untrusted reference data, requests JSON t
 `npm run research:seed` regenerates only the public metadata bootstrap; it does not load production credentials. Production AI enrichment occurs inside the protected Vercel refresh. Local Vite serves the read and refresh APIs through its native Node middleware adapter.
 
 Tests cover topic specificity, Atom/HF parsing, rejected entities/error feeds, canonical IDs, deduplication/revisions, discovery windows and partial failures, response bounds, AI output validation/fallback, public read-only behavior, cron authorization/idempotence, failed-refresh retention, the declared schedule, filters/bookmarks, source-text escaping, incremental loading, mobile themes and route cleanup.
+
+## Mathematics and paper discussions
+
+`server/ai-provider.js` supplies the same `QWENCODER_API_KEY` and `QWENCODER_BASE_URL` to chat and research enrichment. The summary model defaults to the supported `gemini-3.8-flash` and can be changed with the server-only `RESEARCH_SUMMARY_MODEL`; the chat selector retains all 13 supported models. Secrets are never included in paper records or browser requests. New summary prompts preserve source LaTeX with correctly escaped JSON backslashes and forbid invented source equations.
+
+Cards render dollar and bracket/parenthesis math delimiters plus common equation/align/gather environments through bounded, untrusted KaTeX. Source prose is escaped, monetary text and code stay literal, and unsupported TeX remains readable. Mathematical angle brackets are retained during collection. Stored older abstracts refresh from source on subsequent crawls.
+
+The per-card discussion button selects a paper in the existing chat panel. Overview, methods, equations, limitations and theory connections have separate session histories per paper. The browser sends only a canonical `paperId`; the tutor server loads its own live/dated-bundled record before constructing the prompt. Unknown IDs and forged source content cannot override canonical material. The chatbot distinguishes abstract evidence, derived AI digests and teaching examples, and cites the arXiv URL. It does not claim to have read a full PDF unless full text has actually been supplied/read.
+
+MCP `search_papers` and `read_paper` access the saved collection independently of optional Crossref publication search. Reads in one request share a consistent snapshot; the library cache is bounded to one minute. The Docker image includes its dated bootstrap and supports offline paper tools as well as live Blob access when configured.

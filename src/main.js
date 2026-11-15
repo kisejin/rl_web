@@ -231,11 +231,13 @@ function render() {
   createIcons({ icons });
   cleanTutor = mountTutor({
     lessonId:
-      page === "atlas-topic"
-        ? "atlas-" + selectedAtlas
-        : page === "lesson"
-          ? selectedLesson
-          : "foundations",
+      page === "research"
+        ? "research"
+        : page === "atlas-topic"
+          ? "atlas-" + selectedAtlas
+          : page === "lesson"
+            ? selectedLesson
+            : "foundations",
     withSectionButtons: page === "lesson" || page === "atlas-topic",
   });
   if (page === "home") drawGrid();

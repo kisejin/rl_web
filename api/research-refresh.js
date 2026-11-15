@@ -1,3 +1,4 @@
+import { researchProviderConfig } from "../server/ai-provider.js";
 import { timingSafeEqual } from "node:crypto";
 import {
   discoverResearch,
@@ -25,12 +26,7 @@ export function createResearchRefreshHandler({
   summarize = summarizeResearch,
   now = () => new Date(),
   secret = () => process.env.CRON_SECRET,
-  summaryOptions = () => ({
-    apiKey: process.env.QWENCODER_API_KEY,
-    baseUrl:
-      process.env.QWENCODER_BASE_URL || "https://api.qwencoder.cloud/api/v1",
-    model: "gemini-3.8-flash",
-  }),
+  summaryOptions = researchProviderConfig,
 } = {}) {
   return async function handler(req, res) {
     res.setHeader("Cache-Control", "no-store");
