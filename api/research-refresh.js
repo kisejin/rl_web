@@ -44,40 +44,67 @@ export function createResearchRefreshHandler({
     try {
       const current = now(),
         stored = await read();
+      const summaryOnly =
+        new URL(req.url || "/", "https://rlatlas.vercel.app").searchParams.get(
+          "mode",
+        ) === "summaries";
+      if (summaryOnly) {
+        const previous = stored || (await seed());
+        const summarized = await summarize(previous.papers, {
+          ...summaryOptions(),
+          timeoutMs: 40000,
+        });
+        const { summaryIssue: priorIssue, ...previousWithoutIssue } = previous;
+        const feed = {
+          ...previousWithoutIssue,
+          papers: summarized.papers,
+          summaryStatus: summarized.summaryStatus,
+          lastSummaryAttemptAt: current.toISOString(),
+          ...(summarized.summaryIssue
+            ? { summaryIssue: summarized.summaryIssue }
+            : {}),
+        };
+        await write(feed);
+        return res
+          .status(200)
+          .json({
+            status: "summaries-updated",
+            papers: feed.papers.length,
+            aiSummaries: feed.papers.filter((p) => p.summary?.kind === "ai")
+              .length,
+            summaryStatus: feed.summaryStatus,
+            ...(feed.summaryIssue ? { summaryIssue: feed.summaryIssue } : {}),
+            ...(feed.summaryIssue ? { summaryIssue: feed.summaryIssue } : {}),
+          });
+      }
       if (
         stored?.lastAttemptAt?.slice(0, 10) ===
           current.toISOString().slice(0, 10) &&
         stored.status !== "unavailable"
       )
-        return res
-          .status(200)
-          .json({
-            status: "already-updated",
-            papers: stored.papers.length,
-            updatedAt: stored.updatedAt,
-          });
+        return res.status(200).json({
+          status: "already-updated",
+          papers: stored.papers.length,
+          updatedAt: stored.updatedAt,
+        });
       const previous = stored || (await seed());
       const discovered = await discover({ now: current });
       const papers = mergeResearch(previous, discovered.papers, current);
       const summarized = await summarize(papers, summaryOptions());
       const feed = makeFeed(previous, discovered, summarized, current);
       await write(feed);
-      return res
-        .status(feed.status === "unavailable" ? 502 : 200)
-        .json({
-          status: feed.status,
-          papers: feed.papers.length,
-          updatedAt: feed.updatedAt,
-          sourceStatuses: feed.sourceStatuses,
-          summaryStatus: feed.summaryStatus,
-        });
+      return res.status(feed.status === "unavailable" ? 502 : 200).json({
+        status: feed.status,
+        papers: feed.papers.length,
+        updatedAt: feed.updatedAt,
+        sourceStatuses: feed.sourceStatuses,
+        summaryStatus: feed.summaryStatus,
+      });
     } catch {
-      return res
-        .status(503)
-        .json({
-          error:
-            "Research refresh is temporarily unavailable. The saved feed is retained.",
-        });
+      return res.status(503).json({
+        error:
+          "Research refresh is temporarily unavailable. The saved feed is retained.",
+      });
     }
   };
 }

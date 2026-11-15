@@ -276,6 +276,7 @@ export async function summarizeResearch(
     apiKey,
     baseUrl = "https://api.qwencoder.cloud/api/v1",
     model = "qwen3.8-flash",
+    timeoutMs = 20000,
   } = {},
 ) {
   if (!apiKey) return { papers, summaryStatus: "extractive-only" };
@@ -285,12 +286,15 @@ export async function summarizeResearch(
     .sort((a, b) => priority(b) - priority(a))
     .slice(0, 8);
   if (!batch.length) return { papers, summaryStatus: "up-to-date" };
+  let stage = "request",
+    status,
+    finishReason;
   try {
     const response = await fetchImpl(
       baseUrl.replace(/\/$/, "") + "/chat/completions",
       {
         method: "POST",
-        signal: AbortSignal.timeout(16000),
+        signal: AbortSignal.timeout(timeoutMs),
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + apiKey,
@@ -298,7 +302,9 @@ export async function summarizeResearch(
         body: JSON.stringify({
           model,
           temperature: 0.1,
-          max_tokens: 2300,
+          max_tokens: 4000,
+          response_format: { type: "json_object" },
+          stream: false,
           messages: [
             {
               role: "system",
@@ -319,7 +325,11 @@ export async function summarizeResearch(
         }),
       },
     );
+    status = response.status;
+    stage = "response";
     const data = JSON.parse(await readBounded(response, 100000));
+    finishReason = data.choices?.[0]?.finish_reason;
+    stage = "summary-json";
     const content = data.choices?.[0]?.message?.content;
     if (typeof content !== "string") throw new Error("Missing summary");
     const parsed = JSON.parse(
@@ -352,8 +362,26 @@ export async function summarizeResearch(
         ? "ai-and-extractive"
         : "extractive-fallback",
     };
-  } catch {
-    return { papers, summaryStatus: "extractive-fallback" };
+  } catch (error) {
+    return {
+      papers,
+      summaryStatus: "extractive-fallback",
+      summaryIssue: {
+        stage,
+        status: status || null,
+        finishReason: ["length", "stop", "content_filter"].includes(
+          finishReason,
+        )
+          ? finishReason
+          : null,
+        reason:
+          error?.name === "TimeoutError"
+            ? "timeout"
+            : stage === "summary-json"
+              ? "invalid-json"
+              : "provider-unavailable",
+      },
+    };
   }
 }
 export function makeFeed(previous, discovered, summarized, now = new Date()) {
@@ -369,6 +397,9 @@ export function makeFeed(previous, discovered, summarized, now = new Date()) {
         : "partial",
     sourceStatuses: discovered.sourceStatuses,
     summaryStatus: summarized.summaryStatus,
+    ...(summarized.summaryIssue
+      ? { summaryIssue: summarized.summaryIssue }
+      : {}),
     papers: summarized.papers,
   };
 }

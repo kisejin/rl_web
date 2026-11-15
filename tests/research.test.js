@@ -315,3 +315,54 @@ test("production config schedules a single protected daily refresh and the initi
     assert.ok(["extractive", "ai"].includes(p.summary.kind));
   }
 });
+
+test("authenticated summary retries keep discovery dates intact and do not crawl again", async () => {
+  const previous = {
+    version: 1,
+    updatedAt: "2026-11-15T01:00:00Z",
+    lastAttemptAt: "2026-11-15T01:00:00Z",
+    status: "ok",
+    papers: [p()],
+  };
+  let written,
+    crawls = 0;
+  const handler = createResearchRefreshHandler({
+    secret: () => "cron-secret",
+    now: () => now,
+    read: async () => previous,
+    write: async (feed) => (written = feed),
+    discover: async () => {
+      crawls++;
+    },
+    summarize: async (papers, options) => {
+      assert.equal(options.timeoutMs, 40000);
+      return {
+        papers: papers.map((p) => ({
+          ...p,
+          summary: {
+            kind: "ai",
+            overview: "Digest",
+            method: "Method",
+            limitations: "Abstract only",
+          },
+        })),
+        summaryStatus: "ai-and-extractive",
+      };
+    },
+  });
+  const res = response();
+  await handler(
+    {
+      method: "POST",
+      url: "/api/research-refresh?mode=summaries",
+      headers: { authorization: "Bearer cron-secret" },
+    },
+    res,
+  );
+  assert.equal(res.statusCode, 200);
+  assert.equal(crawls, 0);
+  assert.equal(written.updatedAt, previous.updatedAt);
+  assert.equal(written.lastAttemptAt, previous.lastAttemptAt);
+  assert.equal(written.papers[0].summary.kind, "ai");
+  assert.equal(res.data.aiSummaries, 1);
+});
