@@ -5,7 +5,7 @@ RUN --mount=type=secret,id=build_ca,target=/tmp/build-ca.pem \
     if [ -f /tmp/build-ca.pem ]; then export NODE_EXTRA_CA_CERTS=/tmp/build-ca.pem; fi; \
     npm ci --omit=dev --ignore-scripts && npm cache clean --force
 COPY --chown=node:node deployments/deepseek-harness/engine.js deployments/deepseek-harness/server.js /app/deployments/deepseek-harness/
-COPY --chown=node:node src/sse.js src/tutor-models.js src/tutor-agent.js src/tutor-attachments.js src/content.js src/tutor-context.js src/atlas-content.js src/atlas-sources.js src/atlas-labs.js src/atlas-lab-data.js src/paper-context.js src/research-topics.js /app/src/
+COPY --chown=node:node src/sse.js src/tutor-models.js src/tutor-agent.js src/tutor-attachments.js src/content.js src/tutor-context.js src/atlas-content.js src/atlas-sources.js src/atlas-labs.js src/atlas-lab-data.js src/paper-context.js src/paper-prerequisites.js src/research-topics.js /app/src/
 COPY --chown=node:node server/secret-filter.js server/harness-gateway.js server/tutor-mcp.js server/tutor-skills.js server/paper-library.js server/research-store.js server/research-feed.js /app/server/
 COPY --chown=node:node skills/tutor/ /app/skills/tutor/
 COPY --chown=node:node public/research-feed.json /app/public/research-feed.json

@@ -20,6 +20,14 @@
     "api/research-refresh.js": {
       "maxDuration": 60,
       "includeFiles": "public/research-feed.json"
+    },
+    "api/paper-content.js": {
+      "maxDuration": 60,
+      "includeFiles": "public/research-feed.json"
+    },
+    "api/paper-pdf.js": {
+      "maxDuration": 60,
+      "includeFiles": "public/research-feed.json"
     }
   },
   "rewrites": [

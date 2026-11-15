@@ -51,7 +51,7 @@ npm test
 npm run test:e2e
 ```
 
-The 112 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 71 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
+The 119 unit/content tests cover reference implementations, TeX, Gridworld dynamics and goal reachability, the reward aggregator, and capstone gradient properties. The 75 Playwright browser tests cover simulation, quizzes, saved notes and export, filters, workers, proof completion, errors/timeouts, rubric interactions, mobile layouts, and English copy.
 
 Playwright requires Chromium. This cloud image provides `/usr/bin/chromium`:
 
@@ -163,3 +163,5 @@ See [source and mathematical review notes](docs/rl-atlas-source-notes.md) for pr
 The [research desk](https://rlatlas.vercel.app/#research) discovers RL/RLVR, on-policy self-distillation and rubric-reward papers daily at approximately 09:00 Vietnam time. A protected Vercel Cron job persists the collection in Vercel Blob. Every paper has a labeled abstract digest and source links; up to eight entries per daily refresh receive server-side AI summaries. Topic/date/source filters, incremental loading and a local saved reading list support browsing. [Operations and provenance](docs/research-feed.md) describe source failures, the bounded archive and summary limits.
 
 Research cards render LaTeX in titles, abstracts and AI digests. **Discuss this paper with AI** opens the existing streaming study chatbot with its model selector and paper-specific section/history. The server resolves IDs against the saved collection; browser-supplied paper text is not accepted as canonical context. Built-in MCP `search_papers`/`read_paper` also support library-wide questions and comparisons. Discussion is grounded in collected metadata/abstracts and any text explicitly attached by the learner.
+
+Each collected paper now has mathematical prerequisites with evidence/learning links and a [reading room](docs/paper-reading-room.md) for source figures, semantic tables and a complete-PDF page gallery. HTML extraction includes available appendix content and labels conversion limits; PDF pages remain the original visual reference.

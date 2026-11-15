@@ -719,7 +719,11 @@ export function mountTutor({
     (e) => {
       const id = e.detail?.paperId;
       if (busy || !papers.has(id)) return;
-      choose({ lessonId: "research", paperId: id, sectionKey: "overview" });
+      choose({
+        lessonId: "research",
+        paperId: id,
+        sectionKey: e.detail?.sectionKey || "overview",
+      });
       open();
     },
     { signal },

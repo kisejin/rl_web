@@ -1,3 +1,5 @@
+import { inferPrerequisites } from "./paper-prerequisites.js";
+import { mountPaperReader, prerequisitesMarkup } from "./paper-reader.js";
 import { researchMath } from "./research-math.js";
 import { researchTopics, RESEARCH_SCHEDULE } from "./research-topics.js";
 import { escapeText as esc } from "./math-text.js";
@@ -46,7 +48,7 @@ function card(p, saved) {
   const href = "https://arxiv.org/abs/" + p.id,
     pdf = "https://arxiv.org/pdf/" + p.id,
     summary = p.summary || {};
-  return `<article class="research-card" data-research-paper="${esc(p.id)}"><div class="research-card-meta"><span class="research-preprint">Preprint</span><time datetime="${esc(p.publishedAt)}">Published ${esc(date(p.publishedAt))}</time><button type="button" data-research-save="${esc(p.id)}" aria-pressed="${saved}" aria-label="${saved ? "Unsave" : "Save"} paper: ${esc(p.title)}">${saved ? "✓ Saved" : "＋ Save"}</button></div><h3><a href="${href}" target="_blank" rel="noopener noreferrer">${researchMath(p.title)}</a></h3><p class="research-authors">${esc((p.authors || []).slice(0, 5).join(", "))}${p.authors?.length > 5 ? " et al." : ""}</p><div class="research-tags">${p.topics.map((t) => `<span>${esc(topicLabel(t))}</span>`).join("")}</div><div class="research-digest"><span class="research-digest-label">${summary.kind === "ai" ? "AI abstract summary" : "Abstract excerpt"}</span><p>${researchMath(summary.overview || p.abstract.slice(0, 650))}</p>${summary.kind === "ai" ? `<dl><div><dt>Method</dt><dd>${researchMath(summary.method)}</dd></div><div><dt>Evidence & limits</dt><dd>${researchMath(summary.limitations)}</dd></div></dl>` : ""}</div><details class="research-abstract"><summary>Read the original abstract</summary><p>${researchMath(p.abstract)}</p></details><footer><button type="button" class="research-discuss" data-research-discuss="${esc(p.id)}">Discuss this paper with AI</button><a href="${href}" target="_blank" rel="noopener noreferrer">Read on arXiv ↗</a><a href="${pdf}" target="_blank" rel="noopener noreferrer">PDF ↗</a>${p.sources.includes("huggingface") ? `<a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener noreferrer">HF discussion ↗</a>` : ""}<span>First collected ${esc(date(p.firstSeenAt || p.publishedAt))}</span></footer></article>`;
+  return `<article class="research-card" data-research-paper="${esc(p.id)}"><div class="research-card-meta"><span class="research-preprint">Preprint</span><time datetime="${esc(p.publishedAt)}">Published ${esc(date(p.publishedAt))}</time><button type="button" data-research-save="${esc(p.id)}" aria-pressed="${saved}" aria-label="${saved ? "Unsave" : "Save"} paper: ${esc(p.title)}">${saved ? "✓ Saved" : "＋ Save"}</button></div><h3><a href="${href}" target="_blank" rel="noopener noreferrer">${researchMath(p.title)}</a></h3><p class="research-authors">${esc((p.authors || []).slice(0, 5).join(", "))}${p.authors?.length > 5 ? " et al." : ""}</p><div class="research-tags">${p.topics.map((t) => `<span>${esc(topicLabel(t))}</span>`).join("")}</div><div class="research-digest"><span class="research-digest-label">${summary.kind === "ai" ? "AI abstract summary" : "Abstract excerpt"}</span><p>${researchMath(summary.overview || p.abstract.slice(0, 650))}</p>${summary.kind === "ai" ? `<dl><div><dt>Method</dt><dd>${researchMath(summary.method)}</dd></div><div><dt>Evidence & limits</dt><dd>${researchMath(summary.limitations)}</dd></div></dl>` : ""}</div><details class="research-abstract"><summary>Read the original abstract</summary><p>${researchMath(p.abstract)}</p></details><details class="research-prerequisites" data-paper-prerequisites="${esc(p.id)}"><summary>Math to know · ${inferPrerequisites(p).length} recommended topics</summary><div data-prerequisites-body></div><button type="button" data-paper-reader="${esc(p.id)}" data-reader-initial="math">Check the full-text reading guide →</button></details><footer><button type="button" class="research-gallery-button" data-paper-reader="${esc(p.id)}">Figures & tables</button><button type="button" class="research-discuss" data-research-discuss="${esc(p.id)}">Discuss this paper with AI</button><a href="${href}" target="_blank" rel="noopener noreferrer">Read on arXiv ↗</a><a href="${pdf}" target="_blank" rel="noopener noreferrer">PDF ↗</a>${p.sources.includes("huggingface") ? `<a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener noreferrer">HF discussion ↗</a>` : ""}<span>First collected ${esc(date(p.firstSeenAt || p.publishedAt))}</span></footer></article>`;
 }
 export function mountResearch(root = document) {
   const host = root.querySelector(".research-page");
@@ -58,6 +60,36 @@ export function mountResearch(root = document) {
     topic = "all",
     saved = savedIds(),
     visibleCount = 12;
+  const reader = mountPaperReader(host, {
+    papers: () => feed?.papers || [],
+    onDiscuss: (paperId) =>
+      document.dispatchEvent(
+        new CustomEvent("rlatlas:discuss-paper", {
+          detail: { paperId, sectionKey: "prerequisites" },
+        }),
+      ),
+  });
+  host.addEventListener(
+    "toggle",
+    (e) => {
+      const details = e.target;
+      if (
+        !(details instanceof HTMLDetailsElement) ||
+        !details.matches("[data-paper-prerequisites]") ||
+        !details.open
+      )
+        return;
+      const body = details.querySelector("[data-prerequisites-body]"),
+        paper = feed?.papers.find(
+          (p) => p.id === details.dataset.paperPrerequisites,
+        );
+      if (paper && !body.dataset.ready) {
+        body.innerHTML = prerequisitesMarkup(inferPrerequisites(paper));
+        body.dataset.ready = "true";
+      }
+    },
+    { capture: true, signal: events.signal },
+  );
   const $ = (s) => host.querySelector(s),
     notice = $("[data-research-notice]"),
     results = $("[data-research-results]"),
@@ -244,5 +276,6 @@ export function mountResearch(root = document) {
   return () => {
     events.abort();
     request?.abort();
+    reader.destroy();
   };
 }

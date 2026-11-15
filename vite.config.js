@@ -1,3 +1,5 @@
+import paperContentHandler from "./api/paper-content.js";
+import paperPdfHandler from "./api/paper-pdf.js";
 import researchHandler from "./api/research.js";
 import researchRefreshHandler from "./api/research-refresh.js";
 import tutorHandler from "./api/tutor.js";
@@ -19,13 +21,23 @@ export default defineConfig({
           if (!process.env[name]) process.env[name] = value;
         server.middlewares.use((req, res, next) => {
           const path = req.url?.split("?")[0];
-          if (path === "/api/research" || path === "/api/research-refresh") {
+          if (
+            [
+              "/api/research",
+              "/api/research-refresh",
+              "/api/paper-content",
+              "/api/paper-pdf",
+            ].includes(path)
+          ) {
             res.status = (status) => {
               res.statusCode = status;
               return res;
             };
             res.json = (value) => res.end(JSON.stringify(value));
           }
+          if (path === "/api/paper-content")
+            return paperContentHandler(req, res);
+          if (path === "/api/paper-pdf") return paperPdfHandler(req, res);
           if (path === "/api/research") return researchHandler(req, res);
           if (path === "/api/research-refresh")
             return researchRefreshHandler(req, res);

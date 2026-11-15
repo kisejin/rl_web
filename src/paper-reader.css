@@ -1,0 +1,393 @@
+.research-prerequisites {
+  margin-top: 20px;
+  border-top: 1px solid var(--doc-line);
+  padding-top: 16px;
+}
+.research-prerequisites > summary {
+  color: var(--doc-link);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.research-prerequisites > button,
+.research-gallery-button {
+  color: var(--doc-link);
+  background: var(--doc-selected);
+  border: 1px solid var(--doc-line);
+  padding: 8px 10px;
+  border-radius: 7px;
+  margin-top: 12px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.research-card footer .research-gallery-button {
+  margin: 0;
+}
+.paper-reading-scope {
+  font-size: 14px;
+  color: var(--doc-muted);
+  line-height: 1.7;
+}
+.paper-math-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+}
+.paper-math-concept {
+  min-width: 0;
+  border: 1px solid var(--doc-line);
+  border-radius: 10px;
+  padding: 18px;
+}
+.paper-math-concept > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--doc-muted);
+}
+.paper-math-concept h4 {
+  font-size: 18px;
+  margin: 12px 0;
+  line-height: 1.4;
+}
+.paper-math-concept p,
+.paper-math-concept details {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.paper-math-concept summary {
+  cursor: pointer;
+  color: var(--doc-link);
+}
+.paper-math-concept blockquote {
+  margin: 12px 0;
+  border-left: 3px solid var(--doc-line);
+  padding-left: 12px;
+  color: var(--doc-muted);
+}
+.paper-math-concept a {
+  font-size: 14px;
+}
+.paper-concept-equation {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.paper-concept-note {
+  color: var(--doc-muted);
+}
+.paper-reader,
+.paper-zoom {
+  background: var(--doc-bg, #fff);
+  color: var(--doc-text, #20252b);
+  border: 1px solid var(--doc-line);
+  border-radius: 14px;
+  padding: 0;
+  width: min(1280px, 96vw);
+  max-width: 96vw;
+  height: min(1000px, 94dvh);
+  max-height: 94dvh;
+}
+.paper-reader[open] {
+  display: flex;
+  flex-direction: column;
+}
+.paper-reader::backdrop,
+.paper-zoom::backdrop {
+  background: rgba(6, 14, 26, 0.65);
+}
+.paper-reader-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 24px;
+  gap: 20px;
+  border-bottom: 1px solid var(--doc-line);
+}
+.paper-reader-header > div {
+  min-width: 0;
+}
+.paper-reader-header span {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--doc-muted);
+}
+.paper-reader-header h2 {
+  margin: 8px 0 0;
+  font-size: 23px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.paper-reader button,
+.paper-zoom button {
+  font-family: inherit;
+  cursor: pointer;
+}
+.paper-reader-header > button,
+.paper-zoom > button {
+  border: 1px solid var(--doc-line);
+  color: inherit;
+  background: var(--doc-surface);
+  border-radius: 7px;
+  min-width: 36px;
+  height: 36px;
+  font-size: 24px;
+}
+.paper-reader-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--doc-line);
+}
+.paper-reader-tools nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.paper-reader-tools button,
+.paper-ask-math,
+.paper-reader-body > button,
+.paper-pdf-nav button {
+  background: transparent;
+  color: inherit;
+  border: 1px solid var(--doc-line);
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-size: 14px;
+}
+.paper-reader-tools button[aria-selected="true"] {
+  color: var(--doc-link);
+  background: var(--doc-selected);
+  border-color: var(--doc-link);
+}
+.paper-reader-tools a {
+  font-size: 13px;
+}
+.paper-reader-status {
+  padding: 12px 24px;
+  color: var(--doc-muted);
+  font-size: 13px;
+  background: var(--doc-surface);
+  line-height: 1.6;
+}
+.paper-reader-body {
+  padding: 22px 24px;
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+  overscroll-behavior: contain;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.paper-reader-body > h3 {
+  font-size: 22px;
+  margin-top: 0;
+}
+.paper-reader-body > p {
+  font-size: 14px;
+}
+.paper-figure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
+  gap: 22px;
+}
+.paper-figure-grid figure {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--doc-line);
+  border-radius: 10px;
+  padding: 16px;
+}
+.paper-figure-open {
+  display: block;
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--doc-line);
+  padding: 10px;
+  border-radius: 6px;
+  min-height: 140px;
+}
+.paper-figure-open img {
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+}
+.paper-figure-grid figcaption {
+  font-size: 14px;
+  margin-top: 14px;
+  line-height: 1.7;
+}
+.paper-figure-grid a {
+  font-size: 13px;
+}
+.paper-image-error {
+  font-size: 13px;
+  color: var(--doc-muted);
+}
+.paper-image-error[hidden] {
+  display: none;
+}
+.paper-table {
+  border: 1px solid var(--doc-line);
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  min-width: 0;
+}
+.paper-table h3 {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-top: 0;
+}
+.paper-table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 16px 0;
+}
+.paper-table table {
+  border-collapse: collapse;
+  font-size: 14px;
+  width: max-content;
+  min-width: 100%;
+}
+.paper-table th,
+.paper-table td {
+  border: 1px solid var(--doc-line);
+  padding: 10px 13px;
+  text-align: left;
+  vertical-align: top;
+  max-width: 550px;
+}
+.paper-table th {
+  background: var(--doc-surface);
+}
+.paper-table a {
+  font-size: 13px;
+}
+.paper-ask-math {
+  margin-top: 24px;
+  color: var(--doc-link);
+}
+.paper-reader-body > a {
+  margin-left: 12px;
+  font-size: 14px;
+}
+.paper-pdf-status {
+  font-size: 14px;
+  color: var(--doc-muted);
+  margin: 14px 0;
+}
+.paper-pdf-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 13px;
+}
+.paper-pdf-nav input {
+  width: 80px;
+  padding: 9px;
+  border: 1px solid var(--doc-line);
+  border-radius: 6px;
+  color: inherit;
+  background: var(--doc-bg);
+  font: inherit;
+}
+.paper-pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 16px;
+}
+.paper-pdf-grid figure {
+  margin: 0;
+  min-width: 0;
+}
+.paper-pdf-grid button {
+  display: block;
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--doc-line);
+  padding: 0;
+  min-height: 180px;
+}
+.paper-pdf-grid canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.paper-pdf-grid figcaption {
+  text-align: center;
+  font-size: 13px;
+  color: var(--doc-muted);
+}
+.paper-zoom {
+  padding: 20px;
+  overflow: auto;
+}
+.paper-zoom > button {
+  position: sticky;
+  top: 0;
+  margin-left: auto;
+  display: block;
+  z-index: 1;
+}
+.paper-zoom figure {
+  margin: 0;
+}
+.paper-zoom img,
+.paper-zoom canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px auto;
+  background: #fff;
+}
+.paper-zoom figcaption {
+  margin: 20px 0;
+  line-height: 1.8;
+}
+@media (max-width: 640px) {
+  .paper-reader,
+  .paper-zoom {
+    width: 98vw;
+    max-width: 98vw;
+    height: 96dvh;
+    max-height: 96dvh;
+  }
+  .paper-reader-header,
+  .paper-reader-tools,
+  .paper-reader-status,
+  .paper-reader-body {
+    padding: 12px;
+  }
+  .paper-reader-header h2 {
+    font-size: 17px;
+    max-height: 90px;
+    overflow: auto;
+  }
+  .paper-reader-tools nav {
+    gap: 4px;
+  }
+  .paper-reader-tools button {
+    padding: 8px 9px;
+    font-size: 12px;
+  }
+  .paper-math-concept,
+  .paper-table {
+    padding: 14px;
+  }
+  .paper-reader-body > a {
+    display: block;
+    margin: 12px 0;
+  }
+}
+.paper-zoom img {
+  width: 100%;
+}

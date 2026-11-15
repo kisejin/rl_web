@@ -113,7 +113,7 @@ test("research cards distinguish AI summaries from excerpts, escape source text 
   await expect(
     first.getByRole("link", { name: "Read on arXiv ↗" }),
   ).toHaveAttribute("href", "https://arxiv.org/abs/2611.12345");
-  await first.locator("summary").click();
+  await first.locator(".research-abstract > summary").click();
   await expect(first.locator(".research-abstract p")).toContainText(
     "original source abstract",
   );

@@ -36,3 +36,5 @@
 !server/research-feed.js
 !public/
 !public/research-feed.json
+
+!src/paper-prerequisites.js
