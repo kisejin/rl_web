@@ -1,0 +1,28 @@
+{
+  "id": "imitation",
+  "title": "Imitation learning, behavioral cloning and GAIL",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Fit covered expert states. Horizon: 1; Union-bound sum: 0.1; Linear reference only: 0.1."
+    },
+    {
+      "time": 3.958,
+      "text": "Extend the rollout horizon. Horizon: 6; Union-bound sum: 2.1; Linear reference only: 0.6."
+    },
+    {
+      "time": 7.917,
+      "text": "Accumulate a mistake bound. Horizon: 11; Union-bound sum: 6.5; Linear reference only: 1.1."
+    },
+    {
+      "time": 11.917,
+      "text": "Compare quadratic and linear scaling. Horizon: 15; Union-bound sum: 10.5; Linear reference only: 1.5."
+    },
+    {
+      "time": 15.917,
+      "text": "Distinguish a bound from measured loss. Horizon: 20; Union-bound sum: 15.5; Linear reference only: 2."
+    }
+  ]
+}

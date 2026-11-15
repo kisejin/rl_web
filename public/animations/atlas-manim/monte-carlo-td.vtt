@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Observe one transition. TD residual: 1.7; Bootstrap mask: 1.
+
+2
+00:00:03.958 --> 00:00:07.917
+Form a bootstrap target. TD residual: 1.7; Bootstrap mask: 1.
+
+3
+00:00:07.917 --> 00:00:11.917
+Compare with the old value. TD residual: 1.7; Bootstrap mask: 1.
+
+4
+00:00:11.917 --> 00:00:15.917
+Apply the TD correction. TD residual: 1.7; Bootstrap mask: 1.
+
+5
+00:00:15.917 --> 00:00:19.875
+Check the terminal boundary. TD residual: -1; Bootstrap mask: 0.

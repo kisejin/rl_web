@@ -142,7 +142,7 @@ test("advanced section-aware tutor and documentation search use the new authored
     .click();
   await page.locator("#doc-search-dialog input").fill("Implicit Q-learning");
   await page.locator(".doc-search-results a").first().click();
-  await expect(page).toHaveURL(/#atlas\/offline-iql/);
+  await expect(page).toHaveURL(/\/atlas\/offline-iql\//);
 });
 test("mobile mathematical content scrolls within its containers and keeps navigation and controls usable", async ({
   page,

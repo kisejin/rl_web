@@ -1,0 +1,28 @@
+{
+  "id": "mdp",
+  "title": "Markov decision processes and value functions",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Condition on a state. P(high reward): 0.6; Expected next reward: 6.8."
+    },
+    {
+      "time": 3.958,
+      "text": "Choose an action. P(high reward): 0.6; Expected next reward: 6.8."
+    },
+    {
+      "time": 7.917,
+      "text": "Branch over next states. P(high reward): 0.6; Expected next reward: 6.8."
+    },
+    {
+      "time": 11.917,
+      "text": "Weight both outcomes. P(high reward): 0.6; Expected next reward: 6.8."
+    },
+    {
+      "time": 15.917,
+      "text": "Take an expectation. P(high reward): 0.6; Expected next reward: 6.8."
+    }
+  ]
+}

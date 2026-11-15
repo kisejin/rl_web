@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Parameterize a policy. Probability of reward 1: 0.119; Exact logit gradient: 0.105.
+
+2
+00:00:03.958 --> 00:00:07.917
+Map logits to probabilities. Probability of reward 1: 0.223; Exact logit gradient: 0.173.
+
+3
+00:00:07.917 --> 00:00:11.917
+Measure expected reward. Probability of reward 1: 0.378; Exact logit gradient: 0.235.
+
+4
+00:00:11.917 --> 00:00:15.917
+Differentiate the score objective. Probability of reward 1: 0.562; Exact logit gradient: 0.246.
+
+5
+00:00:15.917 --> 00:00:19.875
+Inspect the policy gradient. Probability of reward 1: 0.731; Exact logit gradient: 0.197.

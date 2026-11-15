@@ -30,7 +30,7 @@ test("36 from-scratch labs cover every atlas topic with a scoped proof editorial
       lab.complexity && lab.assumptions.length && lab.sources.length,
       lab.id,
     );
-    assert.equal(labGuideHref(lab), "/#atlas/" + lab.atlasTopic);
+    assert.equal(labGuideHref(lab), "/atlas/" + lab.atlasTopic + "/");
     if (lab.hybrid) assert.ok(lab.proof && lab.checks.length >= 3, lab.id);
   }
 });

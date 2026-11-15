@@ -115,7 +115,7 @@ test("advanced topics are available in section-aware tutoring and real MCP cours
   assert.equal(tutorLessonCatalog.length, 45);
   const context = tutorContext({ lessonId: "atlas-ppo", sectionKey: "proof" });
   assert.ok(context);
-  assert.equal(context.link, "/#atlas/ppo");
+  assert.equal(context.link, "/atlas/ppo/");
   assert.match(JSON.stringify(context.material), /clipped/);
   assert.ok(context.material.references.length);
   assert.equal(tutorContext({ lessonId: "atlas-missing" }), null);
@@ -123,7 +123,7 @@ test("advanced topics are available in section-aware tutoring and real MCP cours
   assert.ok(
     searchCourse("implicit expectile").some(
       (r) =>
-        r.lessonId === "atlas-offline-iql" && r.url === "/#atlas/offline-iql",
+        r.lessonId === "atlas-offline-iql" && r.url === "/atlas/offline-iql/",
     ),
   );
 });

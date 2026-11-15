@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+List reward and cost. Chosen action cost: 1; Cost budget: 0.4; Next projected λ: 0.15.
+
+2
+00:00:03.958 --> 00:00:07.917
+Increase the cost penalty. Chosen action cost: 1; Cost budget: 0.4; Next projected λ: 0.775.
+
+3
+00:00:07.917 --> 00:00:11.917
+Approach the action crossover. Chosen action cost: 1; Cost budget: 0.4; Next projected λ: 1.4.
+
+4
+00:00:11.917 --> 00:00:15.917
+Inspect the selected action cost. Chosen action cost: 1; Cost budget: 0.4; Next projected λ: 2.02.
+
+5
+00:00:15.917 --> 00:00:19.875
+Check the multiplier update sign. Chosen action cost: 0.1; Cost budget: 0.4; Next projected λ: 2.42.

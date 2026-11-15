@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Observe dataset action values. Current value estimate: 1; Exact expectile: 1.6; First-order residual: -0.6.
+
+2
+00:00:03.958 --> 00:00:07.917
+Weight positive and negative residuals. Current value estimate: 1.15; Exact expectile: 1.6; First-order residual: -0.45.
+
+3
+00:00:07.917 --> 00:00:11.917
+Move the value estimate. Current value estimate: 1.3; Exact expectile: 1.6; First-order residual: -0.3.
+
+4
+00:00:11.917 --> 00:00:15.917
+Balance weighted residuals. Current value estimate: 1.45; Exact expectile: 1.6; First-order residual: -0.15.
+
+5
+00:00:15.917 --> 00:00:19.875
+Reach the expectile. Current value estimate: 1.6; Exact expectile: 1.6; First-order residual: 0.

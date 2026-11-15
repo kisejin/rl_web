@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Inspect positive priorities. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7.
+
+2
+00:00:03.958 --> 00:00:07.917
+Change the sampling distribution. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7.
+
+3
+00:00:07.917 --> 00:00:11.917
+Draw from its cumulative mass. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7.
+
+4
+00:00:11.917 --> 00:00:15.917
+Apply inverse-probability weights. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7.
+
+5
+00:00:15.917 --> 00:00:19.875
+Recover the uniform expectation. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7.

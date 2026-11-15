@@ -1,0 +1,28 @@
+{
+  "id": "reward-shaping",
+  "title": "Potential-based shaping and reward hacking",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Write the potential sequence. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+    },
+    {
+      "time": 3.958,
+      "text": "Add the first shaping term. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+    },
+    {
+      "time": 7.917,
+      "text": "Cancel an interior potential. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+    },
+    {
+      "time": 11.917,
+      "text": "Carry the boundary term. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+    },
+    {
+      "time": 15.917,
+      "text": "Check the constant return offset. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+    }
+  ]
+}

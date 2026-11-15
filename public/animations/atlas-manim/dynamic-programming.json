@@ -1,0 +1,28 @@
+{
+  "id": "dynamic-programming",
+  "title": "Policy evaluation, policy iteration and value iteration",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Initialize all values. Synchronous sweeps: 0; Start-state value: 0."
+    },
+    {
+      "time": 3.958,
+      "text": "One synchronous sweep. Synchronous sweeps: 1; Start-state value: 0."
+    },
+    {
+      "time": 7.917,
+      "text": "Propagate one more edge. Synchronous sweeps: 2; Start-state value: 0."
+    },
+    {
+      "time": 11.917,
+      "text": "Reach the earlier states. Synchronous sweeps: 3; Start-state value: 0."
+    },
+    {
+      "time": 15.917,
+      "text": "Reward reaches the start. Synchronous sweeps: 4; Start-state value: 1.25."
+    }
+  ]
+}

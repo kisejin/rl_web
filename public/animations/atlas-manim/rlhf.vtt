@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start from the reference. Expected reward: 0.5; KL to reference: 0; Regularized objective: 0.5.
+
+2
+00:00:03.958 --> 00:00:07.917
+Tilt toward reward. Expected reward: 0.735; KL to reference: 0.0628; Regularized objective: 0.698.
+
+3
+00:00:07.917 --> 00:00:11.917
+Trade reward against divergence. Expected reward: 0.971; KL to reference: 0.221; Regularized objective: 0.838.
+
+4
+00:00:11.917 --> 00:00:15.917
+Normalize the tilted distribution. Expected reward: 1.21; KL to reference: 0.461; Regularized objective: 0.929.
+
+5
+00:00:15.917 --> 00:00:19.875
+Reach the analytic bandit optimum. Expected reward: 1.44; KL to reference: 0.795; Regularized objective: 0.965.

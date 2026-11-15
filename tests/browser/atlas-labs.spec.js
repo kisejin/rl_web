@@ -17,7 +17,7 @@ test("every atlas topic links to its matching lab and a rendered mathematical ed
     await expect(page.locator(".lab-page-title h1")).toHaveText(lab.title);
     await expect(page.locator(".lc-theory-bridge a")).toHaveAttribute(
       "href",
-      "/#atlas/" + topic.id,
+      "/atlas/" + topic.id + "/",
     );
     await page.getByRole("tab", { name: "Editorial", exact: true }).click();
     await expect(page.locator(".lc-proof-editorial li")).toHaveCount(

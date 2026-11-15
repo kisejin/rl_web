@@ -1,0 +1,28 @@
+{
+  "id": "actor-critic",
+  "title": "Actor-critic, A2C and separate optimization roles",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Observe the TD signal. Critic V after step: 2; Actor selected-action probability: 0.5."
+    },
+    {
+      "time": 3.958,
+      "text": "Correct the critic. Critic V after step: 2.02; Actor selected-action probability: 0.512."
+    },
+    {
+      "time": 7.917,
+      "text": "Use a detached advantage. Critic V after step: 2.05; Actor selected-action probability: 0.525."
+    },
+    {
+      "time": 11.917,
+      "text": "Update action probability. Critic V after step: 2.08; Actor selected-action probability: 0.537."
+    },
+    {
+      "time": 15.917,
+      "text": "Keep the two roles distinct. Critic V after step: 2.1; Actor selected-action probability: 0.55."
+    }
+  ]
+}

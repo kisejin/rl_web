@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+List action values. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7.
+
+2
+00:00:03.958 --> 00:00:07.917
+Mix greedy and uniform actions. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7.
+
+3
+00:00:07.917 --> 00:00:11.917
+Compute expected SARSA. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7.
+
+4
+00:00:11.917 --> 00:00:15.917
+Compare with the greedy maximum. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7.
+
+5
+00:00:15.917 --> 00:00:19.875
+Separate behavior from target. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7.

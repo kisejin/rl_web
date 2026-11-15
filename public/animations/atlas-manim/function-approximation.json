@@ -1,0 +1,28 @@
+{
+  "id": "function-approximation",
+  "title": "Function approximation, gradients and the deadly triad",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start away from the minimum. Gradient steps: 0; Parameter w: -0.5; Loss: 3.12."
+    },
+    {
+      "time": 3.958,
+      "text": "Take one gradient step. Gradient steps: 1; Parameter w: 0.75; Loss: 0.781."
+    },
+    {
+      "time": 7.917,
+      "text": "Re-evaluate the slope. Gradient steps: 2; Parameter w: 1.38; Loss: 0.195."
+    },
+    {
+      "time": 11.917,
+      "text": "Observe contraction or oscillation. Gradient steps: 3; Parameter w: 1.69; Loss: 0.0488."
+    },
+    {
+      "time": 15.917,
+      "text": "Inspect the remaining error. Gradient steps: 4; Parameter w: 1.84; Loss: 0.0122."
+    }
+  ]
+}

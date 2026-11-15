@@ -1,0 +1,28 @@
+{
+  "id": "rubric-grpo",
+  "title": "Rubric rewards, group-relative advantages and GRPO",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Score the response group. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+    },
+    {
+      "time": 3.958,
+      "text": "Center each reward. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+    },
+    {
+      "time": 7.917,
+      "text": "Divide by the group deviation. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+    },
+    {
+      "time": 11.917,
+      "text": "Inspect group-relative signs. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+    },
+    {
+      "time": 15.917,
+      "text": "Close one rubric gate. Group mean: 0.233; Population deviation: 0.205; Mean advantage: 2.22e-16."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Plan one step. Toy mismatch probability: 0.1; Union bound: 0.1; Discounted value bound (γ=.9, Rmax=1): 18.
+
+2
+00:00:03.958 --> 00:00:07.917
+Extend the imagined horizon. Toy mismatch probability: 0.19; Union bound: 0.2; Discounted value bound (γ=.9, Rmax=1): 18.
+
+3
+00:00:07.917 --> 00:00:11.917
+Accumulate model mismatch. Toy mismatch probability: 0.271; Union bound: 0.3; Discounted value bound (γ=.9, Rmax=1): 18.
+
+4
+00:00:11.917 --> 00:00:15.917
+Compare with a union bound. Toy mismatch probability: 0.344; Union bound: 0.4; Discounted value bound (γ=.9, Rmax=1): 18.
+
+5
+00:00:15.917 --> 00:00:19.875
+Connect to a discounted value bound. Toy mismatch probability: 0.41; Union bound: 0.5; Discounted value bound (γ=.9, Rmax=1): 18.

@@ -1,0 +1,28 @@
+{
+  "id": "constrained-rl",
+  "title": "Constrained RL and Lagrange multipliers",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "List reward and cost. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 0.15."
+    },
+    {
+      "time": 3.958,
+      "text": "Increase the cost penalty. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 0.775."
+    },
+    {
+      "time": 7.917,
+      "text": "Approach the action crossover. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 1.4."
+    },
+    {
+      "time": 11.917,
+      "text": "Inspect the selected action cost. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 2.02."
+    },
+    {
+      "time": 15.917,
+      "text": "Check the multiplier update sign. Chosen action cost: 0.1; Cost budget: 0.4; Next projected \u03bb: 2.42."
+    }
+  ]
+}

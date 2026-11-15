@@ -1,0 +1,28 @@
+{
+  "id": "td3",
+  "title": "TD3: twin critics, delayed actors and smoothing",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Compare two action-value curves. Minimum estimate: -1.8; Two-point smoothed illustration: -1.68."
+    },
+    {
+      "time": 3.958,
+      "text": "Inspect the false peak. Minimum estimate: -0.45; Two-point smoothed illustration: -0.456."
+    },
+    {
+      "time": 7.917,
+      "text": "Take the smaller target estimate. Minimum estimate: 0.4; Two-point smoothed illustration: 0.394."
+    },
+    {
+      "time": 11.917,
+      "text": "Average two nearby target actions. Minimum estimate: 0.75; Two-point smoothed illustration: 0.744."
+    },
+    {
+      "time": 15.917,
+      "text": "Do not confuse the minimum with truth. Minimum estimate: 0.6; Two-point smoothed illustration: 0.629."
+    }
+  ]
+}

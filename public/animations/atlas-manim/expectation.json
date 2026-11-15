@@ -1,0 +1,28 @@
+{
+  "id": "expectation",
+  "title": "Probability, expectation and conditional reasoning",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "List outcomes. Expected reward: 0; Variance: 3."
+    },
+    {
+      "time": 3.958,
+      "text": "Assign probabilities. Expected reward: 0; Variance: 3."
+    },
+    {
+      "time": 7.917,
+      "text": "Weight rewards. Expected reward: 0; Variance: 3."
+    },
+    {
+      "time": 11.917,
+      "text": "Find the balance point. Expected reward: 0; Variance: 3."
+    },
+    {
+      "time": 15.917,
+      "text": "Distinguish mean from samples. Expected reward: 0; Variance: 3."
+    }
+  ]
+}

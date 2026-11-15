@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Compare two action-value curves. Minimum estimate: -1.8; Two-point smoothed illustration: -1.68.
+
+2
+00:00:03.958 --> 00:00:07.917
+Inspect the false peak. Minimum estimate: -0.45; Two-point smoothed illustration: -0.456.
+
+3
+00:00:07.917 --> 00:00:11.917
+Take the smaller target estimate. Minimum estimate: 0.4; Two-point smoothed illustration: 0.394.
+
+4
+00:00:11.917 --> 00:00:15.917
+Average two nearby target actions. Minimum estimate: 0.75; Two-point smoothed illustration: 0.744.
+
+5
+00:00:15.917 --> 00:00:19.875
+Do not confuse the minimum with truth. Minimum estimate: 0.6; Two-point smoothed illustration: 0.629.

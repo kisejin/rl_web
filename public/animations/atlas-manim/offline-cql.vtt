@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Inspect dataset support. Unsupported-action change: 0; Penalty gradient on unsupported action: 0.821.
+
+2
+00:00:03.958 --> 00:00:07.917
+Notice an unsupported high value. Unsupported-action change: -0.103; Penalty gradient on unsupported action: 0.821.
+
+3
+00:00:07.917 --> 00:00:11.917
+Compute the conservative gradient. Unsupported-action change: -0.205; Penalty gradient on unsupported action: 0.821.
+
+4
+00:00:11.917 --> 00:00:15.917
+Reduce extrapolated optimism. Unsupported-action change: -0.308; Penalty gradient on unsupported action: 0.821.
+
+5
+00:00:15.917 --> 00:00:19.875
+Remember the TD anchoring term. Unsupported-action change: -0.411; Penalty gradient on unsupported action: 0.821.

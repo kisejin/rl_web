@@ -1,0 +1,28 @@
+{
+  "id": "rlhf",
+  "title": "Preference rewards, KL regularization and RLHF",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start from the reference. Expected reward: 0.5; KL to reference: 0; Regularized objective: 0.5."
+    },
+    {
+      "time": 3.958,
+      "text": "Tilt toward reward. Expected reward: 0.735; KL to reference: 0.0628; Regularized objective: 0.698."
+    },
+    {
+      "time": 7.917,
+      "text": "Trade reward against divergence. Expected reward: 0.971; KL to reference: 0.221; Regularized objective: 0.838."
+    },
+    {
+      "time": 11.917,
+      "text": "Normalize the tilted distribution. Expected reward: 1.21; KL to reference: 0.461; Regularized objective: 0.929."
+    },
+    {
+      "time": 15.917,
+      "text": "Reach the analytic bandit optimum. Expected reward: 1.44; KL to reference: 0.795; Regularized objective: 0.965."
+    }
+  ]
+}

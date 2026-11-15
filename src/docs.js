@@ -61,7 +61,7 @@ export function prepareDocsShell({
   const quick = document.createElement("nav");
   quick.className = "doc-quick-nav";
   quick.setAttribute("aria-label", "Documentation");
-  quick.innerHTML = `<a href="#atlas" class="${["atlas", "atlas-topic"].includes(page) ? "active" : ""}">RL & Deep RL atlas <span>${atlasTopics.length}</span></a><a href="#curriculum" class="${page === "curriculum" ? "active" : ""}">Learning path</a><a href="#labs" class="${["labs", "lab"].includes(page) ? "active" : ""}">Code labs <span>${labs.length}</span></a><a href="#research" class="${page === "research" ? "active" : ""}">Research feed <span>Daily</span></a><a href="#notebook" class="${page === "notebook" ? "active" : ""}">My notebook</a>`;
+  quick.innerHTML = `<a href="/atlas/" class="${["atlas", "atlas-topic"].includes(page) ? "active" : ""}">RL & Deep RL atlas <span>${atlasTopics.length}</span></a><a href="/#curriculum" class="${page === "curriculum" ? "active" : ""}">Learning path</a><a href="/#labs" class="${["labs", "lab"].includes(page) ? "active" : ""}">Code labs <span>${labs.length}</span></a><a href="/#research" class="${page === "research" ? "active" : ""}">Research feed <span>Daily</span></a><a href="/#notebook" class="${page === "notebook" ? "active" : ""}">My notebook</a>`;
   sidebar.querySelector(".side-home").after(quick);
   const group = document.createElement("div");
   group.className = "nav-section";
@@ -77,13 +77,23 @@ export function prepareDocsShell({
     const label = document.createElement("div");
     label.className = "atlas-sidebar-label";
     label.textContent = "Visual RL & Deep RL atlas";
-    nav.append(label);
+    nav.replaceChildren(label);
+    sidebar.querySelector(".side-heading").innerHTML = "ATLAS TOPICS <span>35</span>";
+    let track;
     for (const topic of atlasTopics) {
+      if (track !== topic.stage) {
+        track = topic.stage;
+        const group = document.createElement("div");
+        group.className = "nav-section";
+        group.textContent = track;
+        nav.append(group);
+      }
       const a = document.createElement("a");
       a.className =
         "lesson-link" +
         (selectedAtlas === topic.id && page === "atlas-topic" ? " active" : "");
-      a.href = "#atlas/" + topic.id;
+      a.href = "/atlas/" + topic.id + "/";
+      if (selectedAtlas === topic.id && page === "atlas-topic") a.setAttribute("aria-current", "page");
       a.textContent = topic.title;
       nav.append(a);
     }
@@ -117,7 +127,7 @@ export function prepareDocsShell({
   toc.className = "doc-toc";
   toc.setAttribute("aria-label", "On this page");
   toc.innerHTML =
-    '<div class="doc-toc-heading">On this page<button class="doc-toc-close" aria-label="Close table of contents">×</button></div><nav></nav><a class="doc-back-top" href="#" data-doc-top>Back to top ↑</a>';
+    '<div class="doc-toc-heading">On this page<button class="doc-toc-close" aria-label="Close table of contents">×</button></div><nav></nav><a class="doc-back-top" href="/#" data-doc-top>Back to top ↑</a>';
   layout.append(toc);
   const backdrop = document.createElement("button");
   backdrop.className = "doc-toc-backdrop";
@@ -125,7 +135,7 @@ export function prepareDocsShell({
   document.querySelector(".app-shell").append(backdrop);
   if (page === "home") {
     $(".hero-copy").innerHTML =
-      `<div class="doc-page-tag">RL ATLAS DOCUMENTATION</div><h1>Reinforcement Learning</h1><p class="doc-intro">Understand the ideas. Prove the mathematics. Build the algorithms.</p><p>Learn reinforcement learning from first principles, one concept at a time. Work through interactive explanations, original Manim animations, mathematical proofs, and code you implement yourself.</p><div class="doc-admonition"><strong>Start here</strong><p>New to reinforcement learning? Begin with <a href="#lesson/foundations">Thinking in Reinforcement Learning</a>, then follow the nine-chapter learning path. Continue with the <a href="#atlas">visual RL & Deep RL atlas</a> for ${atlasTopics.length} topics, derivations and interactive animations. No RL library is required for the labs.</p></div><div class="hero-actions"><a class="btn primary" href="#lesson/foundations">Read the first chapter ${uiIcon("arrow-right")}</a><a class="text-btn" href="#curriculum">Browse the learning path ${uiIcon("arrow-right")}</a></div><h2 class="doc-environment-heading">Your first environment</h2><p>Try the Gridworld below. Change the discount factor, inspect state values, and watch the agent follow its policy.</p>`;
+      `<div class="doc-page-tag">RL ATLAS DOCUMENTATION</div><h1>Reinforcement Learning</h1><p class="doc-intro">Understand the ideas. Prove the mathematics. Build the algorithms.</p><p>Learn reinforcement learning from first principles, one concept at a time. Work through interactive explanations, original Manim animations, mathematical proofs, and code you implement yourself.</p><div class="doc-admonition"><strong>Start here</strong><p>New to reinforcement learning? Begin with <a href="/#lesson/foundations">Thinking in Reinforcement Learning</a>, then follow the nine-chapter learning path. Continue with the <a href="/atlas/">visual RL & Deep RL atlas</a> for ${atlasTopics.length} topics, derivations and interactive animations. No RL library is required for the labs.</p></div><div class="hero-actions"><a class="btn primary" href="/#lesson/foundations">Read the first chapter ${uiIcon("arrow-right")}</a><a class="text-btn" href="/#curriculum">Browse the learning path ${uiIcon("arrow-right")}</a></div><h2 class="doc-environment-heading">Your first environment</h2><p>Try the Gridworld below. Change the discount factor, inspect state values, and watch the agent follow its policy.</p>`;
     $(".learning-strip .strip-intro").innerHTML =
       "<h2>How to use this course</h2><p>Combine intuition, mathematics, and implementation.</p>";
     const heading = $(".journey-section .section-heading");
@@ -135,7 +145,7 @@ export function prepareDocsShell({
   if (page === "curriculum") {
     const more = document.createElement("div");
     more.className = "doc-admonition";
-    more.innerHTML = `<strong>Continue beyond the core course</strong><p><a href="#atlas">Open the RL & Deep RL atlas</a> for DQN, PPO, SAC, offline RL, reward learning and ${atlasTopics.length} interactive mathematical explanations.</p>`;
+    more.innerHTML = `<strong>Continue beyond the core course</strong><p><a href="/atlas/">Open the RL & Deep RL atlas</a> for DQN, PPO, SAC, offline RL, reward learning and ${atlasTopics.length} interactive mathematical explanations.</p>`;
     content.prepend(more);
   }
   // Use anchors within the current SPA route, so TOC clicks never navigate home.
@@ -145,7 +155,9 @@ export function prepareDocsShell({
   );
   if (!headings.length && content.querySelector("h1"))
     headings.push(content.querySelector("h1"));
-  const route = location.hash.split("::")[0] || "#home";
+  const cleanAtlas = location.pathname.startsWith("/atlas/");
+  const route = cleanAtlas ? location.pathname : location.hash.split("::")[0] || "#home";
+  const sectionHref = (id) => cleanAtlas ? route + "#" + id : route + "::" + id;
   headings.forEach((heading, i) => {
     heading.id = `section-${i}-${heading.textContent
       .toLowerCase()
@@ -153,7 +165,7 @@ export function prepareDocsShell({
       .replace(/-$/, "")
       .slice(0, 65)}`;
     const a = document.createElement("a");
-    a.href = route + "::" + heading.id;
+    a.href = sectionHref(heading.id);
     a.dataset.docTarget = heading.id;
     a.textContent = heading.closest(".lesson-exercise")
       ? "Write your proof"
@@ -169,10 +181,10 @@ export function prepareDocsShell({
   dialog.innerHTML = `<div class="doc-search-top"><h2 id="doc-search-title">Search documentation</h2><button data-doc-search-close aria-label="Close search">Esc</button></div><label class="doc-search-input">${searchIcon}<input type="search" placeholder="Search concepts, lessons, or code labs…" aria-label="Search concepts, lessons, or code labs" autocomplete="off"></label><div class="doc-search-results" aria-live="polite"></div><div class="doc-search-help">Search across ${lessons.length} learning guides, ${atlasTopics.length} atlas topics and ${labs.length} code labs.</div>`;
   document.querySelector(".app-shell").append(dialog);
   applyTheme();
-  return { headings, route, dialog, toc, backdrop };
+  return { headings, route, sectionHref, dialog, toc, backdrop };
 }
 export function mountDocs(context, { lessons, labs }) {
-  const { headings, route, dialog, toc, backdrop } = context,
+  const { headings, route, sectionHref, dialog, toc, backdrop } = context,
     abort = new AbortController(),
     options = { signal: abort.signal };
   let scheduled = 0;
@@ -222,7 +234,7 @@ export function mountDocs(context, { lessons, labs }) {
       (e) => {
         e.preventDefault();
         const target = document.getElementById(a.dataset.docTarget);
-        history.replaceState(null, "", route + "::" + target.id);
+        history.replaceState(null, "", sectionHref(target.id));
         target.scrollIntoView({
           behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
             ? "instant"
@@ -260,19 +272,19 @@ export function mountDocs(context, { lessons, labs }) {
     {
       title: "Daily RL research feed",
       kind: "Research",
-      href: "#research",
+      href: "/#research",
       text: "Daily research papers RL reinforcement learning RLVR verifiable rewards on-policy self-distillation rubric as reward new methods summaries",
     },
     ...lessons.map((l) => ({
       title: l.title,
       kind: "Learning guide",
-      href: "#lesson/" + l.id,
+      href: "/#lesson/" + l.id,
       text: l.title + " " + l.desc + " " + l.sections.flat().join(" "),
     })),
     ...atlasTopics.map((t) => ({
       title: t.title,
       kind: "Deep RL atlas · " + t.stage,
-      href: "#atlas/" + t.id,
+      href: "/atlas/" + t.id + "/",
       text:
         t.title +
         " " +

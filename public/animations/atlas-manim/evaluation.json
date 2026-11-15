@@ -1,0 +1,28 @@
+{
+  "id": "evaluation",
+  "title": "Evaluation, uncertainty and reproducible comparisons",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start with a small sample. Independent samples: 5; Observed mean: 0.273; 95% normal margin (known \u03c3=2): 1.75."
+    },
+    {
+      "time": 3.958,
+      "text": "Add independent runs. Independent samples: 14; Observed mean: 0.454; 95% normal margin (known \u03c3=2): 1.05."
+    },
+    {
+      "time": 7.917,
+      "text": "Recompute the mean. Independent samples: 23; Observed mean: 0.937; 95% normal margin (known \u03c3=2): 0.817."
+    },
+    {
+      "time": 11.917,
+      "text": "Shrink the confidence interval. Independent samples: 31; Observed mean: 1.02; 95% normal margin (known \u03c3=2): 0.704."
+    },
+    {
+      "time": 15.917,
+      "text": "Distinguish uncertainty from performance. Independent samples: 40; Observed mean: 0.726; 95% normal margin (known \u03c3=2): 0.62."
+    }
+  ]
+}

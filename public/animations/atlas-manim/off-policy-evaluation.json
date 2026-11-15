@@ -1,0 +1,28 @@
+{
+  "id": "off-policy-evaluation",
+  "title": "Off-policy evaluation and importance sampling",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Fix behavior support. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+    },
+    {
+      "time": 3.958,
+      "text": "Specify the target policy. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+    },
+    {
+      "time": 7.917,
+      "text": "Compute importance ratios. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+    },
+    {
+      "time": 11.917,
+      "text": "Reweight rewards. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+    },
+    {
+      "time": 15.917,
+      "text": "Inspect estimator variance. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+    }
+  ]
+}

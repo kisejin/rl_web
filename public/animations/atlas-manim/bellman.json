@@ -1,0 +1,28 @@
+{
+  "id": "bellman",
+  "title": "Bellman operators, contraction and fixed points",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start with two guesses. Current value gap: 10; Fixed point: 4."
+    },
+    {
+      "time": 3.958,
+      "text": "Apply one Bellman backup. Current value gap: 7.5; Fixed point: 4."
+    },
+    {
+      "time": 7.917,
+      "text": "Repeat the same operator. Current value gap: 5.62; Fixed point: 4."
+    },
+    {
+      "time": 11.917,
+      "text": "Watch the gap contract. Current value gap: 4.22; Fixed point: 4."
+    },
+    {
+      "time": 15.917,
+      "text": "Approach one fixed point. Current value gap: 3.16; Fixed point: 4."
+    }
+  ]
+}

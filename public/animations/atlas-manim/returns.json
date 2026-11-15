@@ -1,0 +1,28 @@
+{
+  "id": "returns",
+  "title": "Discounted returns and effective horizons",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "First reward. Visible prefix return: 1; Full return: 1.5."
+    },
+    {
+      "time": 3.958,
+      "text": "Add the next reward. Visible prefix return: 0.5; Full return: 1.5."
+    },
+    {
+      "time": 7.917,
+      "text": "Discount the third reward. Visible prefix return: 1; Full return: 1.5."
+    },
+    {
+      "time": 11.917,
+      "text": "Include the fourth reward. Visible prefix return: 1.5; Full return: 1.5."
+    },
+    {
+      "time": 15.917,
+      "text": "Compare the full return. Visible prefix return: 1.5; Full return: 1.5."
+    }
+  ]
+}

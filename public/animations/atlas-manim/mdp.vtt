@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Condition on a state. P(high reward): 0.6; Expected next reward: 6.8.
+
+2
+00:00:03.958 --> 00:00:07.917
+Choose an action. P(high reward): 0.6; Expected next reward: 6.8.
+
+3
+00:00:07.917 --> 00:00:11.917
+Branch over next states. P(high reward): 0.6; Expected next reward: 6.8.
+
+4
+00:00:11.917 --> 00:00:15.917
+Weight both outcomes. P(high reward): 0.6; Expected next reward: 6.8.
+
+5
+00:00:15.917 --> 00:00:19.875
+Take an expectation. P(high reward): 0.6; Expected next reward: 6.8.

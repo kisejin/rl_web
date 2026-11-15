@@ -96,7 +96,7 @@ export function normalizeAgentEvent(value) {
             s &&
             typeof s.url === "string" &&
             (/^https:\/\//.test(s.url) ||
-              /^\/(#(?:lesson|atlas)\/|lab\.html#)/.test(s.url)),
+              /^\/(#(?:lesson|atlas)\/|atlas\/[a-z0-9-]+\/|lab\.html#)/.test(s.url)),
         )
         .map((s) => ({
           title: String(s.title || "").slice(0, 160),

@@ -181,7 +181,7 @@ test("mobile main flows fit viewport", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Open menu" }).click();
   await expect(page.locator(".sidebar")).toHaveClass(/open/);
-  await page.locator('.sidebar a[href="#lesson/rubric"]').click();
+  await page.locator('.sidebar a[href="/#lesson/rubric"]').click();
   await expect(page.locator(".lesson-content h1")).toHaveText(
     "Rubric-based Reward RL",
   );
@@ -526,7 +526,7 @@ test("documentation mobile menu and table of contents remain usable at 320px", a
   await expect(page.locator(".doc-toc")).not.toBeVisible();
   await page.getByRole("button", { name: "Open menu" }).click();
   await expect(page.locator(".sidebar")).toHaveClass(/open/);
-  await page.locator('.sidebar a[href="#labs"]').click();
+  await page.locator('.sidebar a[href="/#labs"]').click();
   await expect(page.locator(".page-heading h1")).toContainText(
     "build it yourself",
   );

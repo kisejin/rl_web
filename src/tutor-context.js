@@ -206,7 +206,7 @@ export function tutorContext({
       link:
         lab && sectionKey === "lab"
           ? "/lab.html#" + lab.id
-          : "/#atlas/" + advanced.id,
+          : "/atlas/" + advanced.id + "/",
       material: {
         lessonTitle: advanced.title,
         selectedSection: topic.title,

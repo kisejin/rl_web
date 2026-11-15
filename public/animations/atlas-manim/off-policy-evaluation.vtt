@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Fix behavior support. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1.
+
+2
+00:00:03.958 --> 00:00:07.917
+Specify the target policy. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1.
+
+3
+00:00:07.917 --> 00:00:11.917
+Compute importance ratios. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1.
+
+4
+00:00:11.917 --> 00:00:15.917
+Reweight rewards. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1.
+
+5
+00:00:15.917 --> 00:00:19.875
+Inspect estimator variance. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1.

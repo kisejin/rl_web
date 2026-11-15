@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Compare noisy online estimates. Selected target Q: 1.8; Target-network maximum: 2.2; Noisy online maximum: 2.8.
+
+2
+00:00:03.958 --> 00:00:07.917
+Select with the online network. Selected target Q: 1.8; Target-network maximum: 2.2; Noisy online maximum: 2.8.
+
+3
+00:00:07.917 --> 00:00:11.917
+Evaluate with the target network. Selected target Q: 1.8; Target-network maximum: 2.2; Noisy online maximum: 2.8.
+
+4
+00:00:11.917 --> 00:00:15.917
+Center dueling advantages. Mean centered advantage: 0; Mean combined Q: 2.
+
+5
+00:00:15.917 --> 00:00:19.875
+Recover the shared value head. Mean centered advantage: 0; Mean combined Q: 2.

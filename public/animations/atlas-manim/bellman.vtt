@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start with two guesses. Current value gap: 10; Fixed point: 4.
+
+2
+00:00:03.958 --> 00:00:07.917
+Apply one Bellman backup. Current value gap: 7.5; Fixed point: 4.
+
+3
+00:00:07.917 --> 00:00:11.917
+Repeat the same operator. Current value gap: 5.62; Fixed point: 4.
+
+4
+00:00:11.917 --> 00:00:15.917
+Watch the gap contract. Current value gap: 4.22; Fixed point: 4.
+
+5
+00:00:15.917 --> 00:00:19.875
+Approach one fixed point. Current value gap: 3.16; Fixed point: 4.

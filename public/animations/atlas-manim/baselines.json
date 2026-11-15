@@ -1,0 +1,28 @@
+{
+  "id": "baselines",
+  "title": "Baselines, advantage and gradient variance",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Fix policy and rewards. Expected gradient: 0.5; Gradient variance: 0."
+    },
+    {
+      "time": 3.958,
+      "text": "Generate both gradient samples. Expected gradient: 0.5; Gradient variance: 0."
+    },
+    {
+      "time": 7.917,
+      "text": "Shift the baseline. Expected gradient: 0.5; Gradient variance: 0."
+    },
+    {
+      "time": 11.917,
+      "text": "Compare sample spread. Expected gradient: 0.5; Gradient variance: 0."
+    },
+    {
+      "time": 15.917,
+      "text": "Keep the same expected gradient. Expected gradient: 0.5; Gradient variance: 0."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Fit covered expert states. Horizon: 1; Union-bound sum: 0.1; Linear reference only: 0.1.
+
+2
+00:00:03.958 --> 00:00:07.917
+Extend the rollout horizon. Horizon: 6; Union-bound sum: 2.1; Linear reference only: 0.6.
+
+3
+00:00:07.917 --> 00:00:11.917
+Accumulate a mistake bound. Horizon: 11; Union-bound sum: 6.5; Linear reference only: 1.1.
+
+4
+00:00:11.917 --> 00:00:15.917
+Compare quadratic and linear scaling. Horizon: 15; Union-bound sum: 10.5; Linear reference only: 1.5.
+
+5
+00:00:15.917 --> 00:00:19.875
+Distinguish a bound from measured loss. Horizon: 20; Union-bound sum: 15.5; Linear reference only: 2.

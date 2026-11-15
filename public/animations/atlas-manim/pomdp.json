@@ -1,0 +1,28 @@
+{
+  "id": "pomdp",
+  "title": "Partial observability and Bayesian belief states",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start with an uncertain belief. Posterior belief: 0.5; Belief entropy: 0.693."
+    },
+    {
+      "time": 3.958,
+      "text": "Add one observation. Posterior belief: 0.7; Belief entropy: 0.611."
+    },
+    {
+      "time": 7.917,
+      "text": "Update posterior odds. Posterior belief: 0.845; Belief entropy: 0.432."
+    },
+    {
+      "time": 11.917,
+      "text": "Accumulate independent evidence. Posterior belief: 0.927; Belief entropy: 0.261."
+    },
+    {
+      "time": 15.917,
+      "text": "Inspect residual uncertainty. Posterior belief: 0.967; Belief entropy: 0.144."
+    }
+  ]
+}

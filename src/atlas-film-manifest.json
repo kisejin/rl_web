@@ -1,0 +1,993 @@
+{
+  "renderer": "Manim Community",
+  "version": "0.22.1",
+  "resolution": [
+    960,
+    540
+  ],
+  "fps": 24,
+  "license": "MIT",
+  "source": "https://github.com/ManimCommunity/manim",
+  "films": [
+    {
+      "id": "expectation",
+      "title": "Probability, expectation and conditional reasoning",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "List outcomes. Expected reward: 0; Variance: 3."
+        },
+        {
+          "time": 3.958,
+          "text": "Assign probabilities. Expected reward: 0; Variance: 3."
+        },
+        {
+          "time": 7.917,
+          "text": "Weight rewards. Expected reward: 0; Variance: 3."
+        },
+        {
+          "time": 11.917,
+          "text": "Find the balance point. Expected reward: 0; Variance: 3."
+        },
+        {
+          "time": 15.917,
+          "text": "Distinguish mean from samples. Expected reward: 0; Variance: 3."
+        }
+      ]
+    },
+    {
+      "id": "returns",
+      "title": "Discounted returns and effective horizons",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "First reward. Visible prefix return: 1; Full return: 1.5."
+        },
+        {
+          "time": 3.958,
+          "text": "Add the next reward. Visible prefix return: 0.5; Full return: 1.5."
+        },
+        {
+          "time": 7.917,
+          "text": "Discount the third reward. Visible prefix return: 1; Full return: 1.5."
+        },
+        {
+          "time": 11.917,
+          "text": "Include the fourth reward. Visible prefix return: 1.5; Full return: 1.5."
+        },
+        {
+          "time": 15.917,
+          "text": "Compare the full return. Visible prefix return: 1.5; Full return: 1.5."
+        }
+      ]
+    },
+    {
+      "id": "mdp",
+      "title": "Markov decision processes and value functions",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Condition on a state. P(high reward): 0.6; Expected next reward: 6.8."
+        },
+        {
+          "time": 3.958,
+          "text": "Choose an action. P(high reward): 0.6; Expected next reward: 6.8."
+        },
+        {
+          "time": 7.917,
+          "text": "Branch over next states. P(high reward): 0.6; Expected next reward: 6.8."
+        },
+        {
+          "time": 11.917,
+          "text": "Weight both outcomes. P(high reward): 0.6; Expected next reward: 6.8."
+        },
+        {
+          "time": 15.917,
+          "text": "Take an expectation. P(high reward): 0.6; Expected next reward: 6.8."
+        }
+      ]
+    },
+    {
+      "id": "bellman",
+      "title": "Bellman operators, contraction and fixed points",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start with two guesses. Current value gap: 10; Fixed point: 4."
+        },
+        {
+          "time": 3.958,
+          "text": "Apply one Bellman backup. Current value gap: 7.5; Fixed point: 4."
+        },
+        {
+          "time": 7.917,
+          "text": "Repeat the same operator. Current value gap: 5.62; Fixed point: 4."
+        },
+        {
+          "time": 11.917,
+          "text": "Watch the gap contract. Current value gap: 4.22; Fixed point: 4."
+        },
+        {
+          "time": 15.917,
+          "text": "Approach one fixed point. Current value gap: 3.16; Fixed point: 4."
+        }
+      ]
+    },
+    {
+      "id": "dynamic-programming",
+      "title": "Policy evaluation, policy iteration and value iteration",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Initialize all values. Synchronous sweeps: 0; Start-state value: 0."
+        },
+        {
+          "time": 3.958,
+          "text": "One synchronous sweep. Synchronous sweeps: 1; Start-state value: 0."
+        },
+        {
+          "time": 7.917,
+          "text": "Propagate one more edge. Synchronous sweeps: 2; Start-state value: 0."
+        },
+        {
+          "time": 11.917,
+          "text": "Reach the earlier states. Synchronous sweeps: 3; Start-state value: 0."
+        },
+        {
+          "time": 15.917,
+          "text": "Reward reaches the start. Synchronous sweeps: 4; Start-state value: 1.25."
+        }
+      ]
+    },
+    {
+      "id": "monte-carlo-td",
+      "title": "Monte Carlo, TD and terminal bootstrapping",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Observe one transition. TD residual: 1.7; Bootstrap mask: 1."
+        },
+        {
+          "time": 3.958,
+          "text": "Form a bootstrap target. TD residual: 1.7; Bootstrap mask: 1."
+        },
+        {
+          "time": 7.917,
+          "text": "Compare with the old value. TD residual: 1.7; Bootstrap mask: 1."
+        },
+        {
+          "time": 11.917,
+          "text": "Apply the TD correction. TD residual: 1.7; Bootstrap mask: 1."
+        },
+        {
+          "time": 15.917,
+          "text": "Check the terminal boundary. TD residual: -1; Bootstrap mask: 0."
+        }
+      ]
+    },
+    {
+      "id": "q-control",
+      "title": "SARSA, expected SARSA and Q-learning",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "List action values. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+        },
+        {
+          "time": 3.958,
+          "text": "Mix greedy and uniform actions. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+        },
+        {
+          "time": 7.917,
+          "text": "Compute expected SARSA. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+        },
+        {
+          "time": 11.917,
+          "text": "Compare with the greedy maximum. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+        },
+        {
+          "time": 15.917,
+          "text": "Separate behavior from target. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+        }
+      ]
+    },
+    {
+      "id": "exploration",
+      "title": "Bandits, optimism and intrinsic rewards",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Read sample means. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+        },
+        {
+          "time": 3.958,
+          "text": "Inspect unequal sample counts. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+        },
+        {
+          "time": 7.917,
+          "text": "Add uncertainty bonuses. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+        },
+        {
+          "time": 11.917,
+          "text": "Select the optimistic arm. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+        },
+        {
+          "time": 15.917,
+          "text": "Distinguish uncertainty from reward. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+        }
+      ]
+    },
+    {
+      "id": "function-approximation",
+      "title": "Function approximation, gradients and the deadly triad",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start away from the minimum. Gradient steps: 0; Parameter w: -0.5; Loss: 3.12."
+        },
+        {
+          "time": 3.958,
+          "text": "Take one gradient step. Gradient steps: 1; Parameter w: 0.75; Loss: 0.781."
+        },
+        {
+          "time": 7.917,
+          "text": "Re-evaluate the slope. Gradient steps: 2; Parameter w: 1.38; Loss: 0.195."
+        },
+        {
+          "time": 11.917,
+          "text": "Observe contraction or oscillation. Gradient steps: 3; Parameter w: 1.69; Loss: 0.0488."
+        },
+        {
+          "time": 15.917,
+          "text": "Inspect the remaining error. Gradient steps: 4; Parameter w: 1.84; Loss: 0.0122."
+        }
+      ]
+    },
+    {
+      "id": "dqn",
+      "title": "Deep Q-networks: replay, targets and stable losses",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Read the replay transition. Detached TD label: 3.7; Online sample loss: 5.45."
+        },
+        {
+          "time": 3.958,
+          "text": "Freeze the target network. Detached TD label: 3.7; Online sample loss: 3.06."
+        },
+        {
+          "time": 7.917,
+          "text": "Construct the detached label. Detached TD label: 3.7; Online sample loss: 1.36."
+        },
+        {
+          "time": 11.917,
+          "text": "Move the online prediction. Detached TD label: 3.7; Online sample loss: 0.34."
+        },
+        {
+          "time": 15.917,
+          "text": "Keep target updates separate. Detached TD label: 3.7; Online sample loss: 0."
+        }
+      ]
+    },
+    {
+      "id": "double-dueling",
+      "title": "Double DQN and dueling value decomposition",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Compare noisy online estimates. Selected target Q: 1.8; Target-network maximum: 2.2; Noisy online maximum: 2.8."
+        },
+        {
+          "time": 3.958,
+          "text": "Select with the online network. Selected target Q: 1.8; Target-network maximum: 2.2; Noisy online maximum: 2.8."
+        },
+        {
+          "time": 7.917,
+          "text": "Evaluate with the target network. Selected target Q: 1.8; Target-network maximum: 2.2; Noisy online maximum: 2.8."
+        },
+        {
+          "time": 11.917,
+          "text": "Center dueling advantages. Mean centered advantage: 0; Mean combined Q: 2."
+        },
+        {
+          "time": 15.917,
+          "text": "Recover the shared value head. Mean centered advantage: 0; Mean combined Q: 2."
+        }
+      ]
+    },
+    {
+      "id": "prioritized-replay",
+      "title": "Prioritized replay and importance corrections",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Inspect positive priorities. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+        },
+        {
+          "time": 3.958,
+          "text": "Change the sampling distribution. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+        },
+        {
+          "time": 7.917,
+          "text": "Draw from its cumulative mass. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+        },
+        {
+          "time": 11.917,
+          "text": "Apply inverse-probability weights. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+        },
+        {
+          "time": 15.917,
+          "text": "Recover the uniform expectation. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+        }
+      ]
+    },
+    {
+      "id": "distributional",
+      "title": "Distributional RL: C51 and quantile losses",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start with one atom. Transported location: 2; Total probability: 1; Projected mean: 2."
+        },
+        {
+          "time": 3.958,
+          "text": "Move its target location. Transported location: 1.82; Total probability: 1; Projected mean: 1.82."
+        },
+        {
+          "time": 7.917,
+          "text": "Find neighboring atoms. Transported location: 1.65; Total probability: 1; Projected mean: 1.65."
+        },
+        {
+          "time": 11.917,
+          "text": "Split probability mass. Transported location: 1.48; Total probability: 1; Projected mean: 1.48."
+        },
+        {
+          "time": 15.917,
+          "text": "Check mass and mean. Transported location: 1.3; Total probability: 1; Projected mean: 1.3."
+        }
+      ]
+    },
+    {
+      "id": "policy-gradient",
+      "title": "Policy gradients and the likelihood-ratio trick",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Parameterize a policy. Probability of reward 1: 0.119; Exact logit gradient: 0.105."
+        },
+        {
+          "time": 3.958,
+          "text": "Map logits to probabilities. Probability of reward 1: 0.223; Exact logit gradient: 0.173."
+        },
+        {
+          "time": 7.917,
+          "text": "Measure expected reward. Probability of reward 1: 0.378; Exact logit gradient: 0.235."
+        },
+        {
+          "time": 11.917,
+          "text": "Differentiate the score objective. Probability of reward 1: 0.562; Exact logit gradient: 0.246."
+        },
+        {
+          "time": 15.917,
+          "text": "Inspect the policy gradient. Probability of reward 1: 0.731; Exact logit gradient: 0.197."
+        }
+      ]
+    },
+    {
+      "id": "baselines",
+      "title": "Baselines, advantage and gradient variance",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Fix policy and rewards. Expected gradient: 0.5; Gradient variance: 0."
+        },
+        {
+          "time": 3.958,
+          "text": "Generate both gradient samples. Expected gradient: 0.5; Gradient variance: 0."
+        },
+        {
+          "time": 7.917,
+          "text": "Shift the baseline. Expected gradient: 0.5; Gradient variance: 0."
+        },
+        {
+          "time": 11.917,
+          "text": "Compare sample spread. Expected gradient: 0.5; Gradient variance: 0."
+        },
+        {
+          "time": 15.917,
+          "text": "Keep the same expected gradient. Expected gradient: 0.5; Gradient variance: 0."
+        }
+      ]
+    },
+    {
+      "id": "actor-critic",
+      "title": "Actor-critic, A2C and separate optimization roles",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Observe the TD signal. Critic V after step: 2; Actor selected-action probability: 0.5."
+        },
+        {
+          "time": 3.958,
+          "text": "Correct the critic. Critic V after step: 2.02; Actor selected-action probability: 0.512."
+        },
+        {
+          "time": 7.917,
+          "text": "Use a detached advantage. Critic V after step: 2.05; Actor selected-action probability: 0.525."
+        },
+        {
+          "time": 11.917,
+          "text": "Update action probability. Critic V after step: 2.08; Actor selected-action probability: 0.537."
+        },
+        {
+          "time": 15.917,
+          "text": "Keep the two roles distinct. Critic V after step: 2.1; Actor selected-action probability: 0.55."
+        }
+      ]
+    },
+    {
+      "id": "gae",
+      "title": "Eligibility traces, n-step targets and GAE",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Read the current residual. Visible GAE prefix: 1; Complete GAE: 1.27."
+        },
+        {
+          "time": 3.958,
+          "text": "Carry the next residual. Visible GAE prefix: 0.775; Complete GAE: 1.27."
+        },
+        {
+          "time": 7.917,
+          "text": "Weight the longer continuation. Visible GAE prefix: 1.18; Complete GAE: 1.27."
+        },
+        {
+          "time": 11.917,
+          "text": "Accumulate the trace. Visible GAE prefix: 1.27; Complete GAE: 1.27."
+        },
+        {
+          "time": 15.917,
+          "text": "Inspect the full advantage. Visible GAE prefix: 1.27; Complete GAE: 1.27."
+        }
+      ]
+    },
+    {
+      "id": "trpo",
+      "title": "Trust regions, Fisher geometry and natural gradients",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Choose a local KL metric. Quadratic KL: 0; KL budget: 0.08; Linear surrogate gain: 0."
+        },
+        {
+          "time": 3.958,
+          "text": "Contrast gradient directions. Quadratic KL: 0.005; KL budget: 0.08; Linear surrogate gain: 0.112."
+        },
+        {
+          "time": 7.917,
+          "text": "Precondition by the Fisher metric. Quadratic KL: 0.02; KL budget: 0.08; Linear surrogate gain: 0.224."
+        },
+        {
+          "time": 11.917,
+          "text": "Scale to the KL boundary. Quadratic KL: 0.045; KL budget: 0.08; Linear surrogate gain: 0.335."
+        },
+        {
+          "time": 15.917,
+          "text": "Check the quadratic budget. Quadratic KL: 0.08; KL budget: 0.08; Linear surrogate gain: 0.447."
+        }
+      ]
+    },
+    {
+      "id": "ppo",
+      "title": "PPO clipping, advantage signs and empirical KL",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start near the old policy. Current ratio: 0.4; Advantage: 1; Clipped objective: 0.4."
+        },
+        {
+          "time": 3.958,
+          "text": "Move the probability ratio. Current ratio: 0.7; Advantage: 1; Clipped objective: 0.7."
+        },
+        {
+          "time": 7.917,
+          "text": "Approach the clipping boundary. Current ratio: 1; Advantage: 1; Clipped objective: 1."
+        },
+        {
+          "time": 11.917,
+          "text": "Cross into the flat region. Current ratio: 1.3; Advantage: 1; Clipped objective: 1.2."
+        },
+        {
+          "time": 15.917,
+          "text": "Compare advantage signs. Current ratio: 1.6; Advantage: 1; Clipped objective: 1.2."
+        }
+      ]
+    },
+    {
+      "id": "ddpg",
+      "title": "DDPG and deterministic policy gradients",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start at a poor action. Actor action: -0.8; Action gradient: 3; Critic value: -1.25."
+        },
+        {
+          "time": 3.958,
+          "text": "Read the critic slope. Actor action: 0.16; Action gradient: 1.08; Critic value: 0.708."
+        },
+        {
+          "time": 7.917,
+          "text": "Move the deterministic actor. Actor action: 0.506; Action gradient: 0.389; Critic value: 0.962."
+        },
+        {
+          "time": 11.917,
+          "text": "Follow the action gradient. Actor action: 0.63; Action gradient: 0.14; Critic value: 0.995."
+        },
+        {
+          "time": 15.917,
+          "text": "Approach the critic optimum. Actor action: 0.675; Action gradient: 0.0504; Critic value: 0.999."
+        }
+      ]
+    },
+    {
+      "id": "td3",
+      "title": "TD3: twin critics, delayed actors and smoothing",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Compare two action-value curves. Minimum estimate: -1.8; Two-point smoothed illustration: -1.68."
+        },
+        {
+          "time": 3.958,
+          "text": "Inspect the false peak. Minimum estimate: -0.45; Two-point smoothed illustration: -0.456."
+        },
+        {
+          "time": 7.917,
+          "text": "Take the smaller target estimate. Minimum estimate: 0.4; Two-point smoothed illustration: 0.394."
+        },
+        {
+          "time": 11.917,
+          "text": "Average two nearby target actions. Minimum estimate: 0.75; Two-point smoothed illustration: 0.744."
+        },
+        {
+          "time": 15.917,
+          "text": "Do not confuse the minimum with truth. Minimum estimate: 0.6; Two-point smoothed illustration: 0.629."
+        }
+      ]
+    },
+    {
+      "id": "sac",
+      "title": "SAC, maximum entropy and reparameterization",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Set action values. Expected Q + \u03b1 entropy: 1.66; Optimal soft value: 2.12; Policy entropy: 1.1."
+        },
+        {
+          "time": 3.958,
+          "text": "Interpolate from a uniform policy. Expected Q + \u03b1 entropy: 1.84; Optimal soft value: 2.12; Policy entropy: 1.07."
+        },
+        {
+          "time": 7.917,
+          "text": "Balance reward and entropy. Expected Q + \u03b1 entropy: 1.98; Optimal soft value: 2.12; Policy entropy: 0.972."
+        },
+        {
+          "time": 11.917,
+          "text": "Approach the soft optimum. Expected Q + \u03b1 entropy: 2.08; Optimal soft value: 2.12; Policy entropy: 0.811."
+        },
+        {
+          "time": 15.917,
+          "text": "Check the soft-value identity. Expected Q + \u03b1 entropy: 2.12; Optimal soft value: 2.12; Policy entropy: 0.557."
+        }
+      ]
+    },
+    {
+      "id": "off-policy-evaluation",
+      "title": "Off-policy evaluation and importance sampling",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Fix behavior support. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+        },
+        {
+          "time": 3.958,
+          "text": "Specify the target policy. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+        },
+        {
+          "time": 7.917,
+          "text": "Compute importance ratios. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+        },
+        {
+          "time": 11.917,
+          "text": "Reweight rewards. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+        },
+        {
+          "time": 15.917,
+          "text": "Inspect estimator variance. Target expected reward: 2.6; IS expected reward: 2.6; One-sample IS variance: 22.1."
+        }
+      ]
+    },
+    {
+      "id": "model-based",
+      "title": "Model-based RL, MPC and compounding errors",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Plan one step. Toy mismatch probability: 0.1; Union bound: 0.1; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+        },
+        {
+          "time": 3.958,
+          "text": "Extend the imagined horizon. Toy mismatch probability: 0.19; Union bound: 0.2; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+        },
+        {
+          "time": 7.917,
+          "text": "Accumulate model mismatch. Toy mismatch probability: 0.271; Union bound: 0.3; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+        },
+        {
+          "time": 11.917,
+          "text": "Compare with a union bound. Toy mismatch probability: 0.344; Union bound: 0.4; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+        },
+        {
+          "time": 15.917,
+          "text": "Connect to a discounted value bound. Toy mismatch probability: 0.41; Union bound: 0.5; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+        }
+      ]
+    },
+    {
+      "id": "pomdp",
+      "title": "Partial observability and Bayesian belief states",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start with an uncertain belief. Posterior belief: 0.5; Belief entropy: 0.693."
+        },
+        {
+          "time": 3.958,
+          "text": "Add one observation. Posterior belief: 0.7; Belief entropy: 0.611."
+        },
+        {
+          "time": 7.917,
+          "text": "Update posterior odds. Posterior belief: 0.845; Belief entropy: 0.432."
+        },
+        {
+          "time": 11.917,
+          "text": "Accumulate independent evidence. Posterior belief: 0.927; Belief entropy: 0.261."
+        },
+        {
+          "time": 15.917,
+          "text": "Inspect residual uncertainty. Posterior belief: 0.967; Belief entropy: 0.144."
+        }
+      ]
+    },
+    {
+      "id": "offline-cql",
+      "title": "Offline RL, support mismatch and CQL",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Inspect dataset support. Unsupported-action change: 0; Penalty gradient on unsupported action: 0.821."
+        },
+        {
+          "time": 3.958,
+          "text": "Notice an unsupported high value. Unsupported-action change: -0.103; Penalty gradient on unsupported action: 0.821."
+        },
+        {
+          "time": 7.917,
+          "text": "Compute the conservative gradient. Unsupported-action change: -0.205; Penalty gradient on unsupported action: 0.821."
+        },
+        {
+          "time": 11.917,
+          "text": "Reduce extrapolated optimism. Unsupported-action change: -0.308; Penalty gradient on unsupported action: 0.821."
+        },
+        {
+          "time": 15.917,
+          "text": "Remember the TD anchoring term. Unsupported-action change: -0.411; Penalty gradient on unsupported action: 0.821."
+        }
+      ]
+    },
+    {
+      "id": "offline-iql",
+      "title": "IQL, expectile values and advantage-weighted cloning",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Observe dataset action values. Current value estimate: 1; Exact expectile: 1.6; First-order residual: -0.6."
+        },
+        {
+          "time": 3.958,
+          "text": "Weight positive and negative residuals. Current value estimate: 1.15; Exact expectile: 1.6; First-order residual: -0.45."
+        },
+        {
+          "time": 7.917,
+          "text": "Move the value estimate. Current value estimate: 1.3; Exact expectile: 1.6; First-order residual: -0.3."
+        },
+        {
+          "time": 11.917,
+          "text": "Balance weighted residuals. Current value estimate: 1.45; Exact expectile: 1.6; First-order residual: -0.15."
+        },
+        {
+          "time": 15.917,
+          "text": "Reach the expectile. Current value estimate: 1.6; Exact expectile: 1.6; First-order residual: 0."
+        }
+      ]
+    },
+    {
+      "id": "imitation",
+      "title": "Imitation learning, behavioral cloning and GAIL",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Fit covered expert states. Horizon: 1; Union-bound sum: 0.1; Linear reference only: 0.1."
+        },
+        {
+          "time": 3.958,
+          "text": "Extend the rollout horizon. Horizon: 6; Union-bound sum: 2.1; Linear reference only: 0.6."
+        },
+        {
+          "time": 7.917,
+          "text": "Accumulate a mistake bound. Horizon: 11; Union-bound sum: 6.5; Linear reference only: 1.1."
+        },
+        {
+          "time": 11.917,
+          "text": "Compare quadratic and linear scaling. Horizon: 15; Union-bound sum: 10.5; Linear reference only: 1.5."
+        },
+        {
+          "time": 15.917,
+          "text": "Distinguish a bound from measured loss. Horizon: 20; Union-bound sum: 15.5; Linear reference only: 2."
+        }
+      ]
+    },
+    {
+      "id": "multi-agent",
+      "title": "Multi-agent RL, Markov games and Nash reasoning",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Define a joint strategy. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+        },
+        {
+          "time": 3.958,
+          "text": "Change the opponent mixture. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+        },
+        {
+          "time": 7.917,
+          "text": "Compare pure-action payoffs. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+        },
+        {
+          "time": 11.917,
+          "text": "Inspect the mixed payoff. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+        },
+        {
+          "time": 15.917,
+          "text": "Check the worst-case guarantee. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+        }
+      ]
+    },
+    {
+      "id": "reward-shaping",
+      "title": "Potential-based shaping and reward hacking",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Write the potential sequence. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+        },
+        {
+          "time": 3.958,
+          "text": "Add the first shaping term. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+        },
+        {
+          "time": 7.917,
+          "text": "Cancel an interior potential. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+        },
+        {
+          "time": 11.917,
+          "text": "Carry the boundary term. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+        },
+        {
+          "time": 15.917,
+          "text": "Check the constant return offset. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3."
+        }
+      ]
+    },
+    {
+      "id": "rlhf",
+      "title": "Preference rewards, KL regularization and RLHF",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start from the reference. Expected reward: 0.5; KL to reference: 0; Regularized objective: 0.5."
+        },
+        {
+          "time": 3.958,
+          "text": "Tilt toward reward. Expected reward: 0.735; KL to reference: 0.0628; Regularized objective: 0.698."
+        },
+        {
+          "time": 7.917,
+          "text": "Trade reward against divergence. Expected reward: 0.971; KL to reference: 0.221; Regularized objective: 0.838."
+        },
+        {
+          "time": 11.917,
+          "text": "Normalize the tilted distribution. Expected reward: 1.21; KL to reference: 0.461; Regularized objective: 0.929."
+        },
+        {
+          "time": 15.917,
+          "text": "Reach the analytic bandit optimum. Expected reward: 1.44; KL to reference: 0.795; Regularized objective: 0.965."
+        }
+      ]
+    },
+    {
+      "id": "dpo",
+      "title": "DPO: preference learning through log-ratios",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start with a wrong preference margin. Preferred response probability: 0.119; Pair loss: 2.13; Loss margin gradient: -0.881."
+        },
+        {
+          "time": 3.958,
+          "text": "Approach an ambiguous pair. Preferred response probability: 0.269; Pair loss: 1.31; Loss margin gradient: -0.731."
+        },
+        {
+          "time": 7.917,
+          "text": "Cross zero log-ratio margin. Preferred response probability: 0.5; Pair loss: 0.693; Loss margin gradient: -0.5."
+        },
+        {
+          "time": 11.917,
+          "text": "Favor the preferred response. Preferred response probability: 0.731; Pair loss: 0.313; Loss margin gradient: -0.269."
+        },
+        {
+          "time": 15.917,
+          "text": "Inspect the likelihood gradient. Preferred response probability: 0.881; Pair loss: 0.127; Loss margin gradient: -0.119."
+        }
+      ]
+    },
+    {
+      "id": "rubric-grpo",
+      "title": "Rubric rewards, group-relative advantages and GRPO",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Score the response group. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+        },
+        {
+          "time": 3.958,
+          "text": "Center each reward. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+        },
+        {
+          "time": 7.917,
+          "text": "Divide by the group deviation. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+        },
+        {
+          "time": 11.917,
+          "text": "Inspect group-relative signs. Group mean: 0.5; Population deviation: 0.245; Mean advantage: 7.4e-17."
+        },
+        {
+          "time": 15.917,
+          "text": "Close one rubric gate. Group mean: 0.233; Population deviation: 0.205; Mean advantage: 2.22e-16."
+        }
+      ]
+    },
+    {
+      "id": "constrained-rl",
+      "title": "Constrained RL and Lagrange multipliers",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "List reward and cost. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 0.15."
+        },
+        {
+          "time": 3.958,
+          "text": "Increase the cost penalty. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 0.775."
+        },
+        {
+          "time": 7.917,
+          "text": "Approach the action crossover. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 1.4."
+        },
+        {
+          "time": 11.917,
+          "text": "Inspect the selected action cost. Chosen action cost: 1; Cost budget: 0.4; Next projected \u03bb: 2.02."
+        },
+        {
+          "time": 15.917,
+          "text": "Check the multiplier update sign. Chosen action cost: 0.1; Cost budget: 0.4; Next projected \u03bb: 2.42."
+        }
+      ]
+    },
+    {
+      "id": "evaluation",
+      "title": "Evaluation, uncertainty and reproducible comparisons",
+      "duration": 19.875,
+      "renderer": "Manim Community",
+      "chapters": [
+        {
+          "time": 0.0,
+          "text": "Start with a small sample. Independent samples: 5; Observed mean: 0.273; 95% normal margin (known \u03c3=2): 1.75."
+        },
+        {
+          "time": 3.958,
+          "text": "Add independent runs. Independent samples: 14; Observed mean: 0.454; 95% normal margin (known \u03c3=2): 1.05."
+        },
+        {
+          "time": 7.917,
+          "text": "Recompute the mean. Independent samples: 23; Observed mean: 0.937; 95% normal margin (known \u03c3=2): 0.817."
+        },
+        {
+          "time": 11.917,
+          "text": "Shrink the confidence interval. Independent samples: 31; Observed mean: 1.02; 95% normal margin (known \u03c3=2): 0.704."
+        },
+        {
+          "time": 15.917,
+          "text": "Distinguish uncertainty from performance. Independent samples: 40; Observed mean: 0.726; 95% normal margin (known \u03c3=2): 0.62."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "sac",
+  "title": "SAC, maximum entropy and reparameterization",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Set action values. Expected Q + \u03b1 entropy: 1.66; Optimal soft value: 2.12; Policy entropy: 1.1."
+    },
+    {
+      "time": 3.958,
+      "text": "Interpolate from a uniform policy. Expected Q + \u03b1 entropy: 1.84; Optimal soft value: 2.12; Policy entropy: 1.07."
+    },
+    {
+      "time": 7.917,
+      "text": "Balance reward and entropy. Expected Q + \u03b1 entropy: 1.98; Optimal soft value: 2.12; Policy entropy: 0.972."
+    },
+    {
+      "time": 11.917,
+      "text": "Approach the soft optimum. Expected Q + \u03b1 entropy: 2.08; Optimal soft value: 2.12; Policy entropy: 0.811."
+    },
+    {
+      "time": 15.917,
+      "text": "Check the soft-value identity. Expected Q + \u03b1 entropy: 2.12; Optimal soft value: 2.12; Policy entropy: 0.557."
+    }
+  ]
+}

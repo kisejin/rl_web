@@ -1,0 +1,28 @@
+{
+  "id": "policy-gradient",
+  "title": "Policy gradients and the likelihood-ratio trick",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Parameterize a policy. Probability of reward 1: 0.119; Exact logit gradient: 0.105."
+    },
+    {
+      "time": 3.958,
+      "text": "Map logits to probabilities. Probability of reward 1: 0.223; Exact logit gradient: 0.173."
+    },
+    {
+      "time": 7.917,
+      "text": "Measure expected reward. Probability of reward 1: 0.378; Exact logit gradient: 0.235."
+    },
+    {
+      "time": 11.917,
+      "text": "Differentiate the score objective. Probability of reward 1: 0.562; Exact logit gradient: 0.246."
+    },
+    {
+      "time": 15.917,
+      "text": "Inspect the policy gradient. Probability of reward 1: 0.731; Exact logit gradient: 0.197."
+    }
+  ]
+}

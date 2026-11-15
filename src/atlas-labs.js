@@ -120,6 +120,6 @@ export function enrichCoreLabs(labs, lessons) {
 }
 export function labGuideHref(lab) {
   return lab.atlasTopic
-    ? "/#atlas/" + lab.atlasTopic
+    ? "/atlas/" + lab.atlasTopic + "/"
     : "/#lesson/" + (lab.lesson || "foundations");
 }

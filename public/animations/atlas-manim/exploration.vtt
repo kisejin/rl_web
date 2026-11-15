@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Read sample means. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302.
+
+2
+00:00:03.958 --> 00:00:07.917
+Inspect unequal sample counts. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302.
+
+3
+00:00:07.917 --> 00:00:11.917
+Add uncertainty bonuses. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302.
+
+4
+00:00:11.917 --> 00:00:15.917
+Select the optimistic arm. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302.
+
+5
+00:00:15.917 --> 00:00:19.875
+Distinguish uncertainty from reward. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302.

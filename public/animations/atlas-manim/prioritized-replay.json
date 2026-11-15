@@ -1,0 +1,28 @@
+{
+  "id": "prioritized-replay",
+  "title": "Prioritized replay and importance corrections",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Inspect positive priorities. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+    },
+    {
+      "time": 3.958,
+      "text": "Change the sampling distribution. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+    },
+    {
+      "time": 7.917,
+      "text": "Draw from its cumulative mass. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+    },
+    {
+      "time": 11.917,
+      "text": "Apply inverse-probability weights. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+    },
+    {
+      "time": 15.917,
+      "text": "Recover the uniform expectation. Corrected expected f: 2.33; Uniform expected f: 2.33; Largest raw weight: 2.7."
+    }
+  ]
+}

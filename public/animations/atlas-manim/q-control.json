@@ -1,0 +1,28 @@
+{
+  "id": "q-control",
+  "title": "SARSA, expected SARSA and Q-learning",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "List action values. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+    },
+    {
+      "time": 3.958,
+      "text": "Mix greedy and uniform actions. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+    },
+    {
+      "time": 7.917,
+      "text": "Compute expected SARSA. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+    },
+    {
+      "time": 11.917,
+      "text": "Compare with the greedy maximum. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+    },
+    {
+      "time": 15.917,
+      "text": "Separate behavior from target. Expected next Q: 2.7; Expected SARSA target: 3.43; Q-learning target: 3.7."
+    }
+  ]
+}

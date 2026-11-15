@@ -1,0 +1,28 @@
+{
+  "id": "monte-carlo-td",
+  "title": "Monte Carlo, TD and terminal bootstrapping",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Observe one transition. TD residual: 1.7; Bootstrap mask: 1."
+    },
+    {
+      "time": 3.958,
+      "text": "Form a bootstrap target. TD residual: 1.7; Bootstrap mask: 1."
+    },
+    {
+      "time": 7.917,
+      "text": "Compare with the old value. TD residual: 1.7; Bootstrap mask: 1."
+    },
+    {
+      "time": 11.917,
+      "text": "Apply the TD correction. TD residual: 1.7; Bootstrap mask: 1."
+    },
+    {
+      "time": 15.917,
+      "text": "Check the terminal boundary. TD residual: -1; Bootstrap mask: 0."
+    }
+  ]
+}

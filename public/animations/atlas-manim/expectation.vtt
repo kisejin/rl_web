@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+List outcomes. Expected reward: 0; Variance: 3.
+
+2
+00:00:03.958 --> 00:00:07.917
+Assign probabilities. Expected reward: 0; Variance: 3.
+
+3
+00:00:07.917 --> 00:00:11.917
+Weight rewards. Expected reward: 0; Variance: 3.
+
+4
+00:00:11.917 --> 00:00:15.917
+Find the balance point. Expected reward: 0; Variance: 3.
+
+5
+00:00:15.917 --> 00:00:19.875
+Distinguish mean from samples. Expected reward: 0; Variance: 3.

@@ -1,0 +1,28 @@
+{
+  "id": "multi-agent",
+  "title": "Multi-agent RL, Markov games and Nash reasoning",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Define a joint strategy. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+    },
+    {
+      "time": 3.958,
+      "text": "Change the opponent mixture. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+    },
+    {
+      "time": 7.917,
+      "text": "Compare pure-action payoffs. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+    },
+    {
+      "time": 11.917,
+      "text": "Inspect the mixed payoff. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+    },
+    {
+      "time": 15.917,
+      "text": "Check the worst-case guarantee. Current expected payoff: 0; Worst-case payoff: 0; Exploitability in this game: 0."
+    }
+  ]
+}

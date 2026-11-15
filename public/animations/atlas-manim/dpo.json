@@ -1,0 +1,28 @@
+{
+  "id": "dpo",
+  "title": "DPO: preference learning through log-ratios",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start with a wrong preference margin. Preferred response probability: 0.119; Pair loss: 2.13; Loss margin gradient: -0.881."
+    },
+    {
+      "time": 3.958,
+      "text": "Approach an ambiguous pair. Preferred response probability: 0.269; Pair loss: 1.31; Loss margin gradient: -0.731."
+    },
+    {
+      "time": 7.917,
+      "text": "Cross zero log-ratio margin. Preferred response probability: 0.5; Pair loss: 0.693; Loss margin gradient: -0.5."
+    },
+    {
+      "time": 11.917,
+      "text": "Favor the preferred response. Preferred response probability: 0.731; Pair loss: 0.313; Loss margin gradient: -0.269."
+    },
+    {
+      "time": 15.917,
+      "text": "Inspect the likelihood gradient. Preferred response probability: 0.881; Pair loss: 0.127; Loss margin gradient: -0.119."
+    }
+  ]
+}

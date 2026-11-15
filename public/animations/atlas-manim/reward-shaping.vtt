@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Write the potential sequence. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3.
+
+2
+00:00:03.958 --> 00:00:07.917
+Add the first shaping term. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3.
+
+3
+00:00:07.917 --> 00:00:11.917
+Cancel an interior potential. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3.
+
+4
+00:00:11.917 --> 00:00:15.917
+Carry the boundary term. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3.
+
+5
+00:00:15.917 --> 00:00:19.875
+Check the constant return offset. Complete original return: 2.08; Complete shaped return: -0.92; Return offset: -3.

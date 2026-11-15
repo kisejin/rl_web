@@ -1,0 +1,28 @@
+{
+  "id": "distributional",
+  "title": "Distributional RL: C51 and quantile losses",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start with one atom. Transported location: 2; Total probability: 1; Projected mean: 2."
+    },
+    {
+      "time": 3.958,
+      "text": "Move its target location. Transported location: 1.82; Total probability: 1; Projected mean: 1.82."
+    },
+    {
+      "time": 7.917,
+      "text": "Find neighboring atoms. Transported location: 1.65; Total probability: 1; Projected mean: 1.65."
+    },
+    {
+      "time": 11.917,
+      "text": "Split probability mass. Transported location: 1.48; Total probability: 1; Projected mean: 1.48."
+    },
+    {
+      "time": 15.917,
+      "text": "Check mass and mean. Transported location: 1.3; Total probability: 1; Projected mean: 1.3."
+    }
+  ]
+}

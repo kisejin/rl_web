@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start with a small sample. Independent samples: 5; Observed mean: 0.273; 95% normal margin (known σ=2): 1.75.
+
+2
+00:00:03.958 --> 00:00:07.917
+Add independent runs. Independent samples: 14; Observed mean: 0.454; 95% normal margin (known σ=2): 1.05.
+
+3
+00:00:07.917 --> 00:00:11.917
+Recompute the mean. Independent samples: 23; Observed mean: 0.937; 95% normal margin (known σ=2): 0.817.
+
+4
+00:00:11.917 --> 00:00:15.917
+Shrink the confidence interval. Independent samples: 31; Observed mean: 1.02; 95% normal margin (known σ=2): 0.704.
+
+5
+00:00:15.917 --> 00:00:19.875
+Distinguish uncertainty from performance. Independent samples: 40; Observed mean: 0.726; 95% normal margin (known σ=2): 0.62.

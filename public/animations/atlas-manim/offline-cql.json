@@ -1,0 +1,28 @@
+{
+  "id": "offline-cql",
+  "title": "Offline RL, support mismatch and CQL",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Inspect dataset support. Unsupported-action change: 0; Penalty gradient on unsupported action: 0.821."
+    },
+    {
+      "time": 3.958,
+      "text": "Notice an unsupported high value. Unsupported-action change: -0.103; Penalty gradient on unsupported action: 0.821."
+    },
+    {
+      "time": 7.917,
+      "text": "Compute the conservative gradient. Unsupported-action change: -0.205; Penalty gradient on unsupported action: 0.821."
+    },
+    {
+      "time": 11.917,
+      "text": "Reduce extrapolated optimism. Unsupported-action change: -0.308; Penalty gradient on unsupported action: 0.821."
+    },
+    {
+      "time": 15.917,
+      "text": "Remember the TD anchoring term. Unsupported-action change: -0.411; Penalty gradient on unsupported action: 0.821."
+    }
+  ]
+}

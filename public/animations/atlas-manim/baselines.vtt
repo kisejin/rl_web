@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Fix policy and rewards. Expected gradient: 0.5; Gradient variance: 0.
+
+2
+00:00:03.958 --> 00:00:07.917
+Generate both gradient samples. Expected gradient: 0.5; Gradient variance: 0.
+
+3
+00:00:07.917 --> 00:00:11.917
+Shift the baseline. Expected gradient: 0.5; Gradient variance: 0.
+
+4
+00:00:11.917 --> 00:00:15.917
+Compare sample spread. Expected gradient: 0.5; Gradient variance: 0.
+
+5
+00:00:15.917 --> 00:00:19.875
+Keep the same expected gradient. Expected gradient: 0.5; Gradient variance: 0.

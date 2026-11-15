@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Initialize all values. Synchronous sweeps: 0; Start-state value: 0.
+
+2
+00:00:03.958 --> 00:00:07.917
+One synchronous sweep. Synchronous sweeps: 1; Start-state value: 0.
+
+3
+00:00:07.917 --> 00:00:11.917
+Propagate one more edge. Synchronous sweeps: 2; Start-state value: 0.
+
+4
+00:00:11.917 --> 00:00:15.917
+Reach the earlier states. Synchronous sweeps: 3; Start-state value: 0.
+
+5
+00:00:15.917 --> 00:00:19.875
+Reward reaches the start. Synchronous sweeps: 4; Start-state value: 1.25.

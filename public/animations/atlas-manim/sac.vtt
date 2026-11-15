@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Set action values. Expected Q + α entropy: 1.66; Optimal soft value: 2.12; Policy entropy: 1.1.
+
+2
+00:00:03.958 --> 00:00:07.917
+Interpolate from a uniform policy. Expected Q + α entropy: 1.84; Optimal soft value: 2.12; Policy entropy: 1.07.
+
+3
+00:00:07.917 --> 00:00:11.917
+Balance reward and entropy. Expected Q + α entropy: 1.98; Optimal soft value: 2.12; Policy entropy: 0.972.
+
+4
+00:00:11.917 --> 00:00:15.917
+Approach the soft optimum. Expected Q + α entropy: 2.08; Optimal soft value: 2.12; Policy entropy: 0.811.
+
+5
+00:00:15.917 --> 00:00:19.875
+Check the soft-value identity. Expected Q + α entropy: 2.12; Optimal soft value: 2.12; Policy entropy: 0.557.

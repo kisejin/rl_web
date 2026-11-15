@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start with a wrong preference margin. Preferred response probability: 0.119; Pair loss: 2.13; Loss margin gradient: -0.881.
+
+2
+00:00:03.958 --> 00:00:07.917
+Approach an ambiguous pair. Preferred response probability: 0.269; Pair loss: 1.31; Loss margin gradient: -0.731.
+
+3
+00:00:07.917 --> 00:00:11.917
+Cross zero log-ratio margin. Preferred response probability: 0.5; Pair loss: 0.693; Loss margin gradient: -0.5.
+
+4
+00:00:11.917 --> 00:00:15.917
+Favor the preferred response. Preferred response probability: 0.731; Pair loss: 0.313; Loss margin gradient: -0.269.
+
+5
+00:00:15.917 --> 00:00:19.875
+Inspect the likelihood gradient. Preferred response probability: 0.881; Pair loss: 0.127; Loss margin gradient: -0.119.

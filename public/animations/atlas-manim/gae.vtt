@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Read the current residual. Visible GAE prefix: 1; Complete GAE: 1.27.
+
+2
+00:00:03.958 --> 00:00:07.917
+Carry the next residual. Visible GAE prefix: 0.775; Complete GAE: 1.27.
+
+3
+00:00:07.917 --> 00:00:11.917
+Weight the longer continuation. Visible GAE prefix: 1.18; Complete GAE: 1.27.
+
+4
+00:00:11.917 --> 00:00:15.917
+Accumulate the trace. Visible GAE prefix: 1.27; Complete GAE: 1.27.
+
+5
+00:00:15.917 --> 00:00:19.875
+Inspect the full advantage. Visible GAE prefix: 1.27; Complete GAE: 1.27.

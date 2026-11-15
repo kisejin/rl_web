@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start at a poor action. Actor action: -0.8; Action gradient: 3; Critic value: -1.25.
+
+2
+00:00:03.958 --> 00:00:07.917
+Read the critic slope. Actor action: 0.16; Action gradient: 1.08; Critic value: 0.708.
+
+3
+00:00:07.917 --> 00:00:11.917
+Move the deterministic actor. Actor action: 0.506; Action gradient: 0.389; Critic value: 0.962.
+
+4
+00:00:11.917 --> 00:00:15.917
+Follow the action gradient. Actor action: 0.63; Action gradient: 0.14; Critic value: 0.995.
+
+5
+00:00:15.917 --> 00:00:19.875
+Approach the critic optimum. Actor action: 0.675; Action gradient: 0.0504; Critic value: 0.999.

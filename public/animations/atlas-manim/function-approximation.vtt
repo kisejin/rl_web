@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Start away from the minimum. Gradient steps: 0; Parameter w: -0.5; Loss: 3.12.
+
+2
+00:00:03.958 --> 00:00:07.917
+Take one gradient step. Gradient steps: 1; Parameter w: 0.75; Loss: 0.781.
+
+3
+00:00:07.917 --> 00:00:11.917
+Re-evaluate the slope. Gradient steps: 2; Parameter w: 1.38; Loss: 0.195.
+
+4
+00:00:11.917 --> 00:00:15.917
+Observe contraction or oscillation. Gradient steps: 3; Parameter w: 1.69; Loss: 0.0488.
+
+5
+00:00:15.917 --> 00:00:19.875
+Inspect the remaining error. Gradient steps: 4; Parameter w: 1.84; Loss: 0.0122.

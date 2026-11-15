@@ -1,0 +1,28 @@
+{
+  "id": "ddpg",
+  "title": "DDPG and deterministic policy gradients",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start at a poor action. Actor action: -0.8; Action gradient: 3; Critic value: -1.25."
+    },
+    {
+      "time": 3.958,
+      "text": "Read the critic slope. Actor action: 0.16; Action gradient: 1.08; Critic value: 0.708."
+    },
+    {
+      "time": 7.917,
+      "text": "Move the deterministic actor. Actor action: 0.506; Action gradient: 0.389; Critic value: 0.962."
+    },
+    {
+      "time": 11.917,
+      "text": "Follow the action gradient. Actor action: 0.63; Action gradient: 0.14; Critic value: 0.995."
+    },
+    {
+      "time": 15.917,
+      "text": "Approach the critic optimum. Actor action: 0.675; Action gradient: 0.0504; Critic value: 0.999."
+    }
+  ]
+}

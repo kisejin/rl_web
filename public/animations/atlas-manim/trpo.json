@@ -1,0 +1,28 @@
+{
+  "id": "trpo",
+  "title": "Trust regions, Fisher geometry and natural gradients",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Choose a local KL metric. Quadratic KL: 0; KL budget: 0.08; Linear surrogate gain: 0."
+    },
+    {
+      "time": 3.958,
+      "text": "Contrast gradient directions. Quadratic KL: 0.005; KL budget: 0.08; Linear surrogate gain: 0.112."
+    },
+    {
+      "time": 7.917,
+      "text": "Precondition by the Fisher metric. Quadratic KL: 0.02; KL budget: 0.08; Linear surrogate gain: 0.224."
+    },
+    {
+      "time": 11.917,
+      "text": "Scale to the KL boundary. Quadratic KL: 0.045; KL budget: 0.08; Linear surrogate gain: 0.335."
+    },
+    {
+      "time": 15.917,
+      "text": "Check the quadratic budget. Quadratic KL: 0.08; KL budget: 0.08; Linear surrogate gain: 0.447."
+    }
+  ]
+}

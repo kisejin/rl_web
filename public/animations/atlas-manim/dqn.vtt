@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Read the replay transition. Detached TD label: 3.7; Online sample loss: 5.45.
+
+2
+00:00:03.958 --> 00:00:07.917
+Freeze the target network. Detached TD label: 3.7; Online sample loss: 3.06.
+
+3
+00:00:07.917 --> 00:00:11.917
+Construct the detached label. Detached TD label: 3.7; Online sample loss: 1.36.
+
+4
+00:00:11.917 --> 00:00:15.917
+Move the online prediction. Detached TD label: 3.7; Online sample loss: 0.34.
+
+5
+00:00:15.917 --> 00:00:19.875
+Keep target updates separate. Detached TD label: 3.7; Online sample loss: 0.

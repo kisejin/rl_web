@@ -1,0 +1,28 @@
+{
+  "id": "ppo",
+  "title": "PPO clipping, advantage signs and empirical KL",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Start near the old policy. Current ratio: 0.4; Advantage: 1; Clipped objective: 0.4."
+    },
+    {
+      "time": 3.958,
+      "text": "Move the probability ratio. Current ratio: 0.7; Advantage: 1; Clipped objective: 0.7."
+    },
+    {
+      "time": 7.917,
+      "text": "Approach the clipping boundary. Current ratio: 1; Advantage: 1; Clipped objective: 1."
+    },
+    {
+      "time": 11.917,
+      "text": "Cross into the flat region. Current ratio: 1.3; Advantage: 1; Clipped objective: 1.2."
+    },
+    {
+      "time": 15.917,
+      "text": "Compare advantage signs. Current ratio: 1.6; Advantage: 1; Clipped objective: 1.2."
+    }
+  ]
+}

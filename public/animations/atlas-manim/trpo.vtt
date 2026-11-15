@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Choose a local KL metric. Quadratic KL: 0; KL budget: 0.08; Linear surrogate gain: 0.
+
+2
+00:00:03.958 --> 00:00:07.917
+Contrast gradient directions. Quadratic KL: 0.005; KL budget: 0.08; Linear surrogate gain: 0.112.
+
+3
+00:00:07.917 --> 00:00:11.917
+Precondition by the Fisher metric. Quadratic KL: 0.02; KL budget: 0.08; Linear surrogate gain: 0.224.
+
+4
+00:00:11.917 --> 00:00:15.917
+Scale to the KL boundary. Quadratic KL: 0.045; KL budget: 0.08; Linear surrogate gain: 0.335.
+
+5
+00:00:15.917 --> 00:00:19.875
+Check the quadratic budget. Quadratic KL: 0.08; KL budget: 0.08; Linear surrogate gain: 0.447.

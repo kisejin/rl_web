@@ -1,0 +1,28 @@
+{
+  "id": "exploration",
+  "title": "Bandits, optimism and intrinsic rewards",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Read sample means. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+    },
+    {
+      "time": 3.958,
+      "text": "Inspect unequal sample counts. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+    },
+    {
+      "time": 7.917,
+      "text": "Add uncertainty bonuses. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+    },
+    {
+      "time": 11.917,
+      "text": "Select the optimistic arm. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+    },
+    {
+      "time": 15.917,
+      "text": "Distinguish uncertainty from reward. Selected arm: 2; Its sample count: 6; Its optimism bonus: 0.302."
+    }
+  ]
+}

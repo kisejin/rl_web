@@ -54,4 +54,21 @@ Videos do not autoplay. Switching to the interactive model pauses the video; swi
 
 Manim is MIT licensed. The upstream and Community copyright notices are retained in `LICENSE-Manim.txt` and `LICENSE-Manim-Community.txt`.
 
-The extended visual RL & Deep RL atlas uses 35 additional original SVG/requestAnimationFrame models in `src/atlas-scenes.js` and `src/atlas-visuals.js`. These are live numerical illustrations with parameter controls and reduced-motion support; they are not prerecorded Manim films. They complement the ten core-course films above.
+## 35 independent atlas lessons
+
+Every topic at `/atlas/<topic-id>/` now includes an additional original Manim film as well as its live SVG/requestAnimationFrame model. The 35 films use fixed, explicitly stated parameter values and five narrated stages. They are mathematical illustrations, not training recordings. The Manim player supports captions, timestamped transcripts, playback speed and replay. Starting a film pauses its interactive model; starting the model pauses the film.
+
+```sh
+node animations/export-atlas.mjs
+python animations/render_atlas.py          # all 35 topics, three rendering processes
+python animations/render_atlas.py ppo sac  # only selected topics
+```
+
+Use the same prepared environment and TeX variables shown above, substituting `render_atlas.py` for `render.py`. Set `RL_RENDER_JOBS=1` on a machine with limited memory.
+
+- `atlas-film-data.json` stores the five numerical snapshots exported from `src/atlas-scenes.js`; tests compare every snapshot to the live model.
+- `atlas_scenes.py` constructs actual Manim curves, bars, MDP graphs, moving points and LaTeX transformations from these snapshots. Axes remain fixed across stages.
+- `render_atlas.py` uses independent render caches, generates H.264 MP4/poster/VTT/metadata assets under `public/animations/atlas-manim/`, and writes `src/atlas-film-manifest.json`.
+- `src/atlas-films.js` embeds these rendered assets. No Manim installation is required on Vercel or in the browser.
+
+`npm run build` also runs `scripts/build-atlas-pages.mjs`: it creates an atlas index plus 35 standalone HTML lesson pages with rendered LaTeX, canonical metadata and `sitemap.xml`. JavaScript adds the documentation shell, section navigation, quizzes, live diagrams and the contextual tutor. With JavaScript disabled, the full derivation and native video controls remain readable. Legacy `/#atlas/<id>` links redirect to the matching clean page.

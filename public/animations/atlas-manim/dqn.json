@@ -1,0 +1,28 @@
+{
+  "id": "dqn",
+  "title": "Deep Q-networks: replay, targets and stable losses",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Read the replay transition. Detached TD label: 3.7; Online sample loss: 5.45."
+    },
+    {
+      "time": 3.958,
+      "text": "Freeze the target network. Detached TD label: 3.7; Online sample loss: 3.06."
+    },
+    {
+      "time": 7.917,
+      "text": "Construct the detached label. Detached TD label: 3.7; Online sample loss: 1.36."
+    },
+    {
+      "time": 11.917,
+      "text": "Move the online prediction. Detached TD label: 3.7; Online sample loss: 0.34."
+    },
+    {
+      "time": 15.917,
+      "text": "Keep target updates separate. Detached TD label: 3.7; Online sample loss: 0."
+    }
+  ]
+}

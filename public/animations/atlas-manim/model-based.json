@@ -1,0 +1,28 @@
+{
+  "id": "model-based",
+  "title": "Model-based RL, MPC and compounding errors",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Plan one step. Toy mismatch probability: 0.1; Union bound: 0.1; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+    },
+    {
+      "time": 3.958,
+      "text": "Extend the imagined horizon. Toy mismatch probability: 0.19; Union bound: 0.2; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+    },
+    {
+      "time": 7.917,
+      "text": "Accumulate model mismatch. Toy mismatch probability: 0.271; Union bound: 0.3; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+    },
+    {
+      "time": 11.917,
+      "text": "Compare with a union bound. Toy mismatch probability: 0.344; Union bound: 0.4; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+    },
+    {
+      "time": 15.917,
+      "text": "Connect to a discounted value bound. Toy mismatch probability: 0.41; Union bound: 0.5; Discounted value bound (\u03b3=.9, Rmax=1): 18."
+    }
+  ]
+}

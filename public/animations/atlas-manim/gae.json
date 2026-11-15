@@ -1,0 +1,28 @@
+{
+  "id": "gae",
+  "title": "Eligibility traces, n-step targets and GAE",
+  "duration": 19.875,
+  "renderer": "Manim Community",
+  "chapters": [
+    {
+      "time": 0.0,
+      "text": "Read the current residual. Visible GAE prefix: 1; Complete GAE: 1.27."
+    },
+    {
+      "time": 3.958,
+      "text": "Carry the next residual. Visible GAE prefix: 0.775; Complete GAE: 1.27."
+    },
+    {
+      "time": 7.917,
+      "text": "Weight the longer continuation. Visible GAE prefix: 1.18; Complete GAE: 1.27."
+    },
+    {
+      "time": 11.917,
+      "text": "Accumulate the trace. Visible GAE prefix: 1.27; Complete GAE: 1.27."
+    },
+    {
+      "time": 15.917,
+      "text": "Inspect the full advantage. Visible GAE prefix: 1.27; Complete GAE: 1.27."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.958
+Observe the TD signal. Critic V after step: 2; Actor selected-action probability: 0.5.
+
+2
+00:00:03.958 --> 00:00:07.917
+Correct the critic. Critic V after step: 2.02; Actor selected-action probability: 0.512.
+
+3
+00:00:07.917 --> 00:00:11.917
+Use a detached advantage. Critic V after step: 2.05; Actor selected-action probability: 0.525.
+
+4
+00:00:11.917 --> 00:00:15.917
+Update action probability. Critic V after step: 2.08; Actor selected-action probability: 0.537.
+
+5
+00:00:15.917 --> 00:00:19.875
+Keep the two roles distinct. Critic V after step: 2.1; Actor selected-action probability: 0.55.
