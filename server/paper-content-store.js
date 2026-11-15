@@ -1,6 +1,6 @@
 import { list, put } from "@vercel/blob";
 import { readBounded } from "./research-feed.js";
-import { collectPaperContent } from "./paper-content.js";
+import { collectPaperContent, PAPER_CONTENT_PARSER } from "./paper-content.js";
 const memory = new Map(),
   pending = new Map();
 const pathFor = (id) =>
@@ -49,6 +49,7 @@ export async function getPaperContent(
   if (
     current &&
     current.expires > Date.now() &&
+    current.data.parserVersion === PAPER_CONTENT_PARSER &&
     current.data.sourceUpdatedAt === revision
   )
     return current.data;
@@ -61,9 +62,11 @@ export async function getPaperContent(
     const ttl = (d) => (d.status === "pdf-only" ? 1800000 : 86400000);
     if (
       saved &&
+      saved.parserVersion === PAPER_CONTENT_PARSER &&
       saved.sourceUpdatedAt === revision &&
       Date.now() - Date.parse(saved.checkedAt) < ttl(saved)
     ) {
+      if (memory.size >= 30 && !memory.has(paper.id)) memory.delete(memory.keys().next().value);
       memory.set(paper.id, { data: saved, expires: Date.now() + ttl(saved) });
       return saved;
     }

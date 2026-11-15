@@ -90,6 +90,19 @@ test("HTML gallery includes every image/subpanel and appendix table, preserves m
   assert.ok(
     !d.prerequisites.some((c) => c.id === "bayes" || c.id === "distributional"),
   );
+  const figureTable = parsePaperHtml(
+    html.replace(
+      "</article>",
+      '<figure class="ltx_figure" id="FigureGrid"><table class="ltx_tabular"><tr><td>Diagram in a table</td></tr></table><figcaption>Figure 3: A structured example.</figcaption></figure></article>',
+    ),
+    paper,
+    "https://arxiv.org/html/" + paper.id,
+  );
+  assert.equal(
+    figureTable.tables[2].caption,
+    "Figure 3: A structured example.",
+  );
+  assert.equal(figureTable.tables[2].sourceAnchor, "FigureGrid");
 });
 test("paper source URLs reject cross-paper paths, off-host assets, credentials, ports and redirect escapes", async () => {
   for (const bad of [
@@ -141,6 +154,7 @@ test("persistent gallery caching coalesces requests and invalidates on a new pap
       await new Promise((r) => setTimeout(r, 5));
       return {
         version: 1,
+        parserVersion: 2,
         paperId: p.id,
         sourceUpdatedAt: p.updatedAt || p.publishedAt,
         checkedAt: new Date().toISOString(),

@@ -2,6 +2,7 @@ import { load } from "cheerio";
 import { validPaperId } from "../src/paper-context.js";
 import { inferPrerequisites } from "../src/paper-prerequisites.js";
 import { readBounded } from "./research-feed.js";
+export const PAPER_CONTENT_PARSER = 2;
 const HOSTS = new Set([
   "arxiv.org",
   "www.arxiv.org",
@@ -173,8 +174,20 @@ export function parsePaperHtml(html, paper, sourceUrl) {
     .each((_, el) => {
       const node = $(el);
       if (node.parents("table").length) return;
-      const wrapper = node.closest(".ltx_table"),
+      let wrapper = node.closest(".ltx_table,figure"),
         caption = wrapper.children("figcaption,.ltx_caption").first();
+      if (!caption.length) {
+        for (const parent of wrapper.parents(".ltx_table,figure").toArray()) {
+          const candidate = $(parent)
+            .children("figcaption,.ltx_caption")
+            .first();
+          if (candidate.length) {
+            wrapper = $(parent);
+            caption = candidate;
+            break;
+          }
+        }
+      }
       const rows = [];
       node.find("tr").each((_, tr) => {
         if ($(tr).closest("table")[0] !== el) return;
@@ -208,6 +221,7 @@ export function parsePaperHtml(html, paper, sourceUrl) {
     });
   return {
     version: 1,
+    parserVersion: PAPER_CONTENT_PARSER,
     paperId: paper.id,
     sourceUpdatedAt: paper.updatedAt || paper.publishedAt,
     sourceUrl,
@@ -243,6 +257,7 @@ export async function collectPaperContent(paper, { fetchImpl = fetch } = {}) {
   }
   return {
     version: 1,
+    parserVersion: PAPER_CONTENT_PARSER,
     paperId: paper.id,
     sourceUpdatedAt: paper.updatedAt || paper.publishedAt,
     sourceUrl: "https://arxiv.org/abs/" + paper.id,
